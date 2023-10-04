@@ -1,0 +1,9 @@
+/* 공통으로 사용되는 컴포넌트인 header, footer를 위한 css 파일입니다. */
+
+#header {
+  background-color: lightgray;
+}
+
+#footer {
+  background-color: lightgray;
+}
