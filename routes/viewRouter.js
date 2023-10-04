@@ -14,7 +14,12 @@ viewRouter.get("/", async (req, res) => {
 
 // 상품리스트페이지 연결
 viewRouter.get("/products", async (req, res) => {
-  res.sendFile(path.join(resourcePath, "/product/ProductList.html"));
+  res.sendFile(path.join(resourcePath, "/productList/productList.html"));
+});
+
+// 로그인페이지 연결
+viewRouter.get("/login", async (req, res) => {
+  res.sendFile(path.join(resourcePath, "/login/login.html"));
 });
 
 module.exports = { viewRouter };
