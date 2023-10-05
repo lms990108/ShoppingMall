@@ -1,4 +1,5 @@
 const express = require("express");
+const { viewRouter } = require("./routes/viewRouter");
 const router = express.Router();
 
 router.get("/health", (req, res) => {
@@ -8,6 +9,8 @@ router.get("/health", (req, res) => {
 const app = express();
 
 app.use(express.static("views"));
+
+app.use(viewRouter); // 뷰 라우터 사용
 
 app.use("/apis", router);
 
