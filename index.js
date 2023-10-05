@@ -1,6 +1,24 @@
 const express = require("express");
+const mongoose = require("mongoose");
+
 const { viewRouter } = require("./routes/viewRouter");
+const orderRouter = require("./routes/orderRouter");
+const productRouter = require("./routes/productRouter");
 const router = express.Router();
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const mongoURI = process.env.MONGO_DB_PATH;
+
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connection.on("connected", () => {
+  console.log("mongoDB connected");
+});
 
 router.get("/health", (req, res) => {
   res.end("Server is on");
@@ -8,11 +26,14 @@ router.get("/health", (req, res) => {
 
 const app = express();
 
+app.use(express.json());
 app.use(express.static("views"));
 
 app.use(viewRouter); // 뷰 라우터 사용
 
 app.use("/apis", router);
+app.use("/order", orderRouter); // 주문 라우터
+app.use("/product", productRouter); // 상품 라우터
 
 app.use((req, res) => {
   res.end("Not Found");
@@ -22,8 +43,8 @@ app.use((err, req, res, next) => {
   res.json({ code: 0, message: err.message, response: {} });
 });
 
-app.listen(3000, () => {
-  console.log("서버 시작: http://localhost:3000");
+app.listen(5001, () => {
+  console.log("서버 시작: http://localhost:5000");
 });
 
 /**
