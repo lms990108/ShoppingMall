@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoURI = process.env.MONGO_DB_PATH + "smdb";
+const mongoURI = process.env.MONGO_DB_PATH;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -43,8 +43,8 @@ app.use((err, req, res, next) => {
   res.json({ code: 0, message: err.message, response: {} });
 });
 
-app.listen(3000, () => {
-  console.log("서버 시작: http://localhost:3000");
+app.listen(5001, () => {
+  console.log("서버 시작: http://localhost:5001");
 });
 
 /**
