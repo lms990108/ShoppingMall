@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoURI = process.env.MONGO_DB_PATH;
+const mongoURI = process.env.MONGO_DB_PATH + "smdb";
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
