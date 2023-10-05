@@ -43,8 +43,8 @@ app.use((err, req, res, next) => {
   res.json({ code: 0, message: err.message, response: {} });
 });
 
-app.listen(5001, () => {
-  console.log("서버 시작: http://localhost:5000");
+app.listen(3000, () => {
+  console.log("서버 시작: http://localhost:3000");
 });
 
 /**
