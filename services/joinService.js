@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const joinService = require('../services/joinService');
-
+// const responseModel = 이 부분 더 고려해서 작성 예정(넣을까 고려중)
 
 // 회원가입 페이지 설정
 joinService.createUser = async(req, res) => {
@@ -16,7 +16,9 @@ try {
     const hashedPassword = await bcrypt.hash(password, salt); // 해시를 만들어 준다 
     const newUser = new User({ email, password:hashedPassword, name, level:level?level: 'customer' }); // 새로운 유저 생성
     await newUser.save();
+    // const responseModel = 
     return res.status(201).json({ status: '성공' });
+    // redirect로 짜면?? - 고려 후, 수정 예정
 } catch(error) {
     res.status(400).json({ status: '실패', error: error.message })
 }};
@@ -29,15 +31,17 @@ joinService.loginAsEmail = async(req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if(user){
-            const isMatched = bcrypt.compareSync(password, user.password);
-            if(isMatched){
-                const token = await user.generateToken();
-                return res.status(200).json({ status: '성공', user, token });                
-            }
+        if(!user){
+            throw new Error("가입되지 않은 회원입니다");
         }
-        throw new Error("아이디 혹은 비밀번호가 일치하지 않습니다");
-    } catch(error) {
+
+            const isMatched = bcrypt.compareSync(password, user.password);
+            if(isMatched){ 
+                throw new Error("아이디 혹은 비밀번호가 일치하지 않습니다");
+        }
+                const token = await user.generateToken(); // 토큰만드는 부분 User.js 추가
+                res.status(200).json({ status: '성공', user, token });                
+            } catch(error) {
         res.status(400).json({ status: '실패', error });
     }
 };
@@ -47,13 +51,12 @@ joinService.getUser = async(req, res) => {
     try{
         const {userId} = req;
         const user = await User.findById(userId);
-        if(user) {
-            return res.status(200).json({ status: '성공', user });
-        }
-        throw new Error('토큰값이 유효하지 않습니다');
-    } catch(error) {
+
+        if(!user) throw new Error('토큰값이 유효하지 않습니다');
+        res.status(200).json({ status: '성공', user });
+        } catch(error) {
         res.status(400).json({ status: "실패", error:error.message });
     }
 };
 module.exports = joinService;
-
+   
