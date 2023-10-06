@@ -35,7 +35,7 @@ app.listen(3000, () => {
  * require
  *
  * response
- * 200 : 성공 => { code: 200, message: "success", reponse: {} }
- * 400 : 파라미터 누락 => { code: 400, message: "Parameter Missing", reponse: {} }
- * 403 : 인증 오류 => { code: 403, message: "User Id Missing", reponse: {} }
+ * 200 : 성공 => { code: 200, message: "success", response: {} }
+ * 400 : 파라미터 누락 => { code: 400, message: "Parameter Missing", response: {} }
+ * 403 : 인증 오류 => { code: 403, message: "User Id Missing", response: {} }
  */
