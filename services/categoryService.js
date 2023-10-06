@@ -1,3 +1,5 @@
+const categoryModel = require("../models/categoryModel");
+
 class categoryService {
   constructor(categoryModel) {
     this.categoryModel = categoryModel;
@@ -43,3 +45,5 @@ class categoryService {
     return this.getAllCategories();
   }
 }
+
+module.exports = categoryService;
