@@ -25,12 +25,12 @@ try {
 };
 
 // 토큰값으로 유저 아이디를 찾아내는 부분
-// Bearer는 authorization 헤더에 포함돼 api 인증정보로 이용한다
+// Bearer는 authorization 헤더에 포함돼 api 인증정보로 이용한다 (삭제)
 authService.authenticate = async(req, res, next) => {
     try {
         const tokenString = req.headers.authorization;
         if(!tokenString) throw new Error("토큰을 찾을 수가 없습니다");
-        const token = tokenString.replace('Bearer ', ''); 
+        
         jwt.verify(token, JWT_SECRET_KEY, (error, payload) => {
             if (error) throw new Error('유효하지 않은 토큰입니다');
             req.userId = payload._id;
