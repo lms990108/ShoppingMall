@@ -5,7 +5,39 @@ body {
 }
 
 #header {
-  background-color: lightgray;
+  background-color: white;
+}
+
+.header_top {
+  background-color: navy;
+  color: white;
+  text-align: center;
+}
+
+.header_top a {
+  color: lightgray;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.header_bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header_bottom img {
+  width: 120px;
+}
+
+.navbar {
+  display: flex;
+}
+
+.header_bottom svg {
+  width: 22px;
+  height: 22px;
+  margin: 0 5px;
 }
 
 #footer {
