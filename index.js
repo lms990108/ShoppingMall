@@ -1,27 +1,14 @@
+// 라우터 모듈로만 사용
 const express = require("express");
 const router = express.Router();
 
-router.get("/health", (req, res) => {
+router.get("/", (req, res) => {
   res.end("Server is on");
 });
 
-const app = express();
+// 
 
-app.use(express.static("views"));
-
-app.use("/apis", router);
-
-app.use((req, res) => {
-  res.end("Not Found");
-});
-
-app.use((err, req, res, next) => {
-  res.json({ code: 0, message: err.message, response: {} });
-});
-
-app.listen(3000, () => {
-  //console.log("서버 시작: http://kdt-sw-6-team05.elicecoding.com/");
-});
+module.export = router;
 
 /**
  * API 명세 팁

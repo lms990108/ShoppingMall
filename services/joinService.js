@@ -36,7 +36,7 @@ joinService.loginAsEmail = async(req, res) => {
         }
 
             const isMatched = bcrypt.compareSync(password, user.password);
-            if(isMatched){ 
+            if(!isMatched){ 
                 throw new Error("아이디 혹은 비밀번호가 일치하지 않습니다");
         }
                 const token = await user.generateToken(); // 토큰만드는 부분 User.js 추가
@@ -59,4 +59,3 @@ joinService.getUser = async(req, res) => {
     }
 };
 module.exports = joinService;
-   
