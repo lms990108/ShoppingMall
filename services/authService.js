@@ -2,21 +2,24 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 require('dotenv').config();
+
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 //const JsonWebTokenError = require("jsonwebtoken");
 
 
 const authService = {};
 
+// 사용자 로그인 - 이메일과 패스워드 검증 후에 맞는 경우 토큰 발행
 authService.loginAsEmail = async(req, res) => {
 try {
         const { email, password } = req.body;
         let user = await User.findOne({email});
+
         if(user) {
             const isMatched = await bcrypt.compare(password, user.password);
             if(isMatched) {
                 const token = await user.generateToken(); // 토큰 만들기
-                return res.status(200).json({status: "성공", user, token});
+                res.status(200).json({status: "성공", user, token});
             }
         }
         throw new Error("이메일과 패스워드 중 하나가 틀립니다");
@@ -42,17 +45,19 @@ try {
 // }; 
 
 // 토큰값으로 유저 아이디를 찾아내는 부분
+// authService.authenticate - 토큰을 검증하는 미들웨어
 // Bearer는 authorization 헤더에 포함돼 api 인증정보로 이용한다 (삭제)
 authService.authenticate = async(req, res, next) => {
     try {
-        const tokenString = req.headers.authorization;
-        if(!tokenString) throw new Error("토큰을 찾을 수가 없습니다");
+        const token = req.headers.authorization;
+        if(!token) throw new Error("토큰을 찾을 수가 없습니다");
         
         jwt.verify(token, JWT_SECRET_KEY, (error, payload) => {
             if (error) throw new Error('유효하지 않은 토큰입니다');
             req.userId = payload._id;
+            next();
         });
-        next();
+        
     } catch (error) {
         res.status(400).json({status: "실패", error:error.message});
     }

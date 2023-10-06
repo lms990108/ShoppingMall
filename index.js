@@ -20,7 +20,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(3000, () => {
-  console.log("서버 시작: http://localhost:3000");
+  //console.log("서버 시작: http://kdt-sw-6-team05.elicecoding.com/");
 });
 
 /**
