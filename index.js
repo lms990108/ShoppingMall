@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const { viewRouter } = require("./routes/viewRouter");
 const orderRouter = require("./routes/orderRouter");
 const productRouter = require("./routes/productRouter");
+const categoryRouter = require("./routes/categoryRouter");
+
 const router = express.Router();
 const dotenv = require("dotenv");
 
@@ -34,6 +36,7 @@ app.use(viewRouter); // 뷰 라우터 사용
 app.use("/apis", router);
 app.use("/order", orderRouter); // 주문 라우터
 app.use("/product", productRouter); // 상품 라우터
+app.use("/category", categoryRouter); // 카테고리 라우터
 
 app.use((req, res) => {
   res.end("Not Found");
