@@ -1,53 +1,57 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 // const User = require('./User'); const Product = require('./Product');
-const {Schema} = require('mongoose')
-const orderSchema = new Schema({
+const { Schema } = require("mongoose");
+const orderSchema = new Schema(
+  {
     userId: {
-        // type: mongoose.ObjectId, ref: User
-        type: String
+      // type: mongoose.ObjectId, ref: User
+      type: String,
     },
     status: {
-        type: String,
-        default: "preparing"
+      // 0: 배송 전, 1: 배송 중, 2: 배송 완료, 3: 취소 됨
+      type: Number,
+      default: "0",
     }, // 준비단계 표시
     totalPrice: {
-        type: Number,
-        required: true,
-        default: 0
+      type: Number,
+      required: true,
+      default: 0,
     }, // 총 주문금액
     shipTo: {
-        type: Object,
-        required: true
+      type: Object,
+      required: true,
     }, // 배송지 기입
     contact: {
-        type: Object,
-        required: true
+      type: Object,
+      required: true,
     },
     orderNum: {
-        type: String
+      type: String,
     },
     items: [
-        {
-            productId: {
-                // type: mongoose.ObjectId, ref: Product
-                type: String
-            },
-            price: {
-                type: Number,
-                required: true
-            },
-            qty: {
-                type: Number,
-                required: true,
-                default: 1
-            },
-            size: {
-                type: String,
-                required: true
-            }
-        }
-    ]
-}, {timestamps: true});
+      {
+        productId: {
+          // type: mongoose.ObjectId, ref: Product
+          type: String,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        qty: {
+          type: Number,
+          required: true,
+          default: 1,
+        },
+        size: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+  },
+  { timestamps: true },
+);
 
 /*
 orderSchema.methods.toJSON = function () {     
