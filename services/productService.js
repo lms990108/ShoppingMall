@@ -1,25 +1,51 @@
 const productModel = require("../models/productModel");
+const categoryModel = require("../models/categoryModel");
 
 class ProductService {
-  constructor(productModel) {
+  constructor(productModel, categoryModel) {
     this.productModel = productModel;
+    this.categoryModel = categoryModel;
   }
 
   // 상품 추가
+  /** 예시 Json
+{
+  "product_name": "Cool Mechanical Keyboard",
+  "main_img_url": "http://example.com/images/keyboard_main.jpg",
+  "des_img_url": "http://example.com/images/keyboard_description.jpg",
+  "content": "This is a high-quality mechanical keyboard with RGB lighting.",
+  "price": 99.99,
+  "higher_category": "키보드",
+  "lower_category": "기계식",
+  "indate": "2023-10-06T12:00:00Z",
+  "cnt": 10
+}
+   */
   async addProduct(newProduct) {
-    // 가장 최근의 제품 번호 찾기
+    // 가장 최근 제품의 번호 찾고, 새로운 제품의 번호 설정
     const lastProduct = await this.productModel
       .findOne()
       .sort({ product_number: -1 });
-
-    // 제품 없으면 1, 있으면 기존값 +1
     const nextProductNumber = lastProduct ? lastProduct.product_number + 1 : 1;
 
-    // 새 제품에 product_number 설정
     newProduct.product_number = nextProductNumber;
-    const createdProduct = await this.productModel.create(newProduct);
 
-    return createdProduct;
+    // 카테고리 이름으로 ObjectId 를 검색해서 대체
+    const higher_category = await categoryModel.findOne({
+      name: newProduct.higher_category,
+    });
+    const lower_category = await categoryModel.findOne({
+      name: newProduct.lower_category,
+    });
+
+    if (!higher_category || !lower_category) {
+      throw new Error("Category not found");
+    }
+
+    newProduct.higher_category = higher_category._id;
+    newProduct.lower_category = lower_category._id;
+
+    return await this.productModel.create(newProduct);
   }
 
   // 상품조회, 필드는 번호인지 이름인지 등
@@ -27,12 +53,12 @@ class ProductService {
     const query = {};
     query[fieldName] = value;
 
-    const products = await this.productModel.findOne(query);
-
+    const products = await this.productModel
+      .findOne(query)
+      .populate("higher_category lower_category");
     if (!products || products.length === 0) {
       throw new Error("상품 정보 없음");
     }
-
     return products;
   }
 
@@ -59,16 +85,30 @@ class ProductService {
     return searchProducts;
   }
 
-  // 상품 수정
-  // 수정버튼 클릭시 해당 상품 번호 페이지로 이동
-  // 예시 : localhost:3000/product/update/10
-  // 여기서 10은 상품 번호
+  /*
+  상품 수정
+  수정버튼 클릭시 해당 상품 번호 페이지로 이동
+  예시 : localhost:3000/product/update/10
+  여기서 10은 상품 번호
+  만약 카테고리가 변경된다면 카테고리 정보를 포함
+  카테고리를 변경하지 않는다면 누락해도 괜찮음.
+  */
   async updateProduct(productNumber, updatedProduct) {
-    const product = await this.productModel.findOneAndUpdate(
-      { product_number: productNumber },
-      updatedProduct,
-      { new: true },
-    );
+    if (updatedProduct.higher_category) {
+      updatedProduct.higher_category = await categoryModel.findOne({
+        name: updatedProduct.higher_category,
+      });
+    }
+    if (updatedProduct.lower_category) {
+      updatedProduct.lower_category = await categoryModel.findOne({
+        name: updatedProduct.lower_category,
+      });
+    }
+    const product = await this.productModel
+      .findOneAndUpdate({ product_number: productNumber }, updatedProduct, {
+        new: true,
+      })
+      .populate("higher_category lower_category");
 
     if (!product) {
       throw new Error("상품 정보 없음");
@@ -90,7 +130,15 @@ class ProductService {
     return deletedProduct;
   }
 
-  /* 페이징 하면서 불필요해 짐
+  // 페이징 처리를 위한 함수
+  async pagingProducts(filter = {}, skip = 0, limit = 10) {
+    return await this.productModel.find(filter).skip(skip).limit(limit);
+  }
+}
+
+module.exports = ProductService;
+
+/* 페이징 하면서 불필요해 짐
 
   // 카테고리 상품 조회
   async getProductsByCategory(categoryType, categoryValue) {
@@ -122,11 +170,3 @@ class ProductService {
     return await this.getProductsByCategory("lower_category", category);
   }
   */
-
-  // 페이징 처리를 위한 함수
-  async pagingProducts(filter = {}, skip = 0, limit = 10) {
-    return await this.productModel.find(filter).skip(skip).limit(limit);
-  }
-}
-
-module.exports = ProductService;
