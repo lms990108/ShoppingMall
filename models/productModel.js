@@ -35,11 +35,13 @@ const productSchema = new Schema({
     required: true,
   },
   higher_category: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
     required: true,
   },
   lower_category: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
     required: true,
   },
   indate: {
