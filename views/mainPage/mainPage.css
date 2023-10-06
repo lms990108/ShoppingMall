@@ -1,3 +1,11 @@
 h2 {
-  background-color: green;
+  text-align: center;
+}
+
+div {
+  text-align: center;
+}
+
+img {
+  width: 100%;
 }
