@@ -15,7 +15,6 @@ router.post('/', joinService.createUser);
 router.get('/FindMe', [joinService.loginAsEmail, authService.authenticate, joinService.getUser]);
 // router.get('/FindMe', joinService.loginAsEmail);
 // router.get('FindMe', authService.authenticate, joinService.getUser);
-// 회원가입 미들웨어 부분을 추가하기 (예정)
 
 
 module.exports = router;

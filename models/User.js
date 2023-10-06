@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
-// const generateToken을 정의해 줄 것
+
+// const generateToken을 정의해 줄 것 (해결)
 // level은 어드민과 일반 유저를 가르는 항목
 // 기본 유저 세팅은 디폴트로 해서, 기본 유저가 모두 customer이라고 가정함
 // customer와 admin의 타입으로 나눠서 level을 설정하려고 함(예정)
@@ -12,7 +13,7 @@ const userSchema = Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     name: { type: String, required: true },
-    level: { type: String, default: "customer" }
+    level: { type: String, default: "customer" } // 숫자 지정 고려
 }, { timestamps: true } 
 );
 

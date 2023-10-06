@@ -9,7 +9,7 @@ const JsonWebTokenError = require("jsonwebtoken");
 const authService = {};
 authService.loginAsEmail = async(req, res) => {
 try {
-        const { email, password } = req.body;s
+        const { email, password } = req.body;
         let user = await User.findOne({email});
         if(user) {
             const isMatched = await bcrypt.compare(password, user.password);
