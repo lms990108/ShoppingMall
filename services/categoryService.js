@@ -16,12 +16,10 @@ class categoryService {
   /**
    * 새로운 카테고리를 생성합니다.
    * @param {Object} data - 생성할 카테고리의 데이터입니다.
-   * @returns {Array} 모든 카테고리의 배열을 반환합니다.
    */
   async createCategory(data) {
-    const category = new this.categoryModel(data);
-    await category.save();
-    return this.getAllCategories();
+    const createNewCategory = await this.categoryModel.create(data);
+    return createNewCategory;
   }
 
   /**

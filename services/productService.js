@@ -2,8 +2,9 @@ const productModel = require("../models/productModel");
 const categoryModel = require("../models/categoryModel");
 
 class ProductService {
-  constructor(productModel) {
+  constructor(productModel, categoryModel) {
     this.productModel = productModel;
+    this.categoryModel = categoryModel;
   }
 
   // 상품 추가
@@ -30,12 +31,19 @@ class ProductService {
     newProduct.product_number = nextProductNumber;
 
     // 카테고리 이름으로 ObjectId 를 검색해서 대체
-    newProduct.higher_category = await categoryModel.findOne({
+    const higher_category = await categoryModel.findOne({
       name: newProduct.higher_category,
     });
-    newProduct.lower_category = await categoryModel.findOne({
+    const lower_category = await categoryModel.findOne({
       name: newProduct.lower_category,
     });
+
+    if (!higher_category || !lower_category) {
+      throw new Error("Category not found");
+    }
+
+    newProduct.higher_category = higher_category._id;
+    newProduct.lower_category = lower_category._id;
 
     return await this.productModel.create(newProduct);
   }

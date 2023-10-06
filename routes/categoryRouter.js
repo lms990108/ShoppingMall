@@ -9,9 +9,9 @@ const categoryServiceInstance = new categoryService(categoryModel);
 const router = Router();
 
 // CREATE: 카테고리 추가
-// http://kdt-sw-6-team05.elicecoding.com/category
+// http://kdt-sw-6-team05.elicecoding.com/category/add_category
 router.post(
-  "/",
+  "/add_category",
   asyncHandler(async (req, res) => {
     const category = await categoryServiceInstance.createCategory(req.body);
     res.status(201).json(category);
