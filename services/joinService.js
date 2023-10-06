@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('./models/userModel');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const joinService = require('../services/joinService');
@@ -7,7 +7,7 @@ const joinService = require('../services/joinService');
 // 회원가입 페이지 설정
 joinService.createUser = async(req, res) => {
 try {
-    let { email, password, name, level } = req.body;
+    const  { email, password, name, level } = req.body;
     const user = await User.findOne({ email });// 이미 회원 가입된 사람이 있을 때, 회원가입을 막는 부분
     if(user) {
         throw new Error("이미 존재하는 회원입니다");
@@ -31,16 +31,18 @@ joinService.loginAsEmail = async(req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
+        
         if(!user){
             throw new Error("가입되지 않은 회원입니다");
         }
 
-            const isMatched = bcrypt.compareSync(password, user.password);
+            const isMatched = bcrypt.compare(password, user.password);
             if(!isMatched){ 
                 throw new Error("아이디 혹은 비밀번호가 일치하지 않습니다");
         }
                 const token = await user.generateToken(); // 토큰만드는 부분 User.js 추가
-                res.status(200).json({ status: '성공', user, token });                
+                delete user.password; // 비밀번호 프로퍼티 삭제
+                res.status(200).json({ status: '성공', data: {user, token} });                
             } catch(error) {
         res.status(400).json({ status: '실패', error });
     }

@@ -1,7 +1,9 @@
+// index.js
+
 const express = require('express');
 const router = express.Router();
-const userApi = require("./user.api");
-const authApi = require('./auth.api');
+const userApi = require('./routes/userApiRouter');
+const authApi = require('./routes/authApiRouter');
 //const productApi = require('./product.api');
 
 
