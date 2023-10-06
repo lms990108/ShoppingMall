@@ -11,7 +11,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoURI = process.env.MONGO_DB_PATH;
+// const mongoURI = process.env.MONGO_DB_PATH;
+const mongoURI = "mongodb://localhost:27017/smdb";
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,

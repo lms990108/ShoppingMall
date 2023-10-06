@@ -1,4 +1,5 @@
 const productModel = require("../models/productModel");
+const categoryModel = require("../models/categoryModel");
 
 class ProductService {
   constructor(productModel) {
@@ -29,10 +30,10 @@ class ProductService {
     newProduct.product_number = nextProductNumber;
 
     // 카테고리 이름으로 ObjectId 를 검색해서 대체
-    newProduct.higher_category = await Category.findOne({
+    newProduct.higher_category = await categoryModel.findOne({
       name: newProduct.higher_category,
     });
-    newProduct.lower_category = await Category.findOne({
+    newProduct.lower_category = await categoryModel.findOne({
       name: newProduct.lower_category,
     });
 
@@ -86,12 +87,12 @@ class ProductService {
   */
   async updateProduct(productNumber, updatedProduct) {
     if (updatedProduct.higher_category) {
-      updatedProduct.higher_category = await Category.findOne({
+      updatedProduct.higher_category = await categoryModel.findOne({
         name: updatedProduct.higher_category,
       });
     }
     if (updatedProduct.lower_category) {
-      updatedProduct.lower_category = await Category.findOne({
+      updatedProduct.lower_category = await categoryModel.findOne({
         name: updatedProduct.lower_category,
       });
     }
