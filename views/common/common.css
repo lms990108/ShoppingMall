@@ -1,0 +1,13 @@
+/* 공통으로 사용되는 css 파일입니다. */
+body {
+  width: 100%;
+  max-width: 1920px;
+}
+
+#header {
+  background-color: lightgray;
+}
+
+#footer {
+  background-color: lightgray;
+}

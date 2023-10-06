@@ -7,4 +7,4 @@ module.exports = requestHandle => {
             next(err);
         }
     }
-};
+}
