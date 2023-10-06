@@ -23,26 +23,24 @@
                   </figure>
                   <h2 class="title mt-4">My Page</h2>
                   <a href="#" class="button is-fullwidth is-info mb-2">My Order</a>
-                  <a href="#" class="button is-fullwidth is-success">Edit Profile</a>
+                  <button class="button is-fullwidth is-success is-pulled-right" id="editButton"">Edit Profile</button>
               </div>
           </div>
           
           <!-- Right Column -->
           <div class="column">
-              <div class="box">
-                  <div class="field">
-                      <input class="input" type="text" value="myemail@gmail.com" disabled>
-                  </div>
-                  <div class="field">
-                      <input class="input" type="text" value="이 *" disabled>
-                  </div>
-                  <div class="field">
-                      <input class="input" type="text" value="00시 00분 00초 (우편번호)" disabled>
-                  </div>
-                  <div class="field">
-                      <input class="input" type="text" value="010-xxxx-xxxx" disabled>
-                  </div>
-              </div>
+            <div class="field">
+                <input class="input is-static" type="email" value="myemail@gmail.com" id="emailField" readonly>
+            </div>
+            <div class="field">
+                <input class="input is-static" type="text" value="이 *" id="nameField" readonly>
+            </div>
+            <div class="field">
+                <input class="input is-static" type="text" value="00시 00구 00동 00 (우편번호)" id="addressField" readonly>
+            </div>
+            <div class="field">
+                <input class="input is-static" type="tel" value="010-xxxx-xxxx" id="phoneField" readonly>
+            </div>
               <a href="#" class="button is-danger is-pulled-right">Delete Account</a>
           </div>
           
