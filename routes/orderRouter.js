@@ -49,9 +49,9 @@ router.post('/add_order', asyncHandler(async (req, res) => {
 }));
 
 // 주문 취소 cancelOrder 결제하기 click : addOrder -> 주문 정보 확인 -> 최종 결제 in 주문 정보 확인 : 주문
-// 번호가 포함 주문 번호 = 주문이 생성될 때 자동으로 생성되는 _id, ordernumber 둘 중 뭘 하든. 주문 이미 추가 if 취소
-// : 다시 삭제 else 결제 : db create 주문 취소 (취소할 경우 ordernumber를 받아야함) 주문 취소 (취소할 경우
-// ordernumber를 받아야함)
+// 번호가 포함 주문 번호 = 주문이 생성될 때 자동으로 생성되는 _id, order-number 둘 중 뭘 하든. 주문 이미 추가 if 취소
+// : 다시 삭제 else 결제 : db create 주문 취소 (취소할 경우 order-number를 받아야함) 주문 취소 (취소할 경우
+// order-number를 받아야함)
 router.delete('/cancel_order/', asyncHandler(async (req, res) => {
     const targetOrderNumber = req.query.order_number;
 
