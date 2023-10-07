@@ -49,7 +49,7 @@ class ProductService {
   }
 
   // 상품조회, 필드는 번호인지 이름인지 등
-  async getProductsByField(fieldName, value) {
+  async getProductByField(fieldName, value) {
     const query = {};
     query[fieldName] = value;
 
@@ -68,7 +68,7 @@ class ProductService {
   }
 
   // 이름으로 조회
-  async getProductsByName(productName) {
+  async getProductByName(productName) {
     return await this.getProductsByField("product_name", productName);
   }
 

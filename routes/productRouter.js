@@ -29,25 +29,28 @@ router.post(
 );
 
 // 상품 조회 Get 요청
-// http://127.0.0.1:3000/product/product_detail?productNumber=1 < 1번 물품 조회
-// http://127.0.0.1:3000/product/product_detail?productName=testproduct < test-product 물품 조회
+// 번호 조회 예시 : http://127.0.0.1:3000/product/product_detail/1
+// 이름 조회 예시 : http://127.0.0.1:3000/product/product_detail/productname
 router.get(
-  "/product_detail",
+  "/product_detail/:searchParams",
   asyncHandler(async (req, res) => {
     let search_product;
-    if (req.query.productNumber) {
+    if (!isNaN(req.params.searchParams)) {
+      // searchParams가 숫자라면
       search_product = await productServiceInstance.getProductByNumber(
-        req.query.productNumber,
-      );
-    } else if (req.query.productName) {
-      search_product = await productServiceInstance.getProductsByName(
-        req.query.productName,
+        req.params.searchParams,
       );
     } else {
-      // 기본 로직 또는 에러 처리
-      res.status(400).send("Invalid query parameters");
-      return;
+      // searchParams가 문자열이라면
+      search_product = await productServiceInstance.getProductByName(
+        req.params.searchParams,
+      );
     }
+
+    if (!search_product) {
+      return res.status(404).send("Product not found");
+    }
+
     return res.status(200).json(search_product);
   }),
 );
