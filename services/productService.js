@@ -94,16 +94,22 @@ class ProductService {
   카테고리를 변경하지 않는다면 누락해도 괜찮음.
   */
   async updateProduct(productNumber, updatedProduct) {
-    if (updatedProduct.higher_category) {
-      updatedProduct.higher_category = await categoryModel.findOne({
-        name: updatedProduct.higher_category,
-      });
+    const [higherCategory, lowerCategory] = await Promise.all([
+      updatedProduct.higher_category
+        ? categoryModel.findOne({ name: updatedProduct.higher_category })
+        : null,
+      updatedProduct.lower_category
+        ? categoryModel.findOne({ name: updatedProduct.lower_category })
+        : null,
+    ]);
+
+    if (higherCategory) {
+      updatedProduct.higher_category = higherCategory;
     }
-    if (updatedProduct.lower_category) {
-      updatedProduct.lower_category = await categoryModel.findOne({
-        name: updatedProduct.lower_category,
-      });
+    if (lowerCategory) {
+      updatedProduct.lower_category = lowerCategory;
     }
+
     const product = await this.productModel
       .findOneAndUpdate({ product_number: productNumber }, updatedProduct, {
         new: true,
