@@ -1,16 +1,35 @@
 /* 공통으로 사용되는 css 파일입니다. */
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: "Pretendard-Regular";
+}
+
+:root {
+  --navy-color: #00235b;
+  --yellow-color: #ffc436;
+}
+
 body {
   width: 100%;
   max-width: 1920px;
 }
+
+/* header */
 
 #header {
   background-color: white;
 }
 
 .header_top {
-  background-color: navy;
-  color: white;
+  background-color: var(--navy-color);
+  color: var(--yellow-color);
   text-align: center;
 }
 
@@ -18,12 +37,14 @@ body {
   color: lightgray;
   cursor: pointer;
   text-decoration: underline;
+  font-size: small;
 }
 
 .header_bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 10px;
 }
 
 .header_bottom img {
@@ -34,12 +55,67 @@ body {
   display: flex;
 }
 
+.navbar-item,
+.navbar-link {
+  font-weight: bold;
+  color: var(--navy-color) !important;
+}
+
+.navbar-item:hover,
+.navbar-link:hover {
+  background-color: var(--yellow-color) !important; /* 원하는 컬러로 변경 */
+  color: var(--navy-color) !important; /* 원하는 컬러로 변경 */
+}
+
 .header_bottom svg {
-  width: 22px;
-  height: 22px;
+  width: 25px;
   margin: 0 5px;
 }
 
+.header_bottom_right {
+  display: flex;
+}
+
+.search {
+  display: flex;
+  border-bottom: 1px solid gray;
+  margin: 0 10px;
+}
+
+.search .button {
+  width: auto;
+  background-color: transparent !important;
+}
+
+.search input {
+  border: none;
+  outline: none;
+}
+/* footer */
+
 #footer {
   background-color: lightgray;
+  color: navy;
+  padding: 20px;
+}
+
+#footer > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#footer > div > div {
+  padding: 5px;
+  margin: 0 10px;
+  text-align: left;
+  font-size: small;
+}
+
+.footer_first {
+  font-size: 32px;
+}
+
+.footer_third img {
+  width: 100px;
 }

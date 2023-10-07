@@ -30,7 +30,7 @@ router.post(
 
 // 상품 조회 Get 요청
 // http://127.0.0.1:3000/product/product_detail?productNumber=1 < 1번 물품 조회
-// http://127.0.0.1:3000/product/product_detail?productName=testproduct < testproduct 물품 조회
+// http://127.0.0.1:3000/product/product_detail?productName=testproduct < test-product 물품 조회
 router.get(
   "/product_detail",
   asyncHandler(async (req, res) => {
@@ -51,37 +51,6 @@ router.get(
     return res.status(200).json(search_product);
   }),
 );
-
-/*
-// 카테고리별 상품 조회 Get 요청
-// http://127.0.0.1:3000/product/category?higherCategory=clothing
-// http://127.0.0.1:3000/product/category?lowerCategory=jeans
-router.get(
-  "/category",
-  asyncHandler(async (req, res) => {
-    let products;
-
-    // 상위 카테고리로 상품 전체 조회
-    if (req.query.higherCategory) {
-      products = await productServiceInstance.getProductsByHigherCategory(
-        req.query.higherCategory,
-      );
-    }
-    // 하위 카테고리로 상품 전체 조회
-    else if (req.query.lowerCategory) {
-      products = await productServiceInstance.getProductsByLowerCategory(
-        req.query.lowerCategory,
-      );
-    } else {
-      // 기본 로직 또는 에러 처리
-      res.status(400).send("Invalid query parameters");
-      return;
-    }
-
-    return res.status(200).json(products);
-  }),
-);
-*/
 
 // 상품 수정 Patch 요청
 // 예시: http://127.0.0.1:3000/product/product_detail?productNumber=1
@@ -140,10 +109,27 @@ router.get(
 
     const filter = {};
 
+    // 상위 카테고리와 하위 카테고리로 필터링하기 전에 이름을 ObjectId로 변경
     if (req.query.higherCategory) {
-      filter.higher_category = req.query.higherCategory;
-    } else if (req.query.lowerCategory) {
-      filter.lower_category = req.query.lowerCategory;
+      const higherCategory = await Category.findOne({
+        name: req.query.higherCategory,
+      });
+      if (higherCategory) {
+        filter.higher_category = higherCategory._id;
+      } else {
+        return res.status(400).json({ error: "Invalid higherCategory" });
+      }
+    }
+
+    if (req.query.lowerCategory) {
+      const lowerCategory = await Category.findOne({
+        name: req.query.lowerCategory,
+      });
+      if (lowerCategory) {
+        filter.lower_category = lowerCategory._id;
+      } else {
+        return res.status(400).json({ error: "Invalid lowerCategory" });
+      }
     }
 
     const products = await productServiceInstance.pagingProducts(
@@ -157,3 +143,36 @@ router.get(
 );
 
 module.exports = router;
+
+// 삭제한 로직
+
+/*
+// 카테고리별 상품 조회 Get 요청
+// http://127.0.0.1:3000/product/category?higherCategory=clothing
+// http://127.0.0.1:3000/product/category?lowerCategory=jeans
+router.get(
+  "/category",
+  asyncHandler(async (req, res) => {
+    let products;
+
+    // 상위 카테고리로 상품 전체 조회
+    if (req.query.higherCategory) {
+      products = await productServiceInstance.getProductsByHigherCategory(
+        req.query.higherCategory,
+      );
+    }
+    // 하위 카테고리로 상품 전체 조회
+    else if (req.query.lowerCategory) {
+      products = await productServiceInstance.getProductsByLowerCategory(
+        req.query.lowerCategory,
+      );
+    } else {
+      // 기본 로직 또는 에러 처리
+      res.status(400).send("Invalid query parameters");
+      return;
+    }
+
+    return res.status(200).json(products);
+  }),
+);
+*/

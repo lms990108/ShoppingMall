@@ -10,8 +10,40 @@
   <body>
     <div id="header"></div>
 
-    <h1>DevGear</h1>
-    <h2>LoginPage입니다.</h2>
+    
+    <!-- 로그인 창 구현 -->
+    <div class="hero is-fullheight">
+      <div class="hero-body">
+          <div class="container has-text-centered">
+              <div class="columns is-centered">
+                  <form class="box column is-half" id="login-form" style="width:50%"> 
+                      <div class="field">
+                          <label class="label">Email</label>
+                          <div class="control">
+                              <input class="input" id="username" type="email" placeholder="e.g. alex@example.com">
+                          </div>
+                      </div>
+  
+                      <div class="field">
+                          <label class="label">Password</label>
+                          <div class="control">
+                              <input class="input" id="password" type="password" placeholder="********">
+                          </div>
+                      </div>
+  
+                      
+                          <button id="login-button" class="button is-primary has-background-link-dark">Login</button>
+                          <a href="./signup.html" class="button is-primary has-background-link-dark">SignUp</a>
+                          <a href="" class="button is-primary has-background-link-dark">Social Login</a>
+
+                      
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+    
+  
 
     <div id="footer"></div>
 
