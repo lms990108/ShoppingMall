@@ -1,4 +1,4 @@
-// [김효인 라우터 설정]
+// [김효인 라우터 설정] - 이건 나중에 삭제할 것 같아요. 
 // 라우터 모듈로만 사용
 // const express = require("express");
 // const router = express.Router();
@@ -22,19 +22,19 @@ const categoryRouter = require("./routes/categoryRouter");
 //const indexRouter = require("./routes/indexRouter");
 //const userApiRouter = require("./routes/userApiRouter");
 
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 
-const { viewRouter } = require("./routes/viewRouter");
-const orderRouter = require("./routes/orderRouter");
-const productRouter = require("./routes/productRouter");
-const categoryRouter = require("./routes/categoryRouter");
+// const { viewRouter } = require("./routes/viewRouter");
+// const orderRouter = require("./routes/orderRouter");
+// const productRouter = require("./routes/productRouter");
+// const categoryRouter = require("./routes/categoryRouter");
 
 const router = express.Router();
 const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoURI = "mongodb://localhost:27017/smdb";
+const mongoURI = // 설정해주세요! 
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -64,12 +64,10 @@ router.get("/health", (req, res) => {
 const app = express();
 
 app.use(express.json());
-app.use(express.json());
 app.use(express.static("views"));
 
 app.use(viewRouter); // 뷰 라우터 사용
 
-app.use(viewRouter); // 뷰 라우터 사용
 
 app.use("/apis", router);
 app.use("/order", orderRouter); // 주문 라우터
@@ -78,11 +76,9 @@ app.use("/category", categoryRouter); // 카테고리 라우터
 
 //app.use("/index", indexRouter'); // 인덱스 라우터
 
-
-
-app.use("/order", orderRouter); // 주문 라우터
-app.use("/product", productRouter); // 상품 라우터
-app.use("/category", categoryRouter); // 카테고리 라우터
+//app.use("/order", orderRouter); // 주문 라우터
+//app.use("/product", productRouter); // 상품 라우터
+//app.use("/category", categoryRouter); // 카테고리 라우터
 
 app.use((req, res) => {
   res.end("Not Found");
@@ -103,7 +99,7 @@ app.listen(5001, () => {
  * 메소드 GET, POST, PUT, PATCH, DELETE
  * 요약 API의 역할
  * [req.params] params /users/{id} => http://localhost:3000/apis/users/asndklsabj21321sdsa
- * [req.query] querystring ?name=elice&age=8
+ * [req.query] querystring ?name=이름&age=8
  * [req.body] body (application/json) => "{ "name": "string" }"
  * require
  *

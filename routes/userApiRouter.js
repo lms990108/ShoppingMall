@@ -19,6 +19,7 @@ const authService = require('../services/authService'); // authService를 임포
 // joinService.getUser: 유효한 토큰에 대해 관련 사용자 정보를 송환
 
 router.post('/', joinService.createUser);
+//router.post('./login', joinService.loginAsEmail);
 router.get('/FindMe', [joinService.loginAsEmail, authService.authenticate, joinService.getUser]);
 
 // 회원가입 서비스에서 유저를 인증하고 넘어가는 미들웨어를 적용한 경우
