@@ -17,7 +17,7 @@ class ProductService {
   "price": 99.99,
   "higher_category": "키보드",
   "lower_category": "기계식",
-  "indate": "2023-10-06T12:00:00Z",
+  "inDate": "2023-10-06T12:00:00Z",
   "cnt": 10
 }
    */

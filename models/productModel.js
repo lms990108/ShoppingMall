@@ -44,7 +44,7 @@ const productSchema = new Schema({
     ref: "Category",
     required: true,
   },
-  indate: {
+  inDate: {
     type: Date,
     default: Date.now,
   },
