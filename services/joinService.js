@@ -11,13 +11,21 @@ try {
     const user = await User.findOne({ email });// 이미 회원 가입된 사람이 있을 때, 회원가입을 막는 부분
     if(user) {
         throw new Error("이미 존재하는 회원입니다");
-    }; 
+    };
+
     const salt = await bcrypt.genSalt(saltRounds); // 패스워드 암호화
     const hashedPassword = await bcrypt.hash(password, salt); // 해시를 만들어 준다 
-    const newUser = new User({ email, password:hashedPassword, name, level:level?level: 'customer' }); // 새로운 유저 생성
+    const newUser = new User(
+        { 
+        email,
+        password:hashedPassword,
+        name, 
+        level: level === 1 ? 'admin' : 'customer',
+    }
+    ); // 새로운 유저 생성
+    
     await newUser.save();
-    // const responseModel = 
-    return res.status(201).json({ status: '성공' });
+    return res.status(200).json({ status: '성공' });
     // redirect로 짜면?? - 고려 후, 수정 예정
 } catch(error) {
     res.status(400).json({ status: '실패', error: error.message })

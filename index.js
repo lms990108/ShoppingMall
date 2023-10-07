@@ -34,8 +34,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoURI = // 설정해주세요! 
-
+const mongoURI = "mongodb://localhost:27017";
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -44,8 +43,9 @@ mongoose.connect(mongoURI, {
 mongoose.connection.on("connected", () => {
   console.log("mongoDB connected");
 });
-const dotenv = require("dotenv");
 
+ /*
+const dotenv = require("dotenv");
 dotenv.config();
 
 mongoose.connect(mongoURI, {
@@ -56,6 +56,7 @@ mongoose.connect(mongoURI, {
 mongoose.connection.on("connected", () => {
   console.log("mongoDB connected");
 });
+*/
 
 router.get("/health", (req, res) => {
   res.end("Server is on");
