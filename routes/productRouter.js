@@ -56,17 +56,19 @@ router.get(
 );
 
 // 상품 수정 Patch 요청
-// 예시: http://127.0.0.1:3000/product/product_detail?productNumber=1
+// 예시: http://127.0.0.1:3000/product/product_detail/1
 router.patch(
-  "/product_detail",
+  "/product_detail/:productNumber",
   asyncHandler(async (req, res) => {
-    if (!req.query.productNumber) {
+    const { productNumber } = req.params;
+
+    if (!productNumber) {
       res.status(400).send("Product number is required");
       return;
     }
 
     const updatedProduct = await productServiceInstance.updateProduct(
-      req.query.productNumber,
+      productNumber,
       req.body, // req.body에는 수정할 상품의 정보가 들어있어야 합니다.
     );
 
