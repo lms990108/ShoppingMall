@@ -25,6 +25,13 @@ body {
 
 #header {
   background-color: white;
+  box-shadow: 5px 5px 10px 0px lightgray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 1;
 }
 
 .header_top {
@@ -53,6 +60,7 @@ body {
 
 .navbar {
   display: flex;
+  font-size: large;
 }
 
 .navbar-item,
@@ -102,7 +110,7 @@ body {
 #footer > div {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 #footer > div > div {
