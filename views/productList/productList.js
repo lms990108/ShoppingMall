@@ -6,16 +6,20 @@ let subCategory = URLMatch.get("lowerCategory");       // 하위카테고리
 
 // 쿼리스트링 실제로 있는지 없는지 체크!
 if (!mainCategory) {
-  mainCatgory = await getCategoryCode("higherCategory")
+  mainCatgory = getCategoryCode("higherCategory")
 
 }
 if (!subCategory) {
-  subCategory = await getCategoryCode("lowerCategory")
+  subCategory = getCategoryCode("lowerCategory")
   
 }
+getCategoryCode(); // api 동작이 정상화 되면 이후 진행..
 
-async function getCategoryCode(type) {
-  
+
+function getCategoryCode(type) {
+  axios.get('http://localhost:5001/category/')
+		.then(res => res.data)
+        .then(data => console.log(data));
 }
 
 // 페이지 로드 완료된 후 실행. 

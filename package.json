@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "devgearproject",
-=======
-  "name": "sm-project",
->>>>>>> dev
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

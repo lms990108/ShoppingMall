@@ -12,3 +12,27 @@ body {
 #footer {
   background-color: lightgray;
 }
+
+
+
+/* 공통 테마컬러 */
+html .button {
+  border: none;
+}
+html .is-primary {
+  color: #1c3761;
+}
+html .is-primary2 {
+  color: #f5d44d;
+}
+html .bg-primary {
+  color:#fff;
+  background: #1c3761;
+}
+html .bg-primary2 {
+  background: #f5d44d;
+}
+
+html .bg-primary:hover {
+  color:#fff;
+}

@@ -48,5 +48,26 @@
 }
 
 .subcategory .tabs {
+  padding-bottom: 10px;
+}
 
+.subcategory .button {
+  position: relative;
+}
+.subcategory .button:after {
+  content: '';
+  position:absolute;
+  left:calc(50% - 10px);
+  bottom: -20px;
+  z-index: 1;
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #f5d44d;
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+.subcategory .button.bg-primary:after {
+  border-top: 10px solid #1c3761;
 }
