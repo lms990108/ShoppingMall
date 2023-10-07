@@ -3,14 +3,17 @@
   height: 1500px; /* 임시 높이*/
   background-color: #fff;
 }
-/* .inner {
+.inner {
   width: 1100px;
   margin: 0 auto; 
   position: relative;
-} */
+}
 
 .category_area {
+  width: 100%;
+  height: 400px;
   position: relative;
+
 }
 
 .category_area img {
@@ -35,4 +38,15 @@
   font-size: 40px;
   font-weight: bold;
   line-height: 90px;
+}
+
+.subcategory {
+  width: 800px;
+  height: 100px;
+  margin: 60px auto;
+
+}
+
+.subcategory .tabs {
+
 }

@@ -29,7 +29,7 @@ router.post(
 );
 
 // 상품 조회 Get 요청
-// http://127.0.0.1:3000/product/product_detail?productNumber=1 < 1번 물품 조회
+// http://도메인주소/product/product_detail?productNumber=1 < 1번 물품 조회
 // http://127.0.0.1:3000/product/product_detail?productName=testproduct < testproduct 물품 조회
 router.get(
   "/product_detail",
