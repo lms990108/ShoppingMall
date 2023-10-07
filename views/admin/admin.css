@@ -1,0 +1,23 @@
+.adminPage {
+  padding-top: 110px;
+}
+
+.title {
+  text-align: center;
+}
+
+.btn_container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+th {
+  text-align: center !important;
+}
+
+td {
+  max-width: 150px;
+  word-break: break-all;
+  text-align: center !important;
+  font-size: small;
+}
