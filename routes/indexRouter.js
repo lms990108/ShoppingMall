@@ -1,61 +1,72 @@
 // indexRouter.js
 
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const dotenv = require("dotenv");
-
-const { viewRouter } = require("./viewRouter");
-const orderRouter = require("./orderRouter");
-const productRouter = require("./productRouter");
-const categoryRouter = require("./categoryRouter");
+const express = require('express');
+const router = express.Router();
 const userApiRouter = require('./userApiRouter');
 const authApiRouter = require('./authApiRouter');
 
-dotenv.config();
+router.use('/user', userApiRouter); 
+router.use('/auth', authApiRouter);
 
-const mongoURI = process.env.MONGO_DB_PATH;
-// console.log(mongoURI);
+module.exports = router;
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log("mongoose connected"))
-.catch((err) => console.error("DB connection fail", err));
 
-const app = express();
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
+// const dotenv = require("dotenv");
 
-// Middlewares
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended:false }));
-app.use(bodyParser.json()); // req.body 객체 인식용
-app.use(express.static('views')); // 정적 파일 미들웨어
+// const { viewRouter } = require("./viewRouter");
+// const orderRouter = require("./orderRouter");
+// const productRouter = require("./productRouter");
+// const categoryRouter = require("./categoryRouter");
+// const userApiRouter = require('./userApiRouter');
+// const authApiRouter = require('./authApiRouter');
 
-// Routers
-app.use("/health", (req, res) => { res.end("Server is on")});
-app.use("/order", orderRouter);
-app.use("/product", productRouter);
-app.use("/category", categoryRouter);
-app.use("/user", userApiRouter); 
-app.use("/auth", authApiRouter);
+// dotenv.config();
 
-// Error handlers
-app.use((req, res) => {
-  res.end("Not Found");
-});
+// const mongoURI = process.env.MONGO_DB_PATH;
+// // console.log(mongoURI);
 
-app.use((err, req, res, next) => {
-  res.json({ code: 0, message: err.message, response: {} });
-});
+// mongoose.connect(mongoURI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+// .then(() => console.log("mongoose connected"))
+// .catch((err) => console.error("DB connection fail", err));
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(`서버 시작: http://localhost:${PORT}`);
-});
+// const app = express();
 
-module.exports = app;
+// // Middlewares
+// app.use(cors());
+// app.use(bodyParser.urlencoded({ extended:false }));
+// app.use(bodyParser.json()); // req.body 객체 인식용
+// app.use(express.static('views')); // 정적 파일 미들웨어
+
+// // Routers
+// app.use("/health", (req, res) => { res.end("Server is on")});
+// app.use("/order", orderRouter);
+// app.use("/product", productRouter);
+// app.use("/category", categoryRouter);
+// app.use("/user", userApiRouter); 
+// app.use("/auth", authApiRouter);
+
+// // Error handlers
+// app.use((req, res) => {
+//   res.end("Not Found");
+// });
+
+// app.use((err, req, res, next) => {
+//   res.json({ code: 0, message: err.message, response: {} });
+// });
+
+// const PORT = process.env.PORT || 5001;
+// app.listen(PORT, () => {
+//   console.log(`서버 시작: http://localhost:${PORT}`);
+// });
+
+// module.exports = app;
 
 /**
  * API 명세 팁
