@@ -17,6 +17,16 @@ headTag.insertAdjacentHTML(
 /* header(navigator) */
 const header = document.getElementById("header");
 
+const fetchCategory = async () => {
+  try {
+    const res = await fetch("../common/mockCategory.json");
+    const category = await res.json();
+    console.log(category);
+  } catch (error) {
+    console.error("Failed to load category:", error);
+  }
+};
+fetchCategory();
 const loadCategory = async () => {
   let categoryHtml = "";
   try {
