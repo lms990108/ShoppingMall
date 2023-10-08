@@ -49,7 +49,7 @@ class ProductService {
   }
 
   // 상품조회, 필드는 번호인지 이름인지 등
-  async getProductsByField(fieldName, value) {
+  async getProductByField(fieldName, value) {
     const query = {};
     query[fieldName] = value;
 
@@ -68,7 +68,7 @@ class ProductService {
   }
 
   // 이름으로 조회
-  async getProductsByName(productName) {
+  async getProductByName(productName) {
     return await this.getProductsByField("product_name", productName);
   }
 
@@ -94,16 +94,22 @@ class ProductService {
   카테고리를 변경하지 않는다면 누락해도 괜찮음.
   */
   async updateProduct(productNumber, updatedProduct) {
-    if (updatedProduct.higher_category) {
-      updatedProduct.higher_category = await categoryModel.findOne({
-        name: updatedProduct.higher_category,
-      });
+    const [higherCategory, lowerCategory] = await Promise.all([
+      updatedProduct.higher_category
+        ? categoryModel.findOne({ name: updatedProduct.higher_category })
+        : null,
+      updatedProduct.lower_category
+        ? categoryModel.findOne({ name: updatedProduct.lower_category })
+        : null,
+    ]);
+
+    if (higherCategory) {
+      updatedProduct.higher_category = higherCategory;
     }
-    if (updatedProduct.lower_category) {
-      updatedProduct.lower_category = await categoryModel.findOne({
-        name: updatedProduct.lower_category,
-      });
+    if (lowerCategory) {
+      updatedProduct.lower_category = lowerCategory;
     }
+
     const product = await this.productModel
       .findOneAndUpdate({ product_number: productNumber }, updatedProduct, {
         new: true,

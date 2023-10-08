@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 
 const viewRouter = express.Router();
-
 const resourcePath = path.join(__dirname, "../views");
 
 viewRouter.use(express.static(path.join(__dirname, "../views")));
