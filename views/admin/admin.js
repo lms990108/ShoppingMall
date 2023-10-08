@@ -30,3 +30,31 @@ const loadProducts = async () => {
 };
 
 loadProducts();
+
+const getAllProducts = async () => {
+  try {
+    const response = await fetch("http://localhost:5001/product", {
+      method: "GET",
+    });
+    const products = await response.json();
+    console.log(products);
+    return products;
+  } catch (error) {
+    console.error("Error:", error);
+    return [];
+  }
+};
+
+const getAllCategory = async () => {
+  try {
+    const response = await fetch("http://localhost:5001/category", {
+      method: "GET",
+    });
+    const category = await response.json();
+    console.log(category);
+    return category;
+  } catch (error) {
+    console.error("Error:", error);
+    return [];
+  }
+};
