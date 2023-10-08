@@ -1,12 +1,14 @@
-const User = require('./models/userModel');
+const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
-const joinService = require('../services/joinService');
+const userService = require('../services/userService');
 // const responseModel = 이 부분 더 고려해서 작성 예정(넣을까 고려중)
 
 // 회원가입 페이지 설정
-joinService.createUser = async(req, res) => {
+userService.createUser = async(req, res) => {
 try {
+    console.log(req.body); // 배포 전 삭제
+
     const  { email, password, name, level } = req.body;
     const user = await User.findOne({ email });// 이미 회원 가입된 사람이 있을 때, 회원가입을 막는 부분
     if(user) {
@@ -35,8 +37,10 @@ try {
 // 그냥 유저가 적은 비밀번호와 관리자가 가지고 있는 해시화된 비밀번호를 구별하는 방법으로 compareSync를 사용
 // 유저가 쓴 비번과 관리자가 가지고 있는 비번이 맞으면 토큰 발행
 
-joinService.loginAsEmail = async(req, res) => {
+userService.loginAsEmail = async(req, res) => {
     try {
+        console.log(req.body); // 배포 전 삭제
+
         const { email, password } = req.body;
         const user = await User.findOne({ email });
         
@@ -44,21 +48,25 @@ joinService.loginAsEmail = async(req, res) => {
             throw new Error("가입되지 않은 회원입니다");
         }
 
-            const isMatched = bcrypt.compare(password, user.password);
+            const isMatched = await bcrypt.compare(password, user.password);
             if(!isMatched){ 
                 throw new Error("아이디 혹은 비밀번호가 일치하지 않습니다");
         }
                 const token = await user.generateToken(); // 토큰만드는 부분 User.js 추가
-                delete user.password; // 비밀번호 프로퍼티 삭제
-                res.status(200).json({ status: '성공', data: {user, token} });                
+                res.status(200).json({ status: '성공', data: {user, token} }); 
+                
+                user = user.toObject();
+                delete user.password; // 비밀번호 프로퍼티 객체
             } catch(error) {
         res.status(400).json({ status: '실패', error });
     }
 };
 
 // 유저의 아이디를 이용하여 해당 이용자를 찾는 부분
-joinService.getUser = async(req, res) => {
+userService.getUser = async(req, res) => {
     try{
+        console.log(req.body); // 배포 전 삭제
+        
         const {userId} = req;
         const user = await User.findById(userId);
 
@@ -68,4 +76,5 @@ joinService.getUser = async(req, res) => {
         res.status(400).json({ status: "실패", error:error.message });
     }
 };
-module.exports = joinService;
+
+module.exports = userService;

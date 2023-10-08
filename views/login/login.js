@@ -8,7 +8,7 @@ document.getElementById('login-button').addEventListener('submit', function(even
   // Dummy check: you'd replace this with an actual server request
   if(username === 'user@maiil.com' && password === 'pass') {
       // Successful login, redirecting to another page
-      window.location.href = './mypage.html'; 
+      window.location.href = './my page.html'; 
   } else {
       // Failed login, show alert
       alert('Login failed!');

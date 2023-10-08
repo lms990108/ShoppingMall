@@ -17,43 +17,10 @@ headTag.insertAdjacentHTML(
 /* header(navigator) */
 const header = document.getElementById("header");
 
-const fetchCategory = async () => {
-  try {
-    const res = await fetch("../common/mockCategory.json");
-    const category = await res.json();
-    console.log(category);
-  } catch (error) {
-    console.error("Failed to load category:", error);
-  }
-};
-fetchCategory();
-const loadCategory = async () => {
-  let categoryHtml = "";
-  try {
-    const res = await fetch("../common/mockCategory.json");
-    const category = await res.json();
-    category.forEach(({ higher_category, lower_category }) => {
-      categoryHtml += `<div class="navbar-item is-hoverable has-dropdown">
-      <a class="navbar-link is-arrowless" href="/product/?higherCategory=${higher_category.url}">${higher_category.name}</a>
-      <div class="navbar-dropdown">`;
-      lower_category.forEach(({ name, url }) => {
-        categoryHtml += `<a class = "navbar-item" href = "/product/?lowerCategory=${url}">${name}</a>`;
-      });
-      categoryHtml += `</div>
-      </div>`;
-    });
-  } catch (error) {
-    console.error("Failed to load category:", error);
-  }
-
-  return categoryHtml;
-};
-
-loadCategory().then((categoryHtml) => {
-  header.insertAdjacentHTML(
-    "beforeend",
-    /*html*/
-    ` <div>
+header.insertAdjacentHTML(
+  "beforeend",
+  /*html*/
+  ` <div>
     <section class="header_top">[OPEN EVENT] 전품목 무료배송 이벤트 <a href="/products">상품 구경하기</a></section>
     <section class="header_bottom">
         <a class="header_logo" href="/">
@@ -63,7 +30,6 @@ loadCategory().then((categoryHtml) => {
             <div class="navbar-menu">
                 <div class="navbar-start">
                     <a class="navbar-link is-arrowless" href="/">홈</a>
-                    ${categoryHtml}
                 </div>
             </div>
         </nav>
@@ -90,8 +56,47 @@ loadCategory().then((categoryHtml) => {
         </div>
     </section>
 </div>`,
+);
+
+/* GET category List */
+const fetchCategory = async () => {
+  try {
+    const res = await fetch("../common/mockCategory.json");
+    const category = await res.json();
+    return category;
+  } catch (error) {
+    console.error("Failed to fetch category:", error);
+    return [];
+  }
+};
+
+/* Category nav 띄우기 위한 HTML 생성 */
+const generateCategoryHtml = (categoryData) => {
+  let categoryHtml = "";
+  categoryData.forEach(({ higher_category, lower_category }) => {
+    categoryHtml += `<div class="navbar-item is-hoverable has-dropdown">
+    <a class="navbar-link is-arrowless" href="/product/?higherCategory=${higher_category.url}">${higher_category.name}</a>
+    <div class="navbar-dropdown">`;
+    lower_category.forEach(({ name, url }) => {
+      categoryHtml += `<a class="navbar-item" href="/product/?lowerCategory=${url}">${name}</a>`;
+    });
+    categoryHtml += `</div>
+    </div>`;
+  });
+  return categoryHtml;
+};
+
+/* category nav HTML 화면에 보이기 */
+const loadCategory = async () => {
+  const categoryData = await fetchCategory();
+  const categoryDiv = document.querySelector(".navbar-start");
+  categoryDiv.insertAdjacentHTML(
+    "beforeend",
+    generateCategoryHtml(categoryData),
   );
-});
+};
+
+loadCategory();
 
 /* footer */
 const footer = document.getElementById("footer");
