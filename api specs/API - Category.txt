@@ -1,0 +1,132 @@
+카테고리 API
+기본 URL: http://kdt-sw-6-team05.elicecoding.com
+
+    1. 카테고리 생성 (CREATE)
+
+        Endpoint: /category/add_category
+        Method: POST
+        Request Body: json
+        {
+            "name": "New Category Name",
+            "description": "Description of the new category"
+        }
+
+        Success Response:
+        Code: 201 CREATED
+        Content: json
+        {
+            "_id": "60d...",
+            "name": "New Category Name",
+            "description": "Description of the new category",
+            "__v": 0
+        }
+
+        Error Response:
+            Code: 400 BAD REQUEST
+            Content: {"error": "Detailed error message"}
+
+    2. 특정 카테고리 조회 (READ)
+
+        Endpoint: /category/:categoryName
+        Method: GET
+        URL Params: categoryName: [string] - 조회할 카테고리 이름
+        
+        Success Response:
+            Code: 200 OK
+            Content: json
+            {
+                "_id": "60d...",
+                "name": "Existing Category Name",
+                "description": "Description of the category",
+                "__v": 0
+            }
+        Error Response:
+            Code: 404 NOT FOUND
+            Content: {"error": "Category not found"}
+
+    3. 모든 카테고리 조회 (READ)
+
+        Endpoint: /category
+        Method: GET
+
+        Success Response:
+            Code: 200 OK
+            Content: json
+
+        [
+            {
+                "_id": "60d...",
+                "name": "Category 1",
+                "description": "Description of category 1",
+                "__v": 0
+            },
+            {
+                "_id": "60e...",
+                "name": "Category 2",
+                "description": "Description of category 2",
+                "__v": 0
+            }
+        ]
+
+        Error Response:
+            Code: 500 INTERNAL SERVER ERROR
+            Content: {"error": "Detailed error message"}
+
+    4. 카테고리 업데이트 (UPDATE)
+
+        Endpoint: /category/:categoryName
+        Method: PUT
+        URL Params: categoryName: [string] - 수정할 카테고리 이름
+        Request Body: json
+
+        {
+            "name": "Updated Category Name",
+            "description": "Updated description of the category"
+        }
+        
+        Success Response:
+            Code: 200 OK
+            Content: json
+
+            [
+                {
+                    "_id": "60d...",
+                    "name": "Updated Category Name",
+                    "description": "Updated description of the category",
+                    "__v": 0
+                },
+                {
+                    "_id": "60e...",
+                    "name": "Category 2",
+                    "description": "Description of category 2",
+                    "__v": 0
+                }
+            ]
+            
+        Error Response:
+            Code: 404 NOT FOUND
+            Content: {"error": "Category not found"}
+
+    5. 카테고리 삭제 (DELETE)
+
+        Endpoint: /category/:categoryName
+        Method: DELETE
+        URL Params:
+        categoryName: [string] - 삭제할 카테고리 이름
+
+        Success Response:
+            Code: 200 OK
+            Content: json
+            [
+                {
+                    "_id": "60e...",
+                    "name": "Category 2",
+                    "description": "Description of category 2",
+                    "__v": 0
+                }
+            ]
+
+        Error Response:
+            Code: 404 NOT FOUND
+            Content: {"error": "Category not found"}
+

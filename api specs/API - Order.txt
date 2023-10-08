@@ -1,0 +1,53 @@
+주문 API
+기본 URL: http://kdt-sw-6-team05.elicecoding.com
+
+    1. 주문 추가
+
+        Endpoint: /add_order
+        Method: POST
+        Request Body: json
+
+        {
+            "userId": "[USER_ID]",
+            "items": "[ORDER_ITEMS]",
+            "totalAmount": "[TOTAL_AMOUNT]"
+            //...other order data
+        }
+
+        Success Response:
+            Code: 201
+            Content: Added order data
+
+        Error Responses: (미완)
+
+    2. 사용자 주문 조회
+
+        Endpoint: /user/:userId/orders?page=[PAGE_NUMBER]&limit=[LIMIT_NUMBER]
+        Method: GET
+
+        Success Response:
+            Code: 200
+            Content: Orders data
+        
+        Error Responses: (미완)
+
+    3. 주문 번호로 주문 조회
+
+        Endpoint: /?order_number=[ORDER_NUMBER]
+        Method: GET
+        
+        Success Response:
+            Code: 200
+            Content: Specific order data
+        
+        Error Responses: (미완)
+
+    4. 주문 취소
+        Endpoint: /cancel_order/?order_number=[ORDER_NUMBER]
+        Method: DELETE
+
+        Success Response:
+            Code: 200
+            Content: Canceled order data
+
+        Error Responses: (미완)
