@@ -10,7 +10,7 @@ class categoryService {
    * @returns {Array} 모든 카테고리의 배열을 반환합니다.
    */
   async getAllCategories() {
-    return await this.categoryModel.find().exec();
+    return await this.categoryModel.find().sort({ name: 1 }).exec();
   }
 
   /**
@@ -41,7 +41,6 @@ class categoryService {
    * 카테고리 이름을 기준으로 카테고리를 수정합니다.
    * @param {string} categoryName - 수정할 카테고리의 이름입니다.
    * @param {Object} data - 수정할 데이터입니다.
-   * @returns {Array} 모든 카테고리의 배열을 반환합니다.
    */
   async updateCategory(categoryName, data) {
     const updatedCategory = await this.categoryModel
