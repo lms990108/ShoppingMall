@@ -34,6 +34,7 @@ app.use(bodyParser.json()); // req.body 객체 인식용
 app.use(express.static("views")); // 정적 파일 미들웨어
 
 // Routers
+app.use("/", viewRouter);
 app.use("/health", (req, res) => {
   res.end("Server is on");
 });
