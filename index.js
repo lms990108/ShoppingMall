@@ -28,7 +28,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoURI = "mongodb+srv://lms990108:minseop12@cluster0.jmzuosu.mongodb.net/";
+const mongoURI = process.env.MONGO_DB_PATH;
+// console.log(mongoURI)
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
