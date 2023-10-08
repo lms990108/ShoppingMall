@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <div id="header"></div>
+  <header id="header"></header>
 
   <section class="productContents">
     <!-- 상품 상세정보 상단영역(해당 아이템 이미지, 상품명, 수량, 특징, 
@@ -35,14 +35,29 @@
       <div class="product_info_pannel">
         <h1 class="product_title">키크론 C1 PRO 텐키리스 QMK VIA 커스텀(상품명)</h1>
 
-        <p>상품설명 내용</p>
+        <p class="product_detail">상품 내용</p>
 
-        <p>249,000원</p>
+        <p class="total_price">249,000원</p>
 
+        
         <h3>상품 특징</h3>
-        <p>기계식</p>
-        <p>무소음</p>
-        <p>커스템 유선 특징</p>
+
+        <ul class="sp_list">
+          <li>기계식</li>
+
+          <li>무소음</li>
+            
+          <li>커스텀 유선 특징</li>
+        </ul>
+        
+        <!-- 상품명, 수량, 금액 -->
+        <div>
+          <h3>수량</h3>
+          <div class="subox">
+            <button></button>
+          </div>
+        </div>
+        
 
         <div class="product_btns">
           <button>구매하기</button>
@@ -64,10 +79,9 @@
   </section>
 
 
-  <div id="footer"></div>
+  <footer id="footer"></footer>
 
     <script src="../common/common.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../product/productDetail.js"></script>
 </body>
 </html>

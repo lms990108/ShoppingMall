@@ -16,12 +16,12 @@ if (!subCategory) { // 하위 카테고리 없으면..
 
 getCategoryCode();
 // api 동작이 정상화 되면 이후 진행예정..
-
 function getCategoryCode(type) {
-  axios.get('http://localhost:5001/category/')
-		.then(res => res.data)
-        .then(data => console.log(data));
+
+  fetching("/category/")
+
 }
+
 
 // 페이지 로드 완료된 후 실행. 
 window.addEventListener("DOMContentLoaded", () => { 
@@ -128,6 +128,7 @@ function getProductsList(param) {
 // 상품목록 엘리먼트 생성
 function makeProductList(data) {
   const list = document.querySelector('.items');
+
   for (var i = 0; i < data.length; i++) {
     const li = document.createElement('li');
     const a = document.createElement("a");

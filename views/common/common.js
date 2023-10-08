@@ -23,3 +23,14 @@ document.getElementById("header").innerHTML = /*html*/ `
 /* footer */
 
 document.getElementById("footer").innerHTML = /*html*/ ` <div>footer</div>`;
+
+
+
+// fetch API 함수(공통)
+function fetching (uri, options) {
+  fetch("http://localhost:5001" + uri, options)
+    .then((res) => {
+      return res.json()
+    })
+    .catch((error) => console.log("error:", error));
+}
