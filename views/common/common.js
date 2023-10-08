@@ -59,26 +59,39 @@ header.insertAdjacentHTML(
 );
 
 /* GET category List */
-const fetchCategory = async () => {
+
+const getAllCategories = async () => {
   try {
-    const res = await fetch("../common/mockCategory.json");
-    const category = await res.json();
+    const response = await fetch("http://localhost:5001/category");
+    const category = await response.json();
     return category;
   } catch (error) {
-    console.error("Failed to fetch category:", error);
+    console.error("Error:", error);
     return [];
   }
 };
 
 /* Category nav 띄우기 위한 HTML 생성 */
-const generateCategoryHtml = (categoryData) => {
+const generateCategoryHtml = (category) => {
   let categoryHtml = "";
-  categoryData.forEach(({ higher_category, lower_category }) => {
+  let higher_category = []; // 상위카테고리
+  let lower_category = []; // 하위카테고리
+
+  /* 상위/하위 카테고리를 구분하는 요소는 parent의 유무임 */
+  category.forEach((item) => {
+    item.parent === null
+      ? higher_category.push(item)
+      : lower_category.push(item);
+  });
+
+  higher_category.forEach((higherItem) => {
     categoryHtml += `<div class="navbar-item is-hoverable has-dropdown">
-    <a class="navbar-link is-arrowless" href="/product/?higherCategory=${higher_category.url}">${higher_category.name}</a>
-    <div class="navbar-dropdown">`;
-    lower_category.forEach(({ name, url }) => {
-      categoryHtml += `<a class="navbar-item" href="/product/?lowerCategory=${url}">${name}</a>`;
+   <a class="navbar-link is-arrowless" href="/product/?higherCategory=${higherItem.name}">${higherItem.name}</a>
+  <div class="navbar-dropdown">`;
+    lower_category.forEach((lowerItem) => {
+      if (higherItem._id === lowerItem.parent) {
+        categoryHtml += `<a class="navbar-item" href="/product/?lowerCategory=${lowerItem.name}">${lowerItem.name}</a>`;
+      }
     });
     categoryHtml += `</div>
     </div>`;
@@ -88,7 +101,7 @@ const generateCategoryHtml = (categoryData) => {
 
 /* category nav HTML 화면에 보이기 */
 const loadCategory = async () => {
-  const categoryData = await fetchCategory();
+  const categoryData = await getAllCategories();
   const categoryDiv = document.querySelector(".navbar-start");
   categoryDiv.insertAdjacentHTML(
     "beforeend",
