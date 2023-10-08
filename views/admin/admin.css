@@ -1,9 +1,10 @@
 .adminPage {
-  padding-top: 110px;
+  padding-top: 120px;
 }
 
 .title {
   text-align: center;
+  color: var(--navy-color);
 }
 
 .btn_container {
@@ -20,4 +21,22 @@ td {
   word-break: break-all;
   text-align: center !important;
   font-size: small;
+}
+
+.tabs li a {
+  color: var(--navy-color);
+  font-weight: bold;
+}
+
+.tabs li.is-active a {
+  background-color: var(--navy-color) !important;
+  color: var(--yellow-color) !important;
+}
+
+.content-tab {
+  display: none;
+}
+
+.content-tab.is-active {
+  display: block;
 }
