@@ -1,0 +1,42 @@
+.adminPage {
+  padding-top: 120px;
+}
+
+.title {
+  text-align: center;
+  color: var(--navy-color);
+}
+
+.btn_container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+th {
+  text-align: center !important;
+}
+
+td {
+  max-width: 150px;
+  word-break: break-all;
+  text-align: center !important;
+  font-size: small;
+}
+
+.tabs li a {
+  color: var(--navy-color);
+  font-weight: bold;
+}
+
+.tabs li.is-active a {
+  background-color: var(--navy-color) !important;
+  color: var(--yellow-color) !important;
+}
+
+.content-tab {
+  display: none;
+}
+
+.content-tab.is-active {
+  display: block;
+}

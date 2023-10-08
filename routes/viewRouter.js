@@ -26,4 +26,9 @@ viewRouter.get("/login", async (req, res) => {
   res.sendFile(path.join(resourcePath, "/login/login.html"));
 });
 
+// 관리자페이지 연결
+viewRouter.get("/admin", async (req, res) => {
+  res.sendFile(path.join(resourcePath, "/admin/admin.html"));
+});
+
 module.exports = { viewRouter };

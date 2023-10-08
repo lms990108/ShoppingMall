@@ -1,0 +1,59 @@
+[
+  {
+    "higher_category": { "name": "키보드", "url": "keyBoard" },
+    "lower_category": [
+      {
+        "name": "기계식",
+        "url": "mechanical"
+      },
+      { "name": "무접점", "url": "Non-contact" },
+      {
+        "name": "멤브레인",
+        "url": "membrane"
+      },
+      {
+        "name": "키캡",
+        "url": "keycap"
+      },
+      {
+        "name": "주변용품",
+        "url": "peripheral-goods"
+      }
+    ]
+  },
+  {
+    "higher_category": { "name": "마우스", "url": "mouse" },
+    "lower_category": [
+      {
+        "name": "게이밍",
+        "url": "gaming"
+      },
+      { "name": "버티컬", "url": "vertical" },
+      {
+        "name": "마우스패드",
+        "url": "mouse-pad"
+      }
+    ]
+  },
+  {
+    "higher_category": { "name": "음향장비", "url": "sound-equipment" },
+    "lower_category": [
+      {
+        "name": "헤드셋",
+        "url": "headset"
+      },
+      { "name": "이어폰", "url": "earphone" }
+    ]
+  },
+  {
+    "higher_category": { "name": "기타", "url": "etc" },
+    "lower_category": [
+      {
+        "name": "거치대",
+        "url": "holder"
+      },
+      { "name": "충전기", "url": "charger" },
+      { "name": "허브", "url": "hub" }
+    ]
+  }
+]

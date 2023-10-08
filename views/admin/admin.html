@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevGear</title>
+    <link rel="stylesheet" href="../admin/admin.css" type="text/css" />
+    <link rel="stylesheet" href="../common/common.css" type="text/css" />
+  </head>
+  <body>
+    <header id="header"></header>
+    <div class="adminPage">
+      <h2 class="title">관리자</h2>
+      <div id="tabs" class="tabs is-centered is-toggle">
+        <ul>
+          <li class="is-active"><a>상품관리</a></li>
+          <li><a>카테고리관리</a></li>
+          <li><a>주문관리</a></li>
+          <li><a>회원관리</a></li>
+        </ul>
+      </div>
+      <section id="product_manage" class="content-tab is-active">
+        <div class="btn_container">
+          <button class="add_product_btn button is-primary is-light">
+            상품추가
+          </button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th title="num">상품 번호</th>
+              <th title="name">상품명</th>
+              <th title="main_img_url">메인이미지</th>
+              <th title="des_img_url">설명이미지</th>
+              <th title="content">설명</th>
+              <th title="price">가격</th>
+              <th title="higher_category">상위카테고리</th>
+              <th title="lower_category">하위카테고리</th>
+              <th title="indate">생성일자</th>
+              <th title="cnt">조회수</th>
+              <th title="button"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="category_manage" class="content-tab">
+        <div class="btn_container">
+          <button class="add_product_btn button is-primary is-light">
+            카테고리추가
+          </button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th title="num">카테고리명</th>
+              <th title="higher_category">상위카테고리</th>
+              <th title="button"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="order_manage" class="content-tab">
+        <div class="btn_container">
+          <button class="add_product_btn button is-primary is-light">
+            주문추가
+          </button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th title="num">주문번호</th>
+              <th title="userID">사용자 ID</th>
+              <th title="products">주문상품</th>
+              <th title="price">총 가격</th>
+              <th title="shipTo">배송지</th>
+              <th title="contact">연락처</th>
+              <th title="status">배송상태</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="user_manage" class="content-tab">
+        <div class="btn_container">
+          <button class="add_product_btn button is-primary is-light">
+            회원추가
+          </button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th title="email">이메일</th>
+              <th title="name">이름</th>
+              <th title="level">비고</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </div>
+    <footer id="footer"></footer>
+
+    <script src="../admin/admin.js" type="module"></script>
+    <script src="../common/common.js" type="module"></script>
+  </body>
+</html>
