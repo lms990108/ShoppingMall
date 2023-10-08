@@ -51,7 +51,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
 }
 
 .header_bottom img {
@@ -71,8 +70,8 @@ body {
 
 .navbar-item:hover,
 .navbar-link:hover {
-  background-color: var(--yellow-color) !important; /* 원하는 컬러로 변경 */
-  color: var(--navy-color) !important; /* 원하는 컬러로 변경 */
+  background-color: var(--yellow-color) !important;
+  color: var(--navy-color) !important;
 }
 
 .header_bottom svg {
@@ -87,7 +86,7 @@ body {
 .search {
   display: flex;
   border-bottom: 1px solid gray;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 
 .search .button {
@@ -103,7 +102,7 @@ body {
 
 #footer {
   background-color: lightgray;
-  color: navy;
+  color: var(--navy-color);
   padding: 20px;
 }
 
@@ -125,7 +124,7 @@ body {
 }
 
 .footer_third img {
-  width: 100px;
+  width: 120px;
 }
 
 /* 공통 테마컬러 (네이비,옐로우 컬러) - Bulma 스타일 우선순위를 위해 적용 */
