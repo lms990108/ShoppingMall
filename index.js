@@ -1,4 +1,4 @@
-// [김효인 라우터 설정] - 이건 나중에 삭제할 것 같아요. 
+// [김효인 라우터 설정] - 이건 나중에 삭제할 것 같아요.
 // 라우터 모듈로만 사용
 // const express = require("express");
 // const router = express.Router();
@@ -7,7 +7,7 @@
 //   res.end("Server is on");
 // });
 
-// 
+//
 
 // module.export = router;
 
@@ -22,13 +22,13 @@ const categoryRouter = require("./routes/categoryRouter");
 //const indexRouter = require("./routes/indexRouter");
 //const userApiRouter = require("./routes/userApiRouter");
 
-
 const router = express.Router();
 const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoURI = "mongodb+srv://lms990108:minseop12@cluster0.jmzuosu.mongodb.net/";
+const mongoURI = process.env.MONGO_DB_PATH;
+// console.log(mongoURI)
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -39,7 +39,6 @@ mongoose.connection.on("connected", () => {
   console.log("mongoDB connected");
 });
 
-
 router.get("/health", (req, res) => {
   res.end("Server is on");
 });
@@ -47,8 +46,7 @@ router.get("/health", (req, res) => {
 const app = express();
 
 app.use(express.json());
-app.use(express.static("views"))
-
+app.use(express.static("views"));
 
 app.use("/apis", router);
 app.use("/order", orderRouter); // 주문 라우터
