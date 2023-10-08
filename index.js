@@ -3,7 +3,6 @@
 라우터 모듈로만 사용
 const express = require("express");
 const router = express.Router();
-
 router.get("/", (req, res) => {
   res.end("Server is on");
 });
@@ -11,48 +10,51 @@ module.export = router;
 */
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 const { viewRouter } = require("./routes/viewRouter");
 const orderRouter = require("./routes/orderRouter");
 const productRouter = require("./routes/productRouter");
 const categoryRouter = require("./routes/categoryRouter");
 //const authApiRouter = require("./routes/authApiRouter");
-//const indexRouter = require("./routes/indexRouter");
 //const userApiRouter = require("./routes/userApiRouter");
-
-const router = express.Router();
-const dotenv = require("dotenv");
 
 dotenv.config();
 
-// 테스트용 db 주석, 지우지마세요
-// const mongoURI = "mongodb://localhost:27017";
 const mongoURI = process.env.MONGO_DB_PATH;
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// console.log(mongoURI);
 
-mongoose.connection.on("connected", () => {
-  console.log("mongoDB connected");
-});
-
-router.get("/health", (req, res) => {
-  res.end("Server is on");
-});
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("mongoose connected"))
+  .catch((err) => console.error("DB connection fail", err));
 
 const app = express();
 
-app.use(express.json());
-app.use(express.static("views"));
+// Middlewares
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // req.body 객체 인식용
+app.use(express.static("views")); // 정적 파일 미들웨어
 
-app.use(viewRouter); // 뷰 라우터 사용
+// Routers
+app.use("/health", (req, res) => {
+  res.end("Server is on");
+});
 
 app.use("/apis", router);
+const indexRouter = require("./routes/indexRouter");
+app.use("/api", indexRouter);
+
 app.use("/order", orderRouter); // 주문 라우터
 app.use("/product", productRouter); // 상품 라우터
 app.use("/category", categoryRouter); // 카테고리 라우터
-
+// Error handlers
 app.use((req, res) => {
   res.end("Not Found");
 });
@@ -61,8 +63,9 @@ app.use((err, req, res, next) => {
   res.json({ code: 0, message: err.message, response: {} });
 });
 
-app.listen(5001, () => {
-  console.log("서버 시작: http://localhost:5001");
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
+  console.log(`서버 시작: http://localhost:${PORT}`);
 });
 
 /**

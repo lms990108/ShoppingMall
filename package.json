@@ -1,5 +1,5 @@
 {
-  "name": "sm-project",
+  "name": "devgearproject",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,18 +10,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "gitignore": "^0.7.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.1.0",
     "mongoose": "^7.5.4",
-    "nodemon": "^3.0.1",
-    "pm2": "^5.3.0"
+    "pm2": "^5.3.0",
+    "vue-router": "^4.2.5"
   },
   "engines": {
     "node": ">= 18.18"
   },
   "devDependencies": {
+    "nodemon": "^3.0.1",
     "prettier": "3.0.3"
   }
 }

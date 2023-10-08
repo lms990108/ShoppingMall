@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const joinService = require('../services/joinService');
+const userService = require('../services/userService');
 const authService = require('../services/authService'); // authService를 임포트
 
 // 1. 회원가입 설정
@@ -14,18 +14,19 @@ const authService = require('../services/authService'); // authService를 임포
 // authenticate는 다른 라우터에서도 필요한 작업이라 독립적으로 코드 구성
 // 회원가입 서비스에서 돌아오는 과정에서 회원을 확인하는 미들웨어 적용 (고려중)
 
-// joinService.loginAsEmail: 사용자를 이메일로 로그인
+// userService.loginAsEmail: 사용자를 이메일로 로그인
 // authService.authenticate: 제공된 토큰을 검증
 // joinService.getUser: 유효한 토큰에 대해 관련 사용자 정보를 송환
 
-router.post('/', joinService.createUser);
-//router.post('./login', joinService.loginAsEmail);
-router.get('/FindMe', [joinService.loginAsEmail, authService.authenticate, joinService.getUser]);
+router.post('/register', userService.createUser);
+router.post('/login', userService.loginAsEmail);
+router.get('/find-me', authService.authenticate, userService.getUser);
 
-// 회원가입 서비스에서 유저를 인증하고 넘어가는 미들웨어를 적용한 경우
-// router.post('/', authService.verifyUser, joinService.createUser);
-// router.get('/FindMe', joinService.loginAsEmail);
-// router.get('FindMe', authService.authenticate, joinService.getUser);
 
+// router.get('/find-me', userService.loginAsEmail);
+// router.get('/find-me', [userService.loginAsEmail, authService.authenticate, userService.getUser]);
+
+// 회원가입 서비스에서 유저를 인증하고 넘어가는 미들웨어를 적용한 경우 - 적용 미정
+// router.post('/', authService.verifyUser, userService.createUser);
 
 module.exports = router;
