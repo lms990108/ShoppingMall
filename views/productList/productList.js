@@ -125,29 +125,54 @@ function getProductsList(param) {
 
 }
 
+
+
 // 상품목록 엘리먼트 생성
 function makeProductList(data) {
   const list = document.querySelector('.items');
 
-  for (var i = 0; i < data.length; i++) {
+  data.forEach((item) => {
+
     const li = document.createElement('li');
     const a = document.createElement("a");
 
-    a.href = "/product?productNumber=" + data[i].product_number;
+    a.href = "/product?productNumber=" + item.product_number;
     const img = document.createElement('img');
-    img.src = data[i].main_img_url;
+    img.src = item.main_img_url;
     const title =  document.createElement('p');
     const price = document.createElement('p');
     
-    title.innerText = data[i].product_name;
-    price.innerText = priceFormat(data[i].price) + '원';
+    title.innerText = item.product_name;
+    price.innerText = priceFormat(item.price) + '원';
     
     li.appendChild(a);
     a.appendChild(img);
     a.appendChild(title);
     a.appendChild(price);
     list.appendChild(li);
-  }
+  })
+  
+ 
+  
+
+
+  // const li = document.createElement('li');
+  //   const a = document.createElement("a");
+
+  //   a.href = "/product?productNumber=" + data[i].product_number;
+  //   const img = document.createElement('img');
+  //   img.src = data[i].main_img_url;
+  //   const title =  document.createElement('p');
+  //   const price = document.createElement('p');
+    
+  //   title.innerText = data[i].product_name;
+  //   price.innerText = priceFormat(data[i].price) + '원';
+    
+  //   li.appendChild(a);
+  //   a.appendChild(img);
+  //   a.appendChild(title);
+  //   a.appendChild(price);
+  //   list.appendChild(li);
 }
 
 // 가격 콤마 표시 함수 (3자리 단위로)
