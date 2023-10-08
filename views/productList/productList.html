@@ -13,26 +13,42 @@
 
     <!-- 상품 리스트 페이지 -->
     <section class="productListPage">
-      <div class="category_area">
+
+      <div class="main_category">
+
+        <!-- 상위 카테고리에 맞는 이미지 반영될곳. -->
         <img src="https://www.melgeek.com/cdn/shop/files/111_MelGeek_2800_2.jpg?v=1681803768&width=2800" alt="카테고리 이미지" />
+
+        <!-- 상위(메인)카테고리 타이틀명 영역 -->
         <div class="title_box">
           <p class="main_title">KEYBOARD</p>
           
         </div>
+
       </div>
 
-      <!-- 탭 메뉴 영역 (하위 카테코리) -->
-      <div class="subcategory inner">
+      <!-- 탭버튼 메뉴 하위 카테고리 영역  -->
+      <div class="sub_category inner">
         <div class="tabs">
           <button class="button bg-primary">기계식 키보드</button>
-        <button class="button bg-primary2">무접점 키보드</button>
-        <button class="button bg-primary2">멤브레인 키보드</button>
-        <button class="button bg-primary2">키캡</button>
+          <button class="button bg-primary2">무접점 키보드</button>
+          <button class="button bg-primary2">멤브레인 키보드</button>
+          <button class="button bg-primary2">키캡</button>
         </div>
         
       </div>
 
-      <!-- 상품 리스트 이미지 나올곳 -->
+      <!-- 상품 리스트 이미지 나올곳 (추후 동적으로 아이템 갯수에 따라 상품 뜨도록 진행할 예정! )-->
+      <div class="products_container inner">
+        <ul class="items">
+        
+          
+        </ul>
+
+       <!-- 페이징 처리 영역 -->
+
+      </div>
+      
       
     </section>
 

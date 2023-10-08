@@ -22,36 +22,13 @@ const categoryRouter = require("./routes/categoryRouter");
 //const indexRouter = require("./routes/indexRouter");
 //const userApiRouter = require("./routes/userApiRouter");
 
-<<<<<<< HEAD
-=======
-//const mongoose = require("mongoose");
 
-// const { viewRouter } = require("./routes/viewRouter");
-// const orderRouter = require("./routes/orderRouter");
-// const productRouter = require("./routes/productRouter");
-// const categoryRouter = require("./routes/categoryRouter");
-
->>>>>>> dev
 const router = express.Router();
 const dotenv = require("dotenv");
 
 dotenv.config();
 
-const mongoURI = "mongodb://localhost:27017";
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-mongoose.connection.on("connected", () => {
-  console.log("mongoDB connected");
-});
-<<<<<<< HEAD
-=======
-
- /*
-const dotenv = require("dotenv");
-dotenv.config();
+const mongoURI = "mongodb+srv://lms990108:minseop12@cluster0.jmzuosu.mongodb.net/";
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -61,8 +38,7 @@ mongoose.connect(mongoURI, {
 mongoose.connection.on("connected", () => {
   console.log("mongoDB connected");
 });
-*/
->>>>>>> dev
+
 
 router.get("/health", (req, res) => {
   res.end("Server is on");
@@ -71,12 +47,7 @@ router.get("/health", (req, res) => {
 const app = express();
 
 app.use(express.json());
-<<<<<<< HEAD
-=======
-app.use(express.static("views"));
->>>>>>> dev
-
-app.use(express.static("views"));
+app.use(express.static("views"))
 
 
 app.use("/apis", router);
@@ -86,13 +57,6 @@ app.use("/category", categoryRouter); // 카테고리 라우터
 
 //app.use("/index", indexRouter'); // 인덱스 라우터
 
-<<<<<<< HEAD
-=======
-//app.use("/order", orderRouter); // 주문 라우터
-//app.use("/product", productRouter); // 상품 라우터
-//app.use("/category", categoryRouter); // 카테고리 라우터
-
->>>>>>> dev
 app.use((req, res) => {
   res.end("Not Found");
 });

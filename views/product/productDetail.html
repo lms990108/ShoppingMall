@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../product/productDetail.css" type="text/css"
+    />
+    <link rel="stylesheet" href="../common/common.css" type="text/css" />
+  <title>상품 상세 정보 페이지</title>
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <section class="productContents">
+    <!-- 상품 상세정보 상단영역(해당 아이템 이미지, 상품명, 수량, 특징, 
+      구매/장바구니 버튼이 있습니다.) -->
+    <section class="product_detail">
+
+      <!-- 왼쪽 이미지 영역 -->
+      <div class="product_images">
+        <img class="detail_image" src="https://shop-phinf.pstatic.net/20230817_229/1692246793255SMG5G_JPEG/5960925145515134_1432799985.jpg?type=m510" alt="상품 상세정보 큰 이미지"/>
+
+        <!-- 상품 상세 썸네일(작은이미지) 영역-->
+        <div class="thumnails">
+          <img src="https://shop-phinf.pstatic.net/20230817_229/1692246793255SMG5G_JPEG/5960925145515134_1432799985.jpg?type=m510" alt="상품 상세정보 작은이미지"/>
+          <img src="https://shop-phinf.pstatic.net/20230817_15/1692246800668bAVPj_JPEG/15103238412893313_493068062.jpg?type=f40" alt="상품 상품 작은이미지"/>
+          <img src="https://shop-phinf.pstatic.net/20230817_229/1692246793255SMG5G_JPEG/5960925145515134_1432799985.jpg?type=m510" alt="상품 상세정보 작은이미지"/>
+          <img src="https://shop-phinf.pstatic.net/20230817_15/1692246800668bAVPj_JPEG/15103238412893313_493068062.jpg?type=f40" alt="상품 상세정보 작은이미지"/>
+        </div>
+      </div>
+
+
+      <!-- 오른쪽 영역 (상품명, 가격, 특징, 수량, 구매/장바구니 버튼) -->
+      <div class="product_info_pannel">
+        <h1 class="product_title">키크론 C1 PRO 텐키리스 QMK VIA 커스텀(상품명)</h1>
+
+        <p>상품설명 내용</p>
+
+        <p>249,000원</p>
+
+        <h3>상품 특징</h3>
+        <p>기계식</p>
+        <p>무소음</p>
+        <p>커스템 유선 특징</p>
+
+        <div class="product_btns">
+          <button>구매하기</button>
+          <button>장바구니</button>
+        </div>
+      </div>
+
+
+
+
+
+    </section>
+
+    <!-- 제품 상세 정보(상품 설명 상세정보 이미지 & 제품 사양 이미지 들어갈곳입니다.) -->
+    <section class="product_detail_info">
+
+    </section>
+
+  </section>
+
+
+  <div id="footer"></div>
+
+    <script src="../common/common.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../product/productDetail.js"></script>
+</body>
+</html>

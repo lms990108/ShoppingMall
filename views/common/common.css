@@ -15,7 +15,7 @@ body {
 
 
 
-/* 공통 테마컬러 */
+/* 공통 테마컬러 (네이비,옐로우 컬러) - Bulma 스타일 우선순위를 위해 적용 */
 html .button {
   border: none;
 }
@@ -26,13 +26,13 @@ html .is-primary2 {
   color: #f5d44d;
 }
 html .bg-primary {
-  color:#fff;
   background: #1c3761;
+  color: #fff;
 }
 html .bg-primary2 {
-  background: #f5d44d;
+  background:#f5d44d;
 }
 
 html .bg-primary:hover {
-  color:#fff;
+  color: #fff;
 }
