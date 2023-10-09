@@ -1,5 +1,7 @@
 // 모든 페이지에서 공통으로 사용되는 요소들을 정의하기 위한 파일입니다.
 
+import { getCategoryMap } from "../utils/catergoryHandler.js";
+
 /* head 태그 */
 /* favicon 적용, bulma 사용 */
 const headTag = document.querySelector("head");
@@ -60,38 +62,16 @@ header.insertAdjacentHTML(
 
 /* GET category List */
 
-const getAllCategories = async () => {
-  try {
-    const response = await fetch("http://localhost:5001/api/category");
-    const category = await response.json();
-    return category;
-  } catch (error) {
-    console.error("Error:", error);
-    return [];
-  }
-};
-
 /* Category nav 띄우기 위한 HTML 생성 */
 const generateCategoryHtml = (category) => {
   let categoryHtml = "";
-  let higher_category = []; // 상위카테고리
-  let lower_category = []; // 하위카테고리
-
-  /* 상위/하위 카테고리를 구분하는 요소는 parent의 유무임 */
-  category.forEach((item) => {
-    item.parent === null
-      ? higher_category.push(item)
-      : lower_category.push(item);
-  });
-
-  higher_category.forEach((higherItem) => {
+  console.log(category);
+  category.forEach(({ higher_category, lower_category }) => {
     categoryHtml += `<div class="navbar-item is-hoverable has-dropdown">
-   <a class="navbar-link is-arrowless" href="/product/?higherCategory=${higherItem.name}">${higherItem.name}</a>
+   <a class="navbar-link is-arrowless" href="/product/?higherCategory=${higher_category.name}">${higher_category.name}</a>
   <div class="navbar-dropdown">`;
     lower_category.forEach((lowerItem) => {
-      if (higherItem._id === lowerItem.parent) {
-        categoryHtml += `<a class="navbar-item" href="/product/?lowerCategory=${lowerItem.name}">${lowerItem.name}</a>`;
-      }
+      categoryHtml += `<a class="navbar-item" href="/product/?lowerCategory=${lowerItem.name}">${lowerItem.name}</a>`;
     });
     categoryHtml += `</div>
     </div>`;
@@ -101,7 +81,7 @@ const generateCategoryHtml = (category) => {
 
 /* category nav HTML 화면에 보이기 */
 const loadCategory = async () => {
-  const categoryData = await getAllCategories();
+  const categoryData = await getCategoryMap();
   const categoryDiv = document.querySelector(".navbar-start");
   categoryDiv.insertAdjacentHTML(
     "beforeend",
@@ -133,6 +113,5 @@ melgeek (멜긱)<br>
 
 </div>
   <div class="footer_third"><img src="/common/logo2.png"></div>
-  
 </div>`,
 );
