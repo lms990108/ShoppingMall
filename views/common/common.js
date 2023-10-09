@@ -23,7 +23,7 @@ header.insertAdjacentHTML(
   "beforeend",
   /*html*/
   ` <div>
-    <section class="header_top">[OPEN EVENT] 전품목 무료배송 이벤트 <a href="/products">상품 구경하기</a></section>
+    <section class="header_top">[OPEN EVENT] 전품목 무료배송 이벤트 <a href="/product/?higherCategory=키보드">상품 구경하기</a></section>
     <section class="header_bottom">
         <a class="header_logo" href="/">
             <img src="/common/logo.png">
@@ -65,13 +65,12 @@ header.insertAdjacentHTML(
 /* Category nav 띄우기 위한 HTML 생성 */
 const generateCategoryHtml = (category) => {
   let categoryHtml = "";
-  console.log(category);
   category.forEach(({ higher_category, lower_category }) => {
     categoryHtml += `<div class="navbar-item is-hoverable has-dropdown">
-   <a class="navbar-link is-arrowless" href="/product/?higherCategory=${higher_category.name}">${higher_category.name}</a>
+   <a class="navbar-link is-arrowless" href="/products?higherCategory=${higher_category.name}">${higher_category.name}</a>
   <div class="navbar-dropdown">`;
     lower_category.forEach((lowerItem) => {
-      categoryHtml += `<a class="navbar-item" href="/product/?lowerCategory=${lowerItem.name}">${lowerItem.name}</a>`;
+      categoryHtml += `<a class="navbar-item" href="/products?higherCategory=${higher_category.name}&lowerCategory=${lowerItem.name}">${lowerItem.name}</a>`;
     });
     categoryHtml += `</div>
     </div>`;
