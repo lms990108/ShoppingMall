@@ -33,22 +33,21 @@ class JoinService {
       email,
       password: hashedPassword,
       name,
-      // 만약 level이 1이라면 'admin', 그렇지 않다면 'customer'를 사용자의 레벨로 설정
-      level: level === 1 ? "admin" : "customer",
+      level,
     });
 
     return user;
   }
 
-  // 이메일 형식 검증
+  // 이메일 형식
   validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
 
-  // 비밀번호 형식 검증
+  // 비밀번호 형식 검증 (8자리 이상)
   validatePassword(password) {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+    const passwordRegex = /^(?=.*[0-9]).{8,}$/;
     return passwordRegex.test(password);
   }
 }
