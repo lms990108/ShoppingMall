@@ -49,6 +49,9 @@ router.get(
 
     if (!search_product) {
       return res.status(404).send("Product not found");
+      // const error = new Error("product not found");
+      // error.errorcode = 404;
+      // throw error;
     }
 
     return res.status(200).json(search_product);
