@@ -1,42 +1,36 @@
-// 로그인 실패 -> 알림창, 성공 -> 마이 페이지 연결
-document.getElementById('login-button').addEventListener('submit', function(event) {
-  event.preventDefault();  // Prevents form from submitting in traditional way
+// 버튼 클릭 시 로그인
+    const loginButton = document.getElementById("login-btn");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
 
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
+    loginButton.addEventListener("click", async (e) => {
+        e.preventDefault();
 
-  // Dummy check: you'd replace this with an actual server request
-  if(username === 'user@maiil.com' && password === 'pass') {
-      // Successful login, redirecting to another page
-      window.location.href = './my page.html'; 
-  } else {
-      // Failed login, show alert
-      alert('Login failed!');
-  }
-});
+        const email = emailInput.value;
+        const password = passwordInput.value;
 
-//
-// Toggle edit mode for profile fields
-document.getElementById('editButton').addEventListener('click', function() {
-  let fields = ['emailField', 'nameField', 'addressField', 'phoneField'];
-  let isEditable = fields.some(id => !document.getElementById(id).hasAttribute('readonly'));
+        try {
+            const response = await fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-  fields.forEach(id => {
-      let field = document.getElementById(id);
-      if (isEditable) {
-          field.setAttribute('readonly', true);
-          field.classList.add('is-static');
-      } else {
-          field.removeAttribute('readonly');
-          field.classList.remove('is-static');
-      }
-  });
+            const data = await response.json();
 
-  if (isEditable) {
-      // Handle saving logic here (e.g., sending data to the backend)
-      alert('회원정보가 변경되었습니다!');
-  }
-
-  // Toggle button text between "Edit" and "Save"
-  this.textContent = isEditable ? 'Edit' : 'Save';
-});
+            if (data.status === "성공") {
+                localStorage.setItem("token", data.token);
+                // 로그인 성공 시 "my page"로 리다이렉트
+                window.location.href = "./mypage.html";
+            } else {
+                // 로그인 실패 시 에러 메시지 표시
+                alert(data.error);
+                window.location.href = "./login.html";
+            }
+        } catch (error) {
+            
+            alert(error);
+        }
+    });

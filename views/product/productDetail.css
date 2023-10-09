@@ -44,7 +44,13 @@
   padding: 5px;
   box-sizing: border-box;
   background-color: #E0E0E0;
-  
+  /* 여백 버그를 위해 추가 */
+  font-size: 0; 
+}
+
+/* 여백이 잡히는 브라우저 버그를 잡기 위해 추가 */
+.thumnails ul li a {
+  display: block;
 }
 .thumnails ul li a img {
   width: 100px;
@@ -142,11 +148,14 @@
 
 .product_detail_info {
   border-top: 3px solid #E0E0E0;
-  text-align: center;
+  margin-bottom: 50px;
+  
 }
-
-.detail_info_content {
-
+.product_detail_info h1 {
+  margin: 30px 0 50px 0;
+}
+.product_detail_info p {
+  text-align: center;
 }
 
 

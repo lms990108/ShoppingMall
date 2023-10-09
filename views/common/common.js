@@ -71,6 +71,7 @@ const getAllCategories = async () => {
   }
 };
 
+
 /* Category nav 띄우기 위한 HTML 생성 */
 const generateCategoryHtml = (category) => {
   let categoryHtml = "";
@@ -138,11 +139,3 @@ melgeek (멜긱)<br>
 );
 
 
-//fetch API 함수(공통)
-function fetching (uri, options) {
-  fetch("http://localhost:5001" + uri, options)
-    .then((res) => {
-      return res.json()
-    })
-    .catch((error) => console.log("error:", error));
-}

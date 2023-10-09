@@ -56,6 +56,9 @@
   width: 150px;
   position: relative;
 }
+.sub_category a.button.bg-primary {
+  color:#fff;
+}
 
 .sub_category .button:after {
   content: '';
@@ -78,10 +81,10 @@
 
 /* 상품 리스트 아이템 영역 */
 
-.products_container {
+/*.products_container {
   
 }
-
+*/
 .products_container .items {
   display: flex;
   flex-wrap: wrap;
