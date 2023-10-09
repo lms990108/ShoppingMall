@@ -2,6 +2,7 @@ const { Router } = require("express");
 const asyncHandler = require("../utils/async-handler");
 const productModel = require("../models/productModel");
 const productService = require("../services/productService");
+const Category = require("../models/categoryModel");
 
 const productServiceInstance = new productService(productModel);
 
@@ -120,24 +121,28 @@ router.get(
     const filter = {};
 
     if (req.query.higherCategory) {
+      // console.log("상위 카테고리 = " + req.query.higherCategory);
+
       const higherCategory = await Category.findOne({
         name: req.query.higherCategory,
       });
       if (higherCategory) {
         filter.higher_category = higherCategory._id;
+        console.log("상위 카테고리 id = " + filter.higher_category);
       } else {
         return res
           .status(400)
           .json({ error: "유효하지 않은 상위 카테고리입니다" });
       }
-    }
+    } else if (req.query.lowerCategory) {
+      // console.log("하위 카테고리 = " + req.query.lowercategory);
 
-    if (req.query.lowerCategory) {
       const lowerCategory = await Category.findOne({
         name: req.query.lowerCategory,
       });
       if (lowerCategory) {
         filter.lower_category = lowerCategory._id;
+        console.log("하위 카테고리 id = " + filter.lower_category);
       } else {
         return res
           .status(400)
