@@ -1,22 +1,14 @@
-const { Router } = require("express");
-const asyncHandler = require("../utils/async-handler");
-const productModel = require("../models/productModel");
-const productService = require("../services/productService");
-
-const productServiceInstance = new productService(productModel);
-
-const router = Router();
-
+// 기존 메시지들을 한국어로 변경해 봤습니다.
 // 상품 추가 Post 요청
 router.post(
   "/add_product",
   asyncHandler(async (req, res) => {
     const new_product = req.body;
 
-    if (!new_product) {
-      return res
-        .status(400)
-        .json({ error: "new_order is required in the body" });
+    if (!new_product || Object.keys(new_product).length === 0) {
+      const error = new Error("상품 데이터가 요청 본문에 필요합니다");
+      error.statusCode = 400;
+      throw error;
     }
 
     const createdProduct = await productServiceInstance.addProduct(new_product);
@@ -24,34 +16,32 @@ router.post(
     console.log("상품 추가");
     return res
       .status(201)
-      .json({ message: "Product added successfully", order: createdProduct });
+      .json({
+        message: "상품이 성공적으로 추가되었습니다",
+        order: createdProduct,
+      });
   }),
 );
 
 // 상품 조회 Get 요청
-// 번호 조회 예시 : http://127.0.0.1:3000/product/product_detail/1
-// 이름 조회 예시 : http://127.0.0.1:3000/product/product_detail/productname
 router.get(
   "/product_detail/:searchParams",
   asyncHandler(async (req, res) => {
     let search_product;
     if (!isNaN(req.params.searchParams)) {
-      // searchParams가 숫자라면
       search_product = await productServiceInstance.getProductByNumber(
         req.params.searchParams,
       );
     } else {
-      // searchParams가 문자열이라면
       search_product = await productServiceInstance.getProductByName(
         req.params.searchParams,
       );
     }
 
     if (!search_product) {
-      return res.status(404).send("Product not found");
-      // const error = new Error("product not found");
-      // error.errorcode = 404;
-      // throw error;
+      const error = new Error("상품을 찾을 수 없습니다");
+      error.statusCode = 404;
+      throw error;
     }
 
     return res.status(200).json(search_product);
@@ -59,25 +49,32 @@ router.get(
 );
 
 // 상품 수정 Patch 요청
-// 예시: http://127.0.0.1:3000/product/product_detail/1
 router.patch(
   "/product_detail/:productNumber",
   asyncHandler(async (req, res) => {
     const { productNumber } = req.params;
 
     if (!productNumber) {
-      res.status(400).send("Product number is required");
-      return;
+      const error = new Error("상품 번호가 필요합니다");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+      const error = new Error("업데이트할 상품 데이터가 필요합니다");
+      error.statusCode = 400;
+      throw error;
     }
 
     const updatedProduct = await productServiceInstance.updateProduct(
       productNumber,
-      req.body, // req.body에는 수정할 상품의 정보가 들어있어야 합니다.
+      req.body,
     );
 
     if (!updatedProduct) {
-      res.status(404).send("Product not found");
-      return;
+      const error = new Error("상품을 찾을 수 없거나 업데이트되지 않았습니다");
+      error.statusCode = 404;
+      throw error;
     }
 
     return res.status(200).json(updatedProduct);
@@ -85,7 +82,6 @@ router.patch(
 );
 
 // 상품 삭제
-// 1번 상품 삭제 예시 : http://127.0.0.1:3000/product/delete_product/1
 router.delete(
   "/delete_product/:product_number",
   asyncHandler(async (req, res) => {
@@ -93,7 +89,7 @@ router.delete(
     const deletedProduct =
       await productServiceInstance.deleteProduct(product_number);
     if (!deletedProduct) {
-      res.status(404).send("Product not found");
+      res.status(404).send("상품을 찾을 수 없습니다");
       return;
     }
 
@@ -102,12 +98,12 @@ router.delete(
 );
 
 // 페이징
-/* 예시
-기본 리스트 : http://127.0.0.1:3000/product/
-2페이지 상품 : http://127.0.0.1:3000/product/?page=2
-상위 카테고리 : http://127.0.0.1:3000/product/?higherCategory=clothing
-하위 카테고리 3페이지 : http://127.0.0.1:3000/product/?lowerCategory=jeans&page=3
-*/
+/** 예시
+ * 기본 리스트 : http://127.0.0.1:3000/product/
+ * 2페이지 상품 : http://127.0.0.1:3000/product/?page=2
+ * 상위 카테고리 : http://127.0.0.1:3000/product/?higherCategory=clothing
+ * 하위 카테고리 3페이지 : http://127.0.0.1:3000/product/?lowerCategory=jeans&page=3
+ */
 router.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -117,7 +113,6 @@ router.get(
 
     const filter = {};
 
-    // 상위 카테고리와 하위 카테고리로 필터링하기 전에 이름을 ObjectId로 변경
     if (req.query.higherCategory) {
       const higherCategory = await Category.findOne({
         name: req.query.higherCategory,
@@ -125,7 +120,9 @@ router.get(
       if (higherCategory) {
         filter.higher_category = higherCategory._id;
       } else {
-        return res.status(400).json({ error: "Invalid higherCategory" });
+        return res
+          .status(400)
+          .json({ error: "유효하지 않은 상위 카테고리입니다" });
       }
     }
 
@@ -136,7 +133,9 @@ router.get(
       if (lowerCategory) {
         filter.lower_category = lowerCategory._id;
       } else {
-        return res.status(400).json({ error: "Invalid lowerCategory" });
+        return res
+          .status(400)
+          .json({ error: "유효하지 않은 하위 카테고리입니다" });
       }
     }
 
@@ -149,38 +148,3 @@ router.get(
     return res.status(200).json(products);
   }),
 );
-
-module.exports = router;
-
-// 삭제한 로직
-
-/*
-// 카테고리별 상품 조회 Get 요청
-// http://127.0.0.1:3000/product/category?higherCategory=clothing
-// http://127.0.0.1:3000/product/category?lowerCategory=jeans
-router.get(
-  "/category",
-  asyncHandler(async (req, res) => {
-    let products;
-
-    // 상위 카테고리로 상품 전체 조회
-    if (req.query.higherCategory) {
-      products = await productServiceInstance.getProductsByHigherCategory(
-        req.query.higherCategory,
-      );
-    }
-    // 하위 카테고리로 상품 전체 조회
-    else if (req.query.lowerCategory) {
-      products = await productServiceInstance.getProductsByLowerCategory(
-        req.query.lowerCategory,
-      );
-    } else {
-      // 기본 로직 또는 에러 처리
-      res.status(400).send("Invalid query parameters");
-      return;
-    }
-
-    return res.status(200).json(products);
-  }),
-);
-*/
