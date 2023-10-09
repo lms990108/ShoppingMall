@@ -11,6 +11,10 @@ const categoryRouter = require("./routes/categoryRouter");
 const authApiRouter = require("./routes/authApiRouter");
 const userApiRouter = require("./routes/userApiRouter");
 
+// 리팩터링 테스트용
+const joinRouterTest = require("./routes/ver2_joinRouter");
+const userRouterTest = require("./routes/ver2_userRouter");
+
 dotenv.config();
 
 const PORT = process.env.PORT || 5001;
@@ -40,6 +44,10 @@ app.use("/api/auth", authApiRouter); // 회원가입 라우터
 app.use("/api/order", orderRouter); // 주문 라우터
 app.use("/api/product", productRouter); // 상품 라우터
 app.use("/api/category", categoryRouter); // 카테고리 라우터
+
+// 리팩터링 테스트용
+app.use("/api/jointest", joinRouterTest);
+app.use("/api/usertest", userRouterTest);
 
 // Error handlers
 app.use((req, res) => {
