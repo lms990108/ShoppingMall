@@ -78,10 +78,10 @@
 
 /* 상품 리스트 아이템 영역 */
 
-.products_container {
+/*.products_container {
   
 }
-
+*/
 .products_container .items {
   display: flex;
   flex-wrap: wrap;
