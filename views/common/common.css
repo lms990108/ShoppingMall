@@ -124,27 +124,41 @@ body {
 }
 
 .footer_third img {
-  width: 120px;
+  width: 10px;
 }
 
 /* 공통 테마컬러 (네이비,옐로우 컬러) - Bulma 스타일 우선순위를 위해 적용 */
 html .button {
   border: none;
 }
+
 html .is-primary {
-  color: #1c3761;
+  color: var(--navy-color);
 }
+
 html .is-primary2 {
-  color: #f5d44d;
+  color: var(--yellow-color);
 }
+
 html .bg-primary {
-  background: #1c3761;
+  background: var(--navy-color);
   color: #fff;
 }
+
 html .bg-primary2 {
-  background: #f5d44d;
+  background: var(--yellow-color);
 }
 
 html .bg-primary:hover {
   color: #fff;
+}
+
+html h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+html h2 {
+  font-size: 18px;
+  font-weight: bold;
 }
