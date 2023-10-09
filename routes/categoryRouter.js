@@ -5,7 +5,7 @@ const categoryService = require("../services/categoryService");
 const categoryModel = require("../models/categoryModel");
 const categoryServiceInstance = new categoryService(categoryModel);
 
-// 상위 주소는 /order
+// 상위 주소는 /api/order
 const router = Router();
 
 // CREATE: 카테고리 추가
@@ -13,6 +13,13 @@ router.post(
   "/add_category",
   asyncHandler(async (req, res) => {
     const category = await categoryServiceInstance.createCategory(req.body);
+
+    if (!category) {
+      const error = new Error("카테고리를 생성할 수 없습니다");
+      error.statusCode = 400;
+      throw error;
+    }
+
     res.status(201).json(category);
   }),
 );
@@ -24,6 +31,13 @@ router.get(
     const category = await categoryServiceInstance.getCategoryByName(
       req.params.categoryName,
     );
+
+    if (!category) {
+      const error = new Error("해당하는 카테고리가 없습니다.");
+      error.statusCode = 400;
+      throw error;
+    }
+
     res.status(200).json(category);
   }),
 );
@@ -41,11 +55,18 @@ router.get(
 router.put(
   "/:categoryName",
   asyncHandler(async (req, res) => {
-    const updatedCategories = await categoryServiceInstance.updateCategory(
+    const updatedCategory = await categoryServiceInstance.updateCategory(
       req.params.categoryName,
       req.body,
     );
-    res.status(200).json(updatedCategories);
+
+    if (!updatedCategory) {
+      const error = new Error("카테고리를 업데이트할 수 없습니다");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    res.status(200).json(updatedCategory);
   }),
 );
 
@@ -53,10 +74,17 @@ router.put(
 router.delete(
   "/:categoryName",
   asyncHandler(async (req, res) => {
-    const updatedCategories = await categoryServiceInstance.deleteCategory(
+    const deletedCategory = await categoryServiceInstance.deleteCategory(
       req.params.categoryName,
     );
-    res.status(200).json(updatedCategories);
+
+    if (!deletedCategory) {
+      const error = new Error("카테고리를 삭제할 수 없습니다");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    res.status(200).json(deletedCategory);
   }),
 );
 
