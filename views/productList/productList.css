@@ -50,6 +50,7 @@
 /* 하위 카테고리 Tab버튼 영역 */
 .sub_category .tabs {
   padding-bottom: 10px;
+  justify-content: space-around;
 }
 
 .sub_category .button {

@@ -27,10 +27,10 @@ async function getCategoryCode() {
   
   // 전체 카테고리 조회
   const allCategory = await getAllCategories();
-  console.log(allCategory)
+  // console.log(allCategory)
 
   if (!mainCategory) {
-    const higher = allCategory.filter((item) => !item.parent); // 상위 카테고리
+    const higher = allCategory.filter((item) => !item.parent); // 상위 카테고리 (parent는 기본적으로 null 인 상태)
 
     if (higher.length > 0) { // 상위 카테고리가 항상 있을때 동작
       if (subCategory) { // 서브 카테고리가 있으면
@@ -66,7 +66,7 @@ document.querySelector(".main_title").innerText = mainCategory
 
 // 하위 카테고리 찾는 메서드(탭 버튼)
 const tabs = findSubCategory();
-makeTabButtons(tabs); // 버튼 동적 생성 메서드 호출
+makeTabButtons(tabs); // 탭 버튼 동적 생성 메서드 호출
 
 async function findSubCategory() {
   const allCategory = await getAllCategories();
@@ -74,6 +74,8 @@ async function findSubCategory() {
   const lower = allCategory.filter((item) => item.parent && higherId._id === item.parent);
   return lower;
 }
+
+// 탭 버튼(하위카테고리) 동적 생성 메서드
 async function makeTabButtons(tabs) {
   const tabbtns = document.querySelector(".tabs");
   const list = await tabs
