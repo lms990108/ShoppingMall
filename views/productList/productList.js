@@ -42,8 +42,8 @@ function getProductsList(param) {
   const data = [
     {
       product_number: 1,
-      product_name: '키크론 키보드1',
-      main_img_url: 'https://shop-phinf.pstatic.net/20230821_63/16926169896767Chxc_PNG/24681734468048794_765040701.png?type=m510',
+      product_name: '멜긱 키보드1',
+      main_img_url: 'https://www.melgeek.com/cdn/shop/products/MelGeekMojo68PlasticSee-throughMechanicalKeyboard2.jpg?v=1681976059&width=800',
       des_img_url: '이미지 설명',
       content: 'ㄴㅇㄹㄴㅇㄹ',
       price: 200000,
@@ -153,27 +153,6 @@ function makeProductList(data) {
     list.appendChild(li);
   })
   
- 
-  
-
-
-  // const li = document.createElement('li');
-  //   const a = document.createElement("a");
-
-  //   a.href = "/product?productNumber=" + data[i].product_number;
-  //   const img = document.createElement('img');
-  //   img.src = data[i].main_img_url;
-  //   const title =  document.createElement('p');
-  //   const price = document.createElement('p');
-    
-  //   title.innerText = data[i].product_name;
-  //   price.innerText = priceFormat(data[i].price) + '원';
-    
-  //   li.appendChild(a);
-  //   a.appendChild(img);
-  //   a.appendChild(title);
-  //   a.appendChild(price);
-  //   list.appendChild(li);
 }
 
 // 가격 콤마 표시 함수 (3자리 단위로)

@@ -9,7 +9,6 @@ const categoryServiceInstance = new categoryService(categoryModel);
 const router = Router();
 
 // CREATE: 카테고리 추가
-// http://kdt-sw-6-team05.elicecoding.com/category/add_category
 router.post(
   "/add_category",
   asyncHandler(async (req, res) => {
@@ -19,7 +18,6 @@ router.post(
 );
 
 // READ: 특정 카테고리 조회 (이름 기준)
-// http://kdt-sw-6-team05.elicecoding.com/category/:categoryName
 router.get(
   "/:categoryName",
   asyncHandler(async (req, res) => {
@@ -31,7 +29,6 @@ router.get(
 );
 
 // READ: 모든 카테고리 조회
-// http://kdt-sw-6-team05.elicecoding.com/category
 router.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -41,7 +38,6 @@ router.get(
 );
 
 // UPDATE: 카테고리 업데이트 (이름 기준)
-// http://kdt-sw-6-team05.elicecoding.com/category/:categoryName
 router.put(
   "/:categoryName",
   asyncHandler(async (req, res) => {
@@ -54,7 +50,6 @@ router.put(
 );
 
 // DELETE: 카테고리 삭제 (이름 기준)
-// http://kdt-sw-6-team05.elicecoding.com/category/:categoryName
 router.delete(
   "/:categoryName",
   asyncHandler(async (req, res) => {

@@ -1,19 +1,131 @@
 /* 공통으로 사용되는 css 파일입니다. */
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: "Pretendard-Regular";
+}
+
+:root {
+  --navy-color: #00235b;
+  --yellow-color: #ffc436;
+}
+
 body {
   width: 100%;
   max-width: 1920px;
 }
 
+/* header */
+
 #header {
-  background-color: lightgray;
-  
+  background-color: white;
+  box-shadow: 5px 5px 10px 0px lightgray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 1;
 }
+
+.header_top {
+  background-color: var(--navy-color);
+  color: var(--yellow-color);
+  text-align: center;
+}
+
+.header_top a {
+  color: lightgray;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: small;
+}
+
+.header_bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header_bottom img {
+  width: 120px;
+}
+
+.navbar {
+  display: flex;
+  font-size: large;
+}
+
+.navbar-item,
+.navbar-link {
+  font-weight: bold;
+  color: var(--navy-color) !important;
+}
+
+.navbar-item:hover,
+.navbar-link:hover {
+  background-color: var(--yellow-color) !important;
+  color: var(--navy-color) !important;
+}
+
+.header_bottom svg {
+  width: 25px;
+  margin: 0 5px;
+}
+
+.header_bottom_right {
+  display: flex;
+}
+
+.search {
+  display: flex;
+  border-bottom: 1px solid gray;
+  margin: 0 5px;
+}
+
+.search .button {
+  width: auto;
+  background-color: transparent !important;
+}
+
+.search input {
+  border: none;
+  outline: none;
+}
+/* footer */
 
 #footer {
   background-color: lightgray;
+  color: var(--navy-color);
+  padding: 20px;
 }
 
+#footer > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
 
+#footer > div > div {
+  padding: 5px;
+  margin: 0 10px;
+  text-align: left;
+  font-size: small;
+}
+
+.footer_first {
+  font-size: 32px;
+}
+
+.footer_third img {
+  width: 120px;
+}
 
 /* 공통 테마컬러 (네이비,옐로우 컬러) - Bulma 스타일 우선순위를 위해 적용 */
 html .button {
@@ -30,9 +142,17 @@ html .bg-primary {
   color: #fff;
 }
 html .bg-primary2 {
-  background:#f5d44d;
+  background: #f5d44d;
 }
 
 html .bg-primary:hover {
   color: #fff;
+}
+html h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+html h3 {
+  font-size: 18px;
+  font-weight: bold;
 }
