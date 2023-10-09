@@ -60,19 +60,6 @@ header.insertAdjacentHTML(
 </div>`,
 );
 
-/* GET category List */
-
-const getAllCategories = async () => {
-  try {
-    const response = await fetch("http://localhost:5001/api/category/");
-    const category = await response.json();
-    return category;
-  } catch (error) {
-    console.error("Error:", error);
-    return [];
-  }
-};
-
 
 /* Category nav 띄우기 위한 HTML 생성 */
 const generateCategoryHtml = (category) => {

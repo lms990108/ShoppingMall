@@ -9,6 +9,19 @@ if (!mainCategory || !subCategory) {
  
 }
 
+/* GET category List */
+
+const getAllCategories = async () => {
+  try {
+    const response = await fetch("http://localhost:5001/api/category/");
+    const category = await response.json();
+    return category;
+  } catch (error) {
+    console.error("Error:", error);
+    return [];
+  }
+};
+
 // 상위, 하위 카테고리 완성 -> 페이지 이동 메서드
 async function getCategoryCode() {
   
