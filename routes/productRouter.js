@@ -1,4 +1,12 @@
-// 기존 메시지들을 한국어로 변경해 봤습니다.
+const { Router } = require("express");
+const asyncHandler = require("../utils/async-handler");
+const productModel = require("../models/productModel");
+const productService = require("../services/productService");
+
+const productServiceInstance = new productService(productModel);
+
+const router = Router();
+
 // 상품 추가 Post 요청
 router.post(
   "/add_product",
@@ -14,12 +22,10 @@ router.post(
     const createdProduct = await productServiceInstance.addProduct(new_product);
 
     console.log("상품 추가");
-    return res
-      .status(201)
-      .json({
-        message: "상품이 성공적으로 추가되었습니다",
-        order: createdProduct,
-      });
+    return res.status(201).json({
+      message: "상품이 성공적으로 추가되었습니다",
+      order: createdProduct,
+    });
   }),
 );
 
