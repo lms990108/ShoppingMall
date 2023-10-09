@@ -35,14 +35,11 @@ app.use(express.static("views")); // 정적 파일 미들웨어
 
 // Routers
 app.use("/", viewRouter);
-app.use("/health", (req, res) => {
-  res.end("Server is on");
-});
-app.use("/user", userApiRouter); // 유저 라우터
-app.use("/auth", authApiRouter); // 회원가입 라우터
-app.use("/order", orderRouter); // 주문 라우터
-app.use("/product", productRouter); // 상품 라우터
-app.use("/category", categoryRouter); // 카테고리 라우터
+app.use("/api/user", userApiRouter); // 유저 라우터
+app.use("/api/auth", authApiRouter); // 회원가입 라우터
+app.use("/api/order", orderRouter); // 주문 라우터
+app.use("/api/product", productRouter); // 상품 라우터
+app.use("/api/category", categoryRouter); // 카테고리 라우터
 
 // Error handlers
 app.use((req, res) => {

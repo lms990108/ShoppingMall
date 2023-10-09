@@ -62,7 +62,7 @@ header.insertAdjacentHTML(
 
 const getAllCategories = async () => {
   try {
-    const response = await fetch("http://localhost:5001/category");
+    const response = await fetch("http://localhost:5001/api/category");
     const category = await response.json();
     return category;
   } catch (error) {
