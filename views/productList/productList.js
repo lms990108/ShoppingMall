@@ -18,7 +18,7 @@ getCategoryCode();
 // api 동작이 정상화 되면 이후 진행예정..
 function getCategoryCode(type) {
 
-  fetching("/category/")
+  fetching("/category/") // 여기로 접속 확인한거? 이미 호출중이라서 봤는데 데이터가 없어 아..오케
 
 }
 
@@ -37,6 +37,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 // 상품 목록 호출 메소드
 function getProductsList(param) {
+  fetching("/product/?page=1")
   // 더미 데이터(테스트용)
   const data = [
     {
@@ -136,7 +137,7 @@ function makeProductList(data) {
     const li = document.createElement('li');
     const a = document.createElement("a");
 
-    a.href = "/product?productNumber=" + item.product_number;
+    a.href = "/product_detail?productNumber=" + item.product_number;
     const img = document.createElement('img');
     img.src = item.main_img_url;
     const title =  document.createElement('p');
