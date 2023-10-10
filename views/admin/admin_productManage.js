@@ -168,14 +168,17 @@ const loadProducts = async (page) => {
 const setProductModal = async (method, target = null) => {
   let api_url = `${url}`;
   let method_korean = "";
+  console.log(method);
   switch (method) {
     case "POST": {
       api_url = `${url}/add_product`;
       method_korean = "추가";
+      break;
     }
     case "PATCH": {
       api_url = `${url}/product_detail/${parseInt(target.product_number)}`;
       method_korean = "수정";
+      break;
     }
   }
 
@@ -183,7 +186,7 @@ const setProductModal = async (method, target = null) => {
   const submitBtn = document.querySelector(".submit-btn");
 
   title.innerHTML = `상품 ${method_korean}`;
-  submitBtn.innerHTML = method_korean;
+  submitBtn.value = method_korean;
 
   const category = await getCategoryMap();
 
@@ -195,7 +198,7 @@ const setProductModal = async (method, target = null) => {
         <label class="label" >상품명</label>
         <input class="input" type="text" name="product_name" value="${
           target ? target.product_name : ""
-        }" />
+        }" placeholder="상품의 이름을 입력해 주세요." />
       </div>
             <div class="field category-field">
         <label class="label">카테고리</label>
@@ -219,21 +222,21 @@ const setProductModal = async (method, target = null) => {
           </div>
         </div>
       <div class="field">
-        <label class="label" >메인이미지 주소</label>
+        <label class="label" >메인 이미지 주소</label>
         <input class="input" type="text" name="main_img_url" value="${
           target ? target.main_img_url : ""
-        }" />
+        }"  placeholder="메인 이미지 주소를 입력해 주세요."/>
       </div>
       <div class="field">
-        <label class="label">추가이미지 주소</label>
+        <label class="label">추가 이미지 주소</label>
         <input class="input" type="text" name="des_img_url" value="${
           target ? target.des_img_url : ""
-        }" />
+        }" placeholder="상세 이미지 주소를 입력해 주세요."/>
       </div>
       <div class="field">
-        <label class="label">설명</label> <textarea class="textarea" name="content">${
+        <label class="label">설명</label> <textarea class="textarea" name="content" placeholder="상품을 잘 표현할 수 있는 설명을 입력해 주세요.">${
           target ? target.content : ""
-        }</textarea>
+        } </textarea>
       </div>
       <div class="field">
         <label class="label">가격</label> <input class="input" type="number" name="price" value="${

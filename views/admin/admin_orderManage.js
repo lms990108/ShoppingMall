@@ -1,12 +1,7 @@
 const order_manage_section = document.querySelector("#order_manage");
 order_manage_section.insertAdjacentHTML(
   "beforeend",
-  `        <div class="btn_container">
-          <button class="add_product_btn button is-primary is-light is-small">
-            주문추가
-          </button>
-        </div>
-        <table class="table">
+  `        <table class="table">
           <thead>
             <tr>
               <th title="num">주문번호</th>
