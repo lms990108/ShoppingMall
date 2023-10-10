@@ -8,8 +8,9 @@
   display: flex;
 }
 
-section {
+.paymentPage section {
   padding: 0 20px;
+  margin-bottom: 10px;
 }
 
 h3 {
@@ -18,4 +19,15 @@ h3 {
   font-weight: bold !important;
   width: 100%;
   border-bottom: solid var(--yellow-color) 2px;
+  margin-bottom: 10px;
+}
+
+.product {
+  border-bottom: dashed lightgray 1px;
+  padding: 10px;
+  align-items: center;
+}
+
+.product_img {
+  height: 100px;
 }
