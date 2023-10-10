@@ -1,13 +1,11 @@
 import { getCategoryMap } from "../utils/catergoryHandler.js";
 
+/* 카테고리 관리 section */
 const category_manage_section = document.querySelector("#category_manage");
+
 category_manage_section.insertAdjacentHTML(
   "beforeend",
-  `        <div class="btn_container">
-          <button class="add_product_btn button is-primary is-light is-small">
-            카테고리추가
-          </button>
-        </div>
+  `
         <table class="table">
           <tbody></tbody>
         </table>`,
