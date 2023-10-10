@@ -9,6 +9,8 @@ const checkUserOrAdmin = async (req, res, next) => {
 
     // authenticate 미들웨어에서 설정된 userId
     const { userId } = req;
+    const user = await User.findById(userId);
+    req.user = user;
 
     // 요청된 userId와 토큰의 userId가 동일한 경우 통과
     if (requestedUserId === userId) {
@@ -16,8 +18,7 @@ const checkUserOrAdmin = async (req, res, next) => {
     }
 
     // 아니면, 사용자를 찾아 관리자인지 확인
-    const user = await User.findById(userId);
-    if (user && user.level === "admin") {
+    if (user && user.level === 1) {
       return next();
     }
 
