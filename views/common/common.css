@@ -60,6 +60,7 @@ body {
 .navbar {
   display: flex;
   font-size: large;
+  background-color: transparent !important;
 }
 
 .navbar-item,
