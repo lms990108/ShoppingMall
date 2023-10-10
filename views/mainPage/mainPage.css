@@ -6,15 +6,15 @@
   font-style: normal;
 }
 
-svg {
+#mainPage svg {
   width: 50px;
 }
 
-h2 {
+#mainPage h2 {
   text-align: center;
 }
 
-div {
+#mainPage div {
   text-align: center;
 }
 
@@ -22,10 +22,10 @@ div {
   font-family: "D2Coding";
   text-align: center;
   margin: 0;
-  padding-top: 100px;
+  padding-top: 90px;
 }
 
-img {
+#mainPage img {
   object-fit: cover;
   margin: 10px 0;
   width: 100%;
