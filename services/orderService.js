@@ -33,7 +33,9 @@ class orderService {
 
   // orderNumber 주문 상세 조회 (ex. 9월 4일 주문내역 누르면)
   async getFindOrderByOrderNumber(orderNumber) {
-    const getOrder = await this.orderModel.findOne({ orderNum: orderNumber });
+    const getOrder = await this.orderModel.findOne({
+      order_number: orderNumber,
+    });
 
     if (!getOrder) {
       throw new Error("주문 내역 없음");
