@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const updateOrderStatus = require("./utils/auto-update-stauts");
 
 const { viewRouter } = require("./routes/viewRouter");
 const orderRouter = require("./routes/orderRouter");
@@ -30,6 +31,9 @@ mongoose
   .catch((err) => console.error("DB connection fail", err));
 
 const app = express();
+
+// status 상태 자동 업데이트
+updateOrderStatus();
 
 // Middlewares
 app.use(cors());

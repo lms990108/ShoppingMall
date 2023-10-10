@@ -8,7 +8,6 @@ const orderServiceInstance = new orderService(orderModel);
 const router = Router();
 
 // 주문 목록 조회
-// 주문 목록 조회
 router.get(
   "/user/:userId/orders",
   asyncHandler(async (req, res) => {
