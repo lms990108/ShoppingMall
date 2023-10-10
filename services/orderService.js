@@ -57,11 +57,10 @@ class orderService {
     return updateOrder;
   }
 
-  // 주문 취소
   async cancelOrder(orderNumber) {
     // 상태값 확인 -> 배송중/배송전/도착
-    // if 배송전 -> 취소 <<<<<
-    // else :  배송이 이미 시작했다는 Error
+    // if 배송전 -> 취소
+    // else : 배송이 이미 시작했다는 Error
     const targetOrder = await this.orderModel.findOne({
       orderNum: orderNumber,
     });
@@ -70,7 +69,13 @@ class orderService {
       throw new Error("주문 내역 없음");
     }
 
-    await this.orderModel.deleteOne({ orderNum: orderNumber });
+    // 상태값이 0이라면 (배송 전이라면) 취소가 가능.
+    if (targetOrder.status === 0) {
+      // 상태를 '취소 됨'으로 변경
+      await this.orderModel.updateOne({ orderNum: orderNumber }, { status: 3 });
+    } else {
+      throw new Error("배송이 이미 시작되었습니다. 주문을 취소할 수 없습니다.");
+    }
 
     return targetOrder;
   }
