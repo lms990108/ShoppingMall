@@ -21,6 +21,11 @@ viewRouter.get("/product", async (req, res) => {
   res.sendFile(path.join(resourcePath, "/product/productDetail.html"));
 });
 
+// 결제페이지 연결
+viewRouter.get("/payment", async (req, res) => {
+  res.sendFile(path.join(resourcePath, "/paymentPage/paymentPage.html"));
+});
+
 // 로그인페이지 연결
 viewRouter.get("/login", async (req, res) => {
   res.sendFile(path.join(resourcePath, "/login/login.html"));

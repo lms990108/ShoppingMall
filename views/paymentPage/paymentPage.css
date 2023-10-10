@@ -1,0 +1,21 @@
+.title {
+  padding-top: 120px;
+  text-align: center;
+  color: var(--navy-color) !important;
+}
+
+.paymentPage_left {
+  display: flex;
+}
+
+section {
+  padding: 0 20px;
+}
+
+h3 {
+  color: var(--navy-color) !important;
+  font-size: 22px !important;
+  font-weight: bold !important;
+  width: 100%;
+  border-bottom: solid var(--yellow-color) 2px;
+}
