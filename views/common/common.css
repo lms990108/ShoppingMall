@@ -81,6 +81,7 @@ body {
 
 .header_bottom_right {
   display: flex;
+  padding-right: 2%;
 }
 
 .search {
