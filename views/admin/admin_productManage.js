@@ -2,19 +2,19 @@ import {
   getCategoryMap,
   getCategoryNameFromCategoryId,
 } from "../utils/catergoryHandler.js";
+import { toggleModal } from "./admin.js";
+
+const url = "http://localhost:5001/api/product"; // api 요청 endpoint
+let currentPage = 1; // 현재 페이지
 
 /* 상품 관리 section */
 const product_manage_section = document.querySelector("#product_manage");
 
 /* 상품 관리 table head 불러오기 */
-product_manage_section.insertAdjacentHTML(
-  "beforeend",
-  /*html*/ `
-        <div class="btn_container">
-          <button class="add_product_btn button is-primary is-light is-small">
-            상품추가
-          </button>
-        </div>
+const loadProductTable = () => {
+  product_manage_section.insertAdjacentHTML(
+    "beforeend",
+    /*html*/ `
         <table class="table">
           <thead>
             <tr>
@@ -33,28 +33,53 @@ product_manage_section.insertAdjacentHTML(
           </thead>
           <tbody></tbody>
         </table>
-        <div class="modal product_modal">
-          <div class="modal-background"></div>
-          <div class="modal-card">
-            <header class="modal-card-head">
-              <h2 class="modal-card-title">상품 추가</h2>
-              <button class="delete close" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
+        <nav class="pagination is-centered m-2" role="navigation" aria-label="pagination">
+  <ul class="pagination-list">
 
-            </section>
-            <footer class="modal-card-foot is-justify-content-center">
-              <input class="button is-success submit-btn" type="submit" value="추가">
-              <button class="button cancel">취소</button>
-            </footer>
-          </div>
-        </div>`,
-);
+  </ul>
+</nav> `,
+  );
+  /* 페이지네이션 */
+  const pagination = document.querySelector(".pagination-list");
 
-/* 전체 product 불러오기 */
-const getAllProducts = async () => {
+  const updatePagination = (newPage) => {
+    document.querySelectorAll(".pagination-link").forEach((pageLink, index) => {
+      if (index + 1 === newPage) {
+        pageLink.classList.add("is-current");
+      } else {
+        pageLink.classList.remove("is-current");
+      }
+    });
+  };
+
+  for (let i = 1; i <= 5; i++) {
+    const pageItem = document.createElement("li");
+    const pageLink = document.createElement("a");
+
+    pageLink.className = "pagination-link";
+
+    pageLink.textContent = i;
+
+    if (i === currentPage) {
+      pageLink.classList.add("is-current");
+    }
+
+    pageLink.addEventListener("click", () => {
+      currentPage = i;
+      loadProducts(i);
+      updatePagination(i); // 페이지네이션 업데이트
+    });
+
+    pageItem.appendChild(pageLink);
+    pagination.appendChild(pageItem);
+  }
+  loadProducts(currentPage);
+};
+
+/* 전체 product 불러오기 , pagination 미구현 */
+const getAllProducts = async (page) => {
   try {
-    const response = await fetch("http://localhost:5001/api/product", {
+    const response = await fetch(`${url}/?page=${page}`, {
       method: "GET",
     });
     const products = await response.json();
@@ -67,46 +92,99 @@ const getAllProducts = async () => {
 
 /* 상품관리 테이블 불러오기 */
 
-const productsTable = document.querySelector("#product_manage tbody");
-const loadProducts = async () => {
-  const products = await getAllProducts();
-  let target = null;
-  products.forEach(async (product) => {
+const loadProducts = async (page) => {
+  const productsTable = document.querySelector("#product_manage tbody");
+  const products = await getAllProducts(page);
+  productsTable.innerHTML = "";
+
+  for (const product of products) {
+    const higher_category = await getCategoryNameFromCategoryId(
+      product.higher_category,
+    );
+    const lower_category = await getCategoryNameFromCategoryId(
+      product.lower_category,
+    );
     productsTable.insertAdjacentHTML(
       "beforeend",
       `<tr>
       <td>${product.product_number}</td>
       <td>${product.product_name}</td>
-      <td>${product.main_img_url}</td>
-      <td>${product.des_img_url}</td>
+      <td><img src="${product.main_img_url}"></td>
+      <td><img src="${product.des_img_url}"></td>
       <td>${product.content}</td>
       <td>${product.price}</td>
-      <td>${product.higher_category}</td>
-      <td>${product.lower_category}</td>
-      <td>${new Date(product.indate).toLocaleString()}</td>
+      <td>${higher_category}</td>
+      <td>${lower_category}</td>
+      <td>${new Date(product.inDate).toLocaleString()}</td>
       <td>${product.cnt}</td>
       <td>      <button class="button patch_product_btn is-warning is-light is-small">수정</button>
-      <button class="button is-danger is-light is-small">삭제</button></td>
-
+      <button class="button delete_product_btn is-danger is-light is-small">삭제</button></td>
       </tr>`,
     );
-  });
+  }
+
   /* 수정 버튼 클릭 시 현재 상품의 정보를 같이 넘겨주어 모달 창에서 수정 가능하도록 함 */
   document.querySelectorAll(".patch_product_btn").forEach((btn, index) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+      const target = products[index];
+      e.preventDefault();
       toggleModal();
-      setProductModal("PATCH", products[index]);
+      setProductModal("PATCH", target);
+    });
+  });
+
+  /* 삭제 버튼 클릭 시  confirn창 띄우고 상품 삭제 */
+  document.querySelectorAll(".delete_product_btn").forEach((btn, index) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = products[index];
+      if (confirm(`${target.product_name}을 삭제하시겠습니까?`)) {
+        fetch(`${url}/delete_product/${parseInt(target.product_number)}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(target),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((data) => Promise.reject(data));
+            }
+            return response.json();
+          })
+          .then((data) => {
+            alert(`상품이 삭제되었습니다.`);
+            location.reload();
+          })
+          .catch((error) => {
+            alert(`상품 삭제에 실패했습니다. \n ${error.message}`);
+          });
+      }
     });
   });
 };
 
 /* 상품추가 or 상품수정에 따라 modal 구분하여 보여줌 */
 const setProductModal = async (method, target = null) => {
+  let api_url = `${url}`;
+  let method_korean = "";
+  switch (method) {
+    case "POST": {
+      api_url = `${url}/add_product`;
+      method_korean = "추가";
+    }
+    case "PATCH": {
+      api_url = `${url}/product_detail/${parseInt(target.product_number)}`;
+      method_korean = "수정";
+    }
+  }
+
   const title = document.querySelector(".modal-card-title");
-  title.innerHTML = method === "ADD" ? "상품 추가" : "상품 수정";
   const submitBtn = document.querySelector(".submit-btn");
-  submitBtn.innerHTML = method === "ADD" ? "추가" : "수정";
-  const modal_card_body = document.querySelector(".modal-card-body");
+
+  title.innerHTML = `상품 ${method_korean}`;
+  submitBtn.innerHTML = method_korean;
+
   const category = await getCategoryMap();
 
   let modalHtml = "";
@@ -128,7 +206,12 @@ const setProductModal = async (method, target = null) => {
   /* 카테고리 선택 option 추가하기 */
   category.forEach(({ higher_category, lower_category }) => {
     lower_category.forEach((lowerItem) => {
-      modalHtml += `<option value="${lowerItem.name}">${higher_category.name} - ${lowerItem.name}</option>`;
+      if (target && target.lower_category === lowerItem._id) {
+        // 상품 수정시, 해당 상품에 해당하는 카테고리가 기본 선택
+        modalHtml += `<option selected value="${lowerItem.name}">${higher_category.name} - ${lowerItem.name}</option>`;
+      } else {
+        modalHtml += `<option value="${lowerItem.name}">${higher_category.name} - ${lowerItem.name}</option>`;
+      }
     });
   });
 
@@ -160,6 +243,7 @@ const setProductModal = async (method, target = null) => {
       </div>
     </form>`;
 
+  const modal_card_body = document.querySelector(".modal-card-body");
   modal_card_body.innerHTML = modalHtml;
 
   const productForm = document.querySelector("#productForm");
@@ -179,16 +263,13 @@ const setProductModal = async (method, target = null) => {
       lower_category.forEach((lowerItem) => {
         if (lowerItem.name === productData.lower_category) {
           productData["higher_category"] = higher_category.name;
-          console.log(higher_category.name);
           return higher_category.name;
         } else return null;
       });
     });
 
-    productData["indate"] = method === "ADD" ? Date.now() : target.indate; // 상품 추가일때만
-    console.log(productData);
-    fetch("/api/add_product", {
-      method: "POST",
+    fetch(api_url, {
+      method: method,
       headers: {
         "Content-Type": "application/json",
       },
@@ -201,29 +282,17 @@ const setProductModal = async (method, target = null) => {
         return response.json();
       })
       .then((data) => {
-        console.log("Product added successfully:", data);
+        alert(`상품이 ${method_korean}되었습니다.`);
+        toggleModal();
+        location.reload();
       })
       .catch((error) => {
-        console.error("Error adding product:", error);
+        alert(`상품 ${method_korean}에 실패했습니다. \n ${error.message}`);
+        console.error(error);
       });
   });
 };
 
-loadProducts();
+loadProductTable();
 
-const modal = document.querySelector(".modal");
-const add_product_btn = document.querySelector(".add_product_btn");
-const close_btn = document.querySelector(".close");
-const cancel_btn = document.querySelector(".cancel");
-
-const toggleModal = () => {
-  modal.classList.toggle("is-active");
-};
-
-add_product_btn.addEventListener("click", () => {
-  toggleModal();
-  setProductModal("ADD");
-});
-
-close_btn.addEventListener("click", toggleModal);
-cancel_btn.addEventListener("click", toggleModal);
+export { setProductModal };
