@@ -43,6 +43,10 @@ td {
   font-size: small;
 }
 
+td img {
+  max-height: 150px;
+}
+
 table {
   width: 100%;
 }
