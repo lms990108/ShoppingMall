@@ -1,80 +1,68 @@
-const User = require('../models/userModel');
-const bcrypt = require('bcryptjs');
-const saltRounds = 10;
-const userService = require('../services/userService');
-// const responseModel = 이 부분 더 고려해서 작성 예정(넣을까 고려중)
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const userModel = require("../models/userModel");
+const dotenv = require("dotenv");
 
-// 회원가입 페이지 설정
-userService.createUser = async(req, res) => {
-try {
-    console.log(req.body); // 배포 전 삭제
+dotenv.config();
 
-    const  { email, password, name, level } = req.body;
-    const user = await User.findOne({ email });// 이미 회원 가입된 사람이 있을 때, 회원가입을 막는 부분
-    if(user) {
-        throw new Error("이미 존재하는 회원입니다");
-    };
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+const SALT_ROUNDS = 10;
 
-    const salt = await bcrypt.genSalt(saltRounds); // 패스워드 암호화
-    const hashedPassword = await bcrypt.hash(password, salt); // 해시를 만들어 준다 
-    const newUser = new User(
-        { 
-        email,
-        password:hashedPassword,
-        name, 
-        level: level === 1 ? 'admin' : 'customer',
+class UserService {
+  constructor(userModel) {
+    this.userModel = userModel;
+  }
+
+  async loginUser(email, password) {
+    const user = await this.userModel.findOne({ email });
+    if (!user) {
+      throw new Error("가입되지 않은 사용자입니다.");
     }
-    ); // 새로운 유저 생성
-    
-    await newUser.save();
-    return res.status(200).json({ status: '성공' });
-    // redirect로 짜면?? - 고려 후, 수정 예정
-} catch(error) {
-    res.status(400).json({ status: '실패', error: error.message })
-}};
 
-// 로그인 - 이메일로 로그인 하는 패턴 설정
-// 그냥 유저가 적은 비밀번호와 관리자가 가지고 있는 해시화된 비밀번호를 구별하는 방법으로 compareSync를 사용
-// 유저가 쓴 비번과 관리자가 가지고 있는 비번이 맞으면 토큰 발행
-
-userService.loginAsEmail = async(req, res) => {
-    try {
-        console.log(req.body); // 배포 전 삭제
-
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
-        
-        if(!user){
-            throw new Error("가입되지 않은 회원입니다");
-        }
-
-            const isMatched = await bcrypt.compare(password, user.password);
-            if(!isMatched){ 
-                throw new Error("아이디 혹은 비밀번호가 일치하지 않습니다");
-        }
-                const token = await user.generateToken(); // 토큰만드는 부분 User.js 추가
-                res.status(200).json({ status: '성공', data: {user, token} }); 
-                
-                user = user.toObject();
-                delete user.password; // 비밀번호 프로퍼티 객체
-            } catch(error) {
-        res.status(400).json({ status: '실패', error });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      throw new Error("잘못된 아이디 혹은 패스워드입니다.");
     }
-};
 
-// 유저의 아이디를 이용하여 해당 이용자를 찾는 부분
-userService.getUser = async(req, res) => {
-    try{
-        console.log(req.body); // 배포 전 삭제
-        
-        const {userId} = req;
-        const user = await User.findById(userId);
+    const token = user.generateToken();
 
-        if(!user) throw new Error('토큰값이 유효하지 않습니다');
-        res.status(200).json({ status: '성공', user });
-        } catch(error) {
-        res.status(400).json({ status: "실패", error:error.message });
+    return { user, token };
+  }
+
+  async getUserById(userId) {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
     }
-};
+    return user;
+  }
 
-module.exports = userService;
+  async getUsersWithPaging(filter = {}, page = 1, limit = 10) {
+    const users = await this.userModel
+      .find(filter)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .exec();
+    return users;
+  }
+
+  async updateUser(userId, updates) {
+    const user = await this.userModel.findByIdAndUpdate(userId, updates, {
+      new: true,
+    });
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
+  }
+
+  async deleteUser(userId) {
+    const user = await this.userModel.findByIdAndDelete(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
+  }
+}
+
+module.exports = UserService;

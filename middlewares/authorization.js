@@ -5,7 +5,7 @@ const checkUserOrAdmin = async (req, res, next) => {
   try {
     // 요청으로부터 userId를 얻는 방법은 요청의 형태에 따라 다를 수 있습니다.
     // 예를 들어, /users/:userId 형태의 경로에서는 req.params.userId로 얻을 수 있습니다.
-    const requestedUserId = req.params.userId || req.body.userId;
+    const requestedUserId = req.params.userId || req.body.userId || req.userId;
 
     // authenticate 미들웨어에서 설정된 userId
     const { userId } = req;

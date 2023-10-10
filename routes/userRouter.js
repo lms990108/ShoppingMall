@@ -1,5 +1,5 @@
 const express = require("express");
-const UserService = require("../services/ver2_userService");
+const UserService = require("../services/userService");
 const userModel = require("../models/userModel");
 
 const { authenticate } = require("../middlewares/authentication");
@@ -15,7 +15,7 @@ userRouter.get(
   authenticate,
   checkUserOrAdmin,
   asyncHandler(async (req, res) => {
-    const user = await userServiceInstance.getUserById(req.params.userId);
+    const user = await userServiceInstance.getUserById(req.userId);
     res.status(200).json(user);
   }),
 );
@@ -46,21 +46,21 @@ userRouter.delete(
   }),
 );
 
-// 전체 조회
-// userRouter.get(
-//   "/list",
-//   authenticate,
-//   checkUserOrAdmin,
-//   asyncHandler(async (req, res) => {
-//     const { page = 1, limit = 10 } = req.query;
-//     const users = await userServiceInstance.getUsersWithPaging(
-//       {},
-//       parseInt(page),
-//       parseInt(limit),
-//     );
-//     res.status(200).json(users);
-//   }),
-// );
+전체 조회
+userRouter.get(
+  "/list",
+  authenticate,
+  checkUserOrAdmin,
+  asyncHandler(async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
+    const users = await userServiceInstance.getUsersWithPaging(
+      {},
+      parseInt(page),
+      parseInt(limit),
+    );
+    res.status(200).json(users);
+  }),
+);
 */
 
 // 로그인
