@@ -50,17 +50,16 @@ async function getCategoryCode() {
     const lower = allCategory.filter((item) => item.parent && higherId._id === item.parent);
     
     if (lower.length > 0) { // 하위 카테고리가 있을때
-      subCategory = lower[0].name // ex) 기계식키보드
+      subCategory = lower[0].name // 기계식키보드
     }
 
   }
-  window.location.replace("/products?higherCategory=" + mainCategory + "&lowerCategory=" + subCategory)
+  location.replace("/products?higherCategory=" + mainCategory + "&lowerCategory=" + subCategory)
 
 }
 
 // 카테고리 제목 (메인 카테고리 타이틀)
 document.querySelector(".main_title").innerText = mainCategory
-
 
 
 
@@ -83,20 +82,18 @@ async function makeTabButtons(tabs) {
   list.forEach((tab) => {
     const subbtn = document.createElement("a")
     subbtn.classList.add('button')
+
     if (subCategory === tab.name) subbtn.classList.add('bg-primary');
     else subbtn.classList.add('bg-primary2');
+
     subbtn.href = "/products?higherCategory=" + mainCategory + "&lowerCategory=" + tab.name
     subbtn.innerText = tab.name
     tabbtns.appendChild(subbtn)
   })
 }
 
-// 상품목록
-  const list = getProductsList();
 
-  // 상품 목록 엘리멘트 생성 메서드
-  makeProductList(list);
-
+getProductsList();
 
 
 // 상품 목록 호출 메소드
@@ -107,113 +104,29 @@ async function getProductsList() {
   // 페이지에 맞는 페이지 값
   if (URLMatch.get("page")) page = Number(URLMatch.get("page"))
   
-
+  // Response data
   const res = await fetch("/api/product/?lowerCategory=" + subCategory + "&page=" + page)
-  const data2 = await res.json();
-  console.log(data2);
 
-  // 더미 데이터(테스트용)
-  const data = [
-    {
-      product_number: 1,
-      product_name: '멜긱 키보드1',
-      main_img_url: 'https://www.melgeek.com/cdn/shop/products/MelGeekMojo68PlasticSee-throughMechanicalKeyboard2.jpg?v=1681976059&width=800',
-      des_img_url: '이미지 설명',
-      content: 'ㄴㅇㄹㄴㅇㄹ',
-      price: 200000,
-      higher_category: '키보드',
-      lower_category: '기계식 키보드',
-    },
-    {
-      product_number: 2,
-      product_name: '키크론 키보드2',
-      main_img_url: 'https://shop-phinf.pstatic.net/20230821_63/16926169896767Chxc_PNG/24681734468048794_765040701.png?type=m510',
-      des_img_url: '이미지 설명',
-      content: 'ㄴㅇㄹㄴㅇㄹ',
-      price: 200000,
-      higher_category: '키보드',
-      lower_category: '기계식 키보드',
-    },
-    {
-      product_number: 3,
-      product_name: '키크론 키보드3',
-      main_img_url: 'https://shop-phinf.pstatic.net/20230821_63/16926169896767Chxc_PNG/24681734468048794_765040701.png?type=m510',
-      des_img_url: '이미지 설명',
-      content: 'ㄴㅇㄹㄴㅇㄹ',
-      price: 200000,
-      higher_category: '키크론 키보드',
-      lower_category: '기계식 키보드',
-    },
-    {
-      product_number: 4,
-      product_name: '키크론 키보드4',
-      main_img_url: 'https://shop-phinf.pstatic.net/20230821_63/16926169896767Chxc_PNG/24681734468048794_765040701.png?type=m510',
-      des_img_url: '이미지 설명',
-      content: 'ㄴㅇㄹㄴㅇㄹ',
-      price: 200000,
-      higher_category: '키크론 키보드',
-      lower_category: '기계식 키보드',
-    },
-    {
-      product_number: 5,
-      product_name: '키크론 키보드5',
-      main_img_url: 'https://shop-phinf.pstatic.net/20230821_63/16926169896767Chxc_PNG/24681734468048794_765040701.png?type=m510',
-      des_img_url: '이미지 설명',
-      content: 'ㄴㅇㄹㄴㅇㄹ',
-      price: 200000,
-      higher_category: '키보드',
-      lower_category: '기계식 키보드',
-    },
-    {
-      product_number: 6,
-      product_name: '키크론 키보드6',
-      main_img_url: 'https://shop-phinf.pstatic.net/20230821_63/16926169896767Chxc_PNG/24681734468048794_765040701.png?type=m510',
-      des_img_url: '이미지 설명',
-      content: 'ㄴㅇㄹㄴㅇㄹ',
-      price: 200000,
-      higher_category: '키보드',
-      lower_category: '기계식 키보드',
-    },
-    {
-      product_number: 7,
-      product_name: '키크론 키보드7',
-      main_img_url: 'https://shop-phinf.pstatic.net/20230821_63/16926169896767Chxc_PNG/24681734468048794_765040701.png?type=m510',
-      des_img_url: '이미지 설명',
-      content: 'ㄴㅇㄹㄴㅇㄹ',
-      price: 200000,
-      higher_category: '키보드',
-      lower_category: '기계식 키보드',
-    },
-    {
-      product_number: 8,
-      product_name: '키크론 키보드8',
-      main_img_url: 'https://shop-phinf.pstatic.net/20230821_63/16926169896767Chxc_PNG/24681734468048794_765040701.png?type=m510',
-      des_img_url: '이미지 설명',
-      content: 'ㄴㅇㄹㄴㅇㄹ',
-      price: 200000,
-      higher_category: '키보드',
-      lower_category: '기계식 키보드',
-    }
-  ];
-
-  return data;
+  const listdata = await res.json();
+  // console.log(listdata);
+  
+  makeProductList(listdata);
 
 }
 
 
+// 상품 목록 엘리먼트 생성 메서드
+function makeProductList(listdata) {
+  const list = document.querySelector('.products_container .items');
 
-// 상품목록 엘리먼트 생성
-function makeProductList(data) {
-  const list = document.querySelector('.items');
-
-  data.forEach((item) => {
-
+  listdata.forEach((item) => {
     const li = document.createElement('li');
     const a = document.createElement("a");
 
     a.href = "/product_detail?productNumber=" + item.product_number;
     const img = document.createElement('img');
     img.src = item.main_img_url;
+    
     const title =  document.createElement('p');
     const price = document.createElement('p');
     

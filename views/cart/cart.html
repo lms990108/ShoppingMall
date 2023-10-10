@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../cart/cart.css" type="text/css"/>
+    <link rel="stylesheet" href="../common/common.css" type="text/css" />
+  <title>장바구니 페이지</title>
+</head>
+<body>
+  <header id="header"></header>
+
+  <section class="cartpage">
+    <p class="title">
+      <h1>CART</h1>
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+            <th><input type="checkbox" class="item_checkbox"></th>
+            <th>상품 이미지</th>
+            <th>상품명</th>
+            <th>판매가</th>
+            <th>수량</th>
+            <th></th>
+            <th>선택</th>
+        </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+          <td><input type="checkbox" class="item_checkbox"></td>
+          <td><img src="" alt="상품 이미지"/></td>
+          <td>키크론 K10 PRO 화이트 저소음 키보드</td>
+          <td>130,000원</td>
+          <td>
+              <button class="quantity_minusbtn">-</button>
+              <input type="number" class="quantity" value="1">
+              <button class="quantity_plusbtn">+</button>
+          </td>
+          <td></td>
+          <td><button class="delete_btn">삭제</button></td>
+      </tr>
+
+      <tr>
+        <td><input type="checkbox" class="item_checkbox"></td>
+        <td><img src="" alt="상품 이미지"/></td>
+        <td>MelGeek Mojo68 플라스틱 키보드</td>
+        <td>235,000원</td>
+        <td>
+            <button class="quantity_minusbtn">-</button>
+            <input type="number" class="quantity" value="1">
+            <button class="quantity_plusbtn">+</button>
+        </td>
+        <td></td>
+        <td><button class="delete_btn">삭제</button></td>
+    </tr>
+      
+  </tbody>
+
+    </table>
+
+    </div>
+  </section>
+
+
+
+
+
+
+
+  <footer id="footer"></footer>
+
+  <script src="../common/common.js" type="module"></script>
+  <script src="../cart/cart.js"></script>
+  
+</body>
+</html>
