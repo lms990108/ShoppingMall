@@ -2,7 +2,7 @@ const { Router } = require("express");
 const asyncHandler = require("../utils/async-handler");
 const orderModel = require("../models/orderModel");
 const orderService = require("../services/orderService");
-const { authenticate } = require("./authenticate");
+const { authenticate } = require("../middlewares/authentication");
 
 const orderServiceInstance = new orderService(orderModel);
 
