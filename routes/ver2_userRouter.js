@@ -11,7 +11,7 @@ const userServiceInstance = new UserService(userModel);
 
 // 조회
 userRouter.get(
-  "/:userId",
+  "/",
   authenticate,
   checkUserOrAdmin,
   asyncHandler(async (req, res) => {
@@ -20,9 +20,10 @@ userRouter.get(
   }),
 );
 
+/*
 // 수정
 userRouter.put(
-  "/:userId",
+  "/",
   authenticate,
   checkUserOrAdmin,
   asyncHandler(async (req, res) => {
@@ -36,7 +37,7 @@ userRouter.put(
 
 // 삭제
 userRouter.delete(
-  "/:userId",
+  "/",
   authenticate,
   checkUserOrAdmin,
   asyncHandler(async (req, res) => {
@@ -46,19 +47,21 @@ userRouter.delete(
 );
 
 // 전체 조회
-userRouter.get(
-  "/",
-  authenticate,
-  asyncHandler(async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
-    const users = await userServiceInstance.getUsersWithPaging(
-      {},
-      parseInt(page),
-      parseInt(limit),
-    );
-    res.status(200).json(users);
-  }),
-);
+// userRouter.get(
+//   "/list",
+//   authenticate,
+//   checkUserOrAdmin,
+//   asyncHandler(async (req, res) => {
+//     const { page = 1, limit = 10 } = req.query;
+//     const users = await userServiceInstance.getUsersWithPaging(
+//       {},
+//       parseInt(page),
+//       parseInt(limit),
+//     );
+//     res.status(200).json(users);
+//   }),
+// );
+*/
 
 // 로그인
 userRouter.post(
