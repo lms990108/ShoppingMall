@@ -2,12 +2,12 @@ const { Router } = require("express");
 const asyncHandler = require("../utils/async-handler");
 const orderModel = require("../models/orderModel");
 const orderService = require("../services/orderService");
+const { authenticate } = require("../middlewares/authentication");
 
 const orderServiceInstance = new orderService(orderModel);
 
 const router = Router();
 
-// 주문 목록 조회
 // 주문 목록 조회
 router.get(
   "/user/:userId/orders",
@@ -51,18 +51,16 @@ router.get(
 // 주문 추가
 router.post(
   "/add_order",
+  authenticate,
   asyncHandler(async (req, res) => {
     const new_order = req.body;
+    const userId = req.userId; // 미들웨어에서 추가된 userId를 가져옵니다.
 
     if (!new_order || Object.keys(new_order).length === 0) {
-      const error = new Error("본문에 new_order가 필요합니다");
-      error.statusCode = 400;
-      throw error;
+      throw new Error("본문에 new_order가 필요합니다");
     }
 
-    const createdOrder = await orderServiceInstance.addOrder(new_order);
-
-    console.log("주문 추가");
+    const createdOrder = await orderServiceInstance.addOrder(new_order, userId);
     return res.status(201).json({
       message: "주문이 성공적으로 추가되었습니다",
       order: createdOrder,

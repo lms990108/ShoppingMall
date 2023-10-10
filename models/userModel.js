@@ -1,9 +1,9 @@
 //User.js
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 // 기본 유저 세팅은 디폴트로 해서, 기본 유저가 모두 customer이라고 가정함
@@ -20,35 +20,47 @@ const userSchema = Schema({
 );
 */
 
-const userSchema = new Schema({
-    email: { 
-        type: String, 
-        required: true, 
-        unique: true },
-    password: { 
-        type: String, 
-        required: true },
-    name: { 
-        type: String, 
-        required: true },
-    level: { 
-        type: Number, 
-        default: 0 } // 0: customer, 1: admin
-}, { timestamps: true }); // 데이터 언제 만들었는지 작성
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    level: {
+      type: Number,
+      default: 0,
+    }, // 0: customer, 1: admin
+  },
+  { timestamps: true },
+); // 데이터 언제 만들었는지 작성
 
 // 'role' - level의 상태 customer과 admin
-userSchema.virtual('role').get(function() {
-    switch (this.level) {
-        case 0: return 'customer';
-        case 1: return 'admin';
-        default: return 'unknown';
-    }
+userSchema.virtual("role").get(function () {
+  switch (this.level) {
+    case 0:
+      return "customer";
+    case 1:
+      return "admin";
+    default:
+      return "unknown";
+  }
 });
 
 // user 정보 한 번에 볼 수 있게 여기서 토큰 작성함
-userSchema.methods.generateToken = function() {
-    const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY, {expiresIn: "1d"});
-    return token;
+userSchema.methods.generateToken = function () {
+  const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY, {
+    expiresIn: "10d",
+  });
+  return token;
 };
 
 // 보여질 정보들 중에서 제외되어야 할 것에 대한 처리 (사용자가 보기에 불편한 정보 삭제)
@@ -61,5 +73,5 @@ userSchema.methods.generateToken = function() {
 //     return obj;
 // };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 module.exports = User;

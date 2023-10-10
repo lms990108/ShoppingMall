@@ -1,5 +1,5 @@
 const express = require("express");
-const UserService = require("../services/ver2_userService");
+const UserService = require("../services/userService");
 const userModel = require("../models/userModel");
 
 const { authenticate } = require("../middlewares/authentication");
@@ -11,18 +11,19 @@ const userServiceInstance = new UserService(userModel);
 
 // 조회
 userRouter.get(
-  "/:userId",
+  "/",
   authenticate,
   checkUserOrAdmin,
   asyncHandler(async (req, res) => {
-    const user = await userServiceInstance.getUserById(req.params.userId);
+    const user = await userServiceInstance.getUserById(req.userId);
     res.status(200).json(user);
   }),
 );
 
+/*
 // 수정
 userRouter.put(
-  "/:userId",
+  "/",
   authenticate,
   checkUserOrAdmin,
   asyncHandler(async (req, res) => {
@@ -36,7 +37,7 @@ userRouter.put(
 
 // 삭제
 userRouter.delete(
-  "/:userId",
+  "/",
   authenticate,
   checkUserOrAdmin,
   asyncHandler(async (req, res) => {
@@ -45,10 +46,11 @@ userRouter.delete(
   }),
 );
 
-// 전체 조회
+전체 조회
 userRouter.get(
-  "/",
+  "/list",
   authenticate,
+  checkUserOrAdmin,
   asyncHandler(async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
     const users = await userServiceInstance.getUsersWithPaging(
@@ -59,6 +61,7 @@ userRouter.get(
     res.status(200).json(users);
   }),
 );
+*/
 
 // 로그인
 userRouter.post(

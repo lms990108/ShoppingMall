@@ -6,8 +6,12 @@ class orderService {
   }
 
   // 주문 추가 (구매버튼 누르면)
-  async addOrder(newOrder) {
-    const createNewOrder = await this.orderModel.create(newOrder);
+  async addOrder(newOrder, userId) {
+    if (!userId) throw new Error("사용자 ID가 필요합니다");
+
+    // userId를 newOrder에 추가합니다.
+    const orderWithUser = { ...newOrder, userId };
+    const createNewOrder = await this.orderModel.create(orderWithUser);
     return createNewOrder;
   }
 
@@ -41,7 +45,7 @@ class orderService {
   // 주문 수정 (쓸 일이 있을까?)
   async updateOrder(orderNumber, newOrder) {
     const targetOrder = await this.orderModel.findOne({
-      orderNum: orderNumber,
+      order_number: orderNumber,
     });
 
     if (!targetOrder) {
@@ -50,27 +54,35 @@ class orderService {
 
     // 주문번호는 그대로 유지하고, 그 외 정보들만 newOrder 객체 정보로 수정
     const updateOrder = await this.orderModel.update({
-      orderNum,
+      order_number,
       update: newOrder,
     });
 
     return updateOrder;
   }
 
-  // 주문 취소
   async cancelOrder(orderNumber) {
     // 상태값 확인 -> 배송중/배송전/도착
-    // if 배송전 -> 취소 <<<<<
-    // else :  배송이 이미 시작했다는 Error
+    // if 배송전 -> 취소
+    // else : 배송이 이미 시작했다는 Error
     const targetOrder = await this.orderModel.findOne({
-      orderNum: orderNumber,
+      order_number: orderNumber,
     });
 
     if (!targetOrder) {
       throw new Error("주문 내역 없음");
     }
 
-    await this.orderModel.deleteOne({ orderNum: orderNumber });
+    // 상태값이 0이라면 (배송 전이라면) 취소가 가능.
+    if (targetOrder.status === 0) {
+      // 상태를 '취소 됨'으로 변경
+      await this.orderModel.updateOne(
+        { order_number: orderNumber },
+        { status: 3 },
+      );
+    } else {
+      throw new Error("배송이 이미 시작되었습니다. 주문을 취소할 수 없습니다.");
+    }
 
     return targetOrder;
   }

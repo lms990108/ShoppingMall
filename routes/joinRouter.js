@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const asyncHandler = require("../utils/async-handler");
-const JoinService = require("../services/ver2_joinService");
+const JoinService = require("../services/joinService");
 const User = require("../models/userModel");
 
 const joinService = new JoinService(User);
