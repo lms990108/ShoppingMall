@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 const orderSchema = new Schema(
   {
-    user_email: {
+    userId: {
       type: String,
     },
     status: {
