@@ -82,6 +82,8 @@ class orderService {
         { order_number: orderNumber },
         { status: 3 },
       );
+    } else if (targetOrder.status === 3) {
+      throw new Error("배송이 이미 취소되었습니다.");
     } else {
       throw new Error("배송이 이미 시작되었습니다. 주문을 취소할 수 없습니다.");
     }
