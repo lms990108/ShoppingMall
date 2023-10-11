@@ -1,22 +1,40 @@
+const url = "http://localhost:5001";
+
 const orderProduct_info = document.querySelector("#orderProduct_info");
 const orderer_info = document.querySelector("#orderer_info");
 const delivery_info = document.querySelector("#delivery_info");
 const order_summary = document.querySelector("#order_summary");
 const payment_method = document.querySelector("#payment_method");
+const payment_modal = document.querySelector("#payment_modal");
+const payment_button = document.querySelector(
+  "#payment_buttonContainer button",
+);
+const close_btn = document.querySelector(".close");
+const cancel_btn = document.querySelector(".cancel");
+const modal_content = document.querySelector(".modal-card-body table");
+
+/* 주문 정보 mockData */
+let order_info = {
+  userId: "",
+  items: null,
+  destination: "",
+  totalPrice: 0,
+};
 
 /* 단일 상품 정보 컴포넌트 */
 const orderProductHTML = (product) => {
   return /*html*/ `<div class="is-flex product">
-  <div class="is-flex-grow-1">  <img class="product_img" src="${
-    product.main_img_url
-  }"/></div>
-<div class="is-flex-grow-2">  <p class="label">${product.product_name}</p>
-  <p>개수 : <input type="number" class="input_qty mx-1" value=${
-    product.qty
-  }>개</p>
-  <p>총 금액 : ${(product.price * product.qty).toLocaleString()} 원</p></div>
-
-  </div>`;
+    <div class="is-flex-grow-1"> <img class="product_img" src="${
+      product.main_img_url
+    }" /></div>
+    <div class="is-flex-grow-2">
+        <p class="label">${product.product_name}</p>
+        <p>개수 : <input type="number" class="input_qty mx-1" value=${
+          product.qty
+        }>개</p>
+        <p>총 금액 : ${(product.price * product.qty).toLocaleString()} 원</p>
+    </div>
+</div>`;
 };
 
 /* 주문 상품 정보 불러오기 */
@@ -44,41 +62,18 @@ const loadOrdererInfo = (orderer) => {
 
 /* 배송정보 불러오기 */
 const loadDeliveryInfo = (orderer) => {
-  /* 기본값은 주문자(사용자)와 동일 */
-  delivery_info.insertAdjacentHTML(
-    "beforeend",
-    /*html*/ `
-  <div class="m-5 is-grid">
-  <label class="label has-text-weight-bold">수령인  </label><input value=${orderer.name} class="input-name">
-  <label class="label has-text-weight-bold">연락처   </label><input value=${orderer.contact} class="input-contact">
-  <label class="label has-text-weight-bold">우편번호  </label><input value=${orderer.email} class="input-email">
-  <label class="label has-text-weight-bold">주소  </label><input value=${orderer.address} class="input-address">
-  <label class="label has-text-weight-bold">상세 주소  </label><input value=${orderer.detail_address} class="input-detail_address">
-  <label class="label has-text-weight-bold">배송 메모  </label>
-  <select name="input-deliveryMemo" class="select">
-  <option>부재 시 경비실에 맡겨주세요.</option>
-  <option>집 앞에 놔주세요.</option>
-  <option>택배함에 놔주세요.</option>
-  <option>배송 전에 꼭 연락주세요.</option>
-  <option>직접입력</option>
-  </select>
-  <label></label>
-  <input class="direct_input is-hidden"  placeholder="배송 시 요청사항을 입력해주세요.">
-  </div>
-  `,
-  );
-
   /* 주문자 정보와 동일 체크박스 선택 시 주문자와 동일 , 해제 시 직접 입력 */
   const checkbox = document.querySelector("#delivery_info .checkbox");
-  checkbox.addEventListener("click", () => {
+
+  const loadInputInDeliverInfo = () => {
     document.querySelector(".input-name").value = checkbox.checked
       ? orderer.name
       : "";
     document.querySelector(".input-contact").value = checkbox.checked
       ? orderer.contact
       : "";
-    document.querySelector(".input-email").value = checkbox.checked
-      ? orderer.email
+    document.querySelector(".input-zip_code").value = checkbox.checked
+      ? orderer.zip_code
       : "";
     document.querySelector(".input-address").value = checkbox.checked
       ? orderer.address
@@ -86,7 +81,9 @@ const loadDeliveryInfo = (orderer) => {
     document.querySelector(".input-detail_address").value = checkbox.checked
       ? orderer.detail_address
       : "";
-  });
+  };
+  loadInputInDeliverInfo();
+  checkbox.addEventListener("click", loadInputInDeliverInfo);
 
   /* 배송 메모의 직접 입력 옵션 선택 시 직접 입력 칸 보이기 */
   const select = document.querySelector("select");
@@ -108,6 +105,8 @@ const loadOrderSumary = (order_products) => {
   });
 
   const total_price = product_price + delivery_price;
+  order_info.totalPrice = total_price;
+  console.log(order_info);
 
   order_summary.insertAdjacentHTML(
     "beforeend",
@@ -141,6 +140,7 @@ const loadPaymentMethod = () => {
 </div>
   `,
   );
+
   const method_buttons = document.querySelectorAll(".buttons .button");
   method_buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -150,6 +150,57 @@ const loadPaymentMethod = () => {
       button.classList.add("is-active");
     });
   });
+};
+
+/* 모달 관련 설정 */
+const toggleModal = () => {
+  payment_modal.classList.toggle("is-active");
+};
+
+payment_button.addEventListener("click", () => {
+  toggleModal();
+  loadToggle();
+});
+close_btn.addEventListener("click", toggleModal);
+cancel_btn.addEventListener("click", toggleModal);
+
+/* 모달 창 내용 불러오기 */
+const loadToggle = () => {
+  const orderer_name = orderer.name;
+
+  const products_name = order_products
+    .map(({ product_name }) => product_name)
+    .join(",<br>");
+
+  const destination = `(${document.querySelector(".input-zip_code").value}) ${
+    document.querySelector(".input-address").value
+  } ${document.querySelector(".input-detail_address").value}`;
+
+  modal_content.innerHTML = /*html*/ `
+  <table class="table is-bordered">
+      <tbody>
+          <tr>
+              <td><label class="has-text-weight-bold">주문자</label></td>
+              <td><span>${orderer_name}</span></td>
+          </tr>
+          <tr>
+              <td><label class="has-text-weight-bold">배송지</label></td>
+              <td><span>${destination}</span></td>
+          </tr>
+          <tr>
+              <td><label class=" has-text-weight-bold">상품</label>
+              </td>
+              <td><span>${products_name}</span></td>
+          </tr>
+          <tr>
+              <td><label class=" has-text-weight-bold">금액</label></td>
+              <td>
+                      <span>${order_info.totalPrice.toLocaleString()} 원</span>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  `;
 };
 
 /* 주문 상품 mockData */
@@ -185,11 +236,13 @@ const order_products = [
 
 /* 주문자 mockData */
 const orderer = {
+  userId: "6526a173167f8c9569575133",
   name: "홍길동",
   email: "hong123@gmail.com",
   contact: "010-1111-1111",
   address: "서울특별시 성동구",
   detail_address: "123-12",
+  zip_code: "10101",
 };
 
 const delivery = {

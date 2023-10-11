@@ -33,6 +33,31 @@
               정보와 동일</span
             >
           </h3>
+          <div class="m-5 is-grid">
+            <label class="label has-text-weight-bold">수령인 </label
+            ><input class="input-name" />
+            <label class="label has-text-weight-bold">연락처 </label
+            ><input class="input-contact" />
+            <label class="label has-text-weight-bold">우편번호 </label
+            ><input class="input-zip_code" />
+            <label class="label has-text-weight-bold">주소 </label
+            ><input class="input-address" />
+            <label class="label has-text-weight-bold">상세 주소 </label
+            ><input class="input-detail_address" />
+            <label class="label has-text-weight-bold">배송 메모 </label>
+            <select name="input-deliveryMemo" class="select">
+              <option>부재 시 경비실에 맡겨주세요.</option>
+              <option>집 앞에 놔주세요.</option>
+              <option>택배함에 놔주세요.</option>
+              <option>배송 전에 꼭 연락주세요.</option>
+              <option>직접입력</option>
+            </select>
+            <label></label>
+            <input
+              class="direct_input is-hidden"
+              placeholder="배송 시 요청사항을 입력해주세요."
+            />
+          </div>
         </section>
       </div>
       <div class="paymentPage_right column">
@@ -49,6 +74,25 @@
             <button class="button">결제</button>
           </div>
         </section>
+      </div>
+
+      <div id="payment_modal" class="modal product_modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <h2 class="modal-card-title is-centered">주문 정보 확인</h2>
+            <button class="delete close" aria-label="close"></button>
+          </header>
+          <div class="modal-card-body">
+            <table class="table is-bordered"></table>
+            <p>주문 정보 확인 후,</p>
+            <p>결제 버튼을 눌러 결제를 진행해주세요.</p>
+          </div>
+          <footer class="modal-card-foot is-justify-content-center">
+            <input class="button submit-btn" type="submit" value="결제" />
+            <button class="button cancel">취소</button>
+          </footer>
+        </div>
       </div>
     </div>
 

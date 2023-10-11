@@ -91,3 +91,33 @@ h3 {
   background-color: var(--navy-color);
   color: white;
 }
+
+.modal-card-body p {
+  text-align: center;
+  font-weight: bold;
+  color: var(--navy-color);
+  font-size: 18px;
+}
+
+.modal h2 {
+  text-align: center;
+}
+
+.modal footer .submit-btn {
+  background-color: var(--navy-color);
+  color: var(--yellow-color);
+}
+
+.modal .button {
+  font-weight: bold;
+  width: 100px !important;
+  margin: 0 10px;
+}
+
+table {
+  width: 100%;
+}
+
+table tr {
+  text-align: center;
+}
