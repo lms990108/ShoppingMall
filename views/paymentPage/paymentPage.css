@@ -22,6 +22,16 @@ h3 {
   margin-bottom: 10px;
 }
 
+#delivery_info h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+#delivery_info h3 span {
+  font-size: 15px;
+}
+
 .product {
   border-bottom: dashed lightgray 1px;
   padding: 10px;
@@ -30,4 +40,21 @@ h3 {
 
 .product_img {
   height: 100px;
+}
+
+.is-grid {
+  display: grid;
+  grid-template-columns: 100px 200px;
+  align-items: center;
+}
+
+.is-grid label {
+  text-align: center;
+}
+
+.is-grid input,
+.is-grid label,
+.is-gird span {
+  margin: 10px 0;
+  height: 30px;
 }

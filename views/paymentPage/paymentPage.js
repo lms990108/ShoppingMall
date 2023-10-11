@@ -28,13 +28,63 @@ const loadOrderProductInfo = (products) => {
 const loadOrdererInfo = (orderer) => {
   orderer_info.insertAdjacentHTML(
     "beforeend",
-    /*html*/ `<div class="m-5">
-  <label class="label has-text-weight-bold">이름 : <span>${orderer.name}</span></label>
-  <label class="label has-text-weight-bold">연락처 : <span>${orderer.contact}</span> </label>
-  <label class="label has-text-weight-bold">이메일 : <span>${orderer.email}</span></label>
+    /*html*/ `<div class="m-5 is-grid">
+  <label class="label has-text-weight-bold">이름 </label><span>${orderer.name}</span>
+  <label class="label has-text-weight-bold">연락처   </label><span>${orderer.contact}</span>
+  <label class="label has-text-weight-bold">이메일  </label><span>${orderer.email}</span>
   </div>
   `,
   );
+};
+
+const loadDeliveryInfo = (orderer) => {
+  delivery_info.insertAdjacentHTML(
+    "beforeend",
+    /*html*/ `
+  <div class="m-5 is-grid">
+  <label class="label has-text-weight-bold">수령인  </label><input value=${orderer.name} class="input-name">
+  <label class="label has-text-weight-bold">연락처   </label><input value=${orderer.contact} class="input-contact">
+  <label class="label has-text-weight-bold">우편번호  </label><input value=${orderer.email} class="input-email">
+  <label class="label has-text-weight-bold">주소  </label><input value=${orderer.address} class="input-address">
+  <label class="label has-text-weight-bold">상세주소  </label><input value=${orderer.detail_address} class="input-detail_address">
+  <label class="label has-text-weight-bold">배송메모  </label><select name="input-deliveryMemo" class="select">
+  <option>부재 시 경비실에 맡겨주세요.</option>
+  <option>집 앞에 놔주세요.</option>
+  <option>택배함에 놔주세요.</option>
+  <option>배송 전에 꼭 연락주세요.</option>
+  <option>직접입력</option>
+  </select>
+  <label></label><input class="direct_input is-hidden"  placeholder="배송 시 요청사항을 입력해주세요.">
+  </div>
+  `,
+  );
+
+  const checkbox = document.querySelector("#delivery_info .checkbox");
+  checkbox.addEventListener("click", () => {
+    document.querySelector(".input-name").value = checkbox.checked
+      ? orderer.name
+      : "";
+    document.querySelector(".input-contact").value = checkbox.checked
+      ? orderer.contact
+      : "";
+    document.querySelector(".input-email").value = checkbox.checked
+      ? orderer.email
+      : "";
+    document.querySelector(".input-address").value = checkbox.checked
+      ? orderer.address
+      : "";
+    document.querySelector(".input-detail_address").value = checkbox.checked
+      ? orderer.detail_address
+      : "";
+  });
+
+  const select = document.querySelector("select");
+  const direct_input = document.querySelector(".direct_input");
+
+  select.addEventListener("input", () => {
+    if (select.value === "직접입력") direct_input.classList.remove("is-hidden");
+    else direct_input.classList.add("is-hidden");
+  });
 };
 
 /* 주문 상품 mockData */
@@ -87,3 +137,4 @@ const delivery = {
 
 loadOrderProductInfo(order_products);
 loadOrdererInfo(orderer);
+loadDeliveryInfo(orderer);
