@@ -16,14 +16,17 @@ const orderSchema = new Schema(
       default: 0,
     },
     destination: {
-      // 배송지
-      type: Object,
+      // 배송주소
+      type: String,
       required: true,
     },
-    contact: {
+    phone_number: {
       // 연락처
-      type: Object,
+      type: String,
       required: true,
+    },
+    memo: {
+      type: String,
     },
     order_number: {
       type: Number,
