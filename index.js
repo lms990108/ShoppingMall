@@ -3,17 +3,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const updateOrderStatus = require("./utils/auto-update-stauts");
 
 const { viewRouter } = require("./routes/viewRouter");
 const orderRouter = require("./routes/orderRouter");
 const productRouter = require("./routes/productRouter");
 const categoryRouter = require("./routes/categoryRouter");
-const authApiRouter = require("./routes/authApiRouter");
-const userApiRouter = require("./routes/userApiRouter");
-
-// 리팩터링 테스트용
-const joinRouterTest = require("./routes/ver2_joinRouter");
-const userRouterTest = require("./routes/ver2_userRouter");
+const joinRouterTest = require("./routes/joinRouter");
+const userRouterTest = require("./routes/userRouter");
 
 dotenv.config();
 
@@ -31,6 +28,9 @@ mongoose
 
 const app = express();
 
+// status 상태 자동 업데이트
+updateOrderStatus();
+
 // Middlewares
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,15 +39,11 @@ app.use(express.static("views")); // 정적 파일 미들웨어
 
 // Routers
 app.use("/", viewRouter);
-app.use("/api/user", userApiRouter); // 유저 라우터
-app.use("/api/auth", authApiRouter); // 회원가입 라우터
+app.use("/api/user", userRouterTest); // 유저 라우터
+app.use("/api/join", joinRouterTest); // 회원가입 라우터
 app.use("/api/order", orderRouter); // 주문 라우터
 app.use("/api/product", productRouter); // 상품 라우터
 app.use("/api/category", categoryRouter); // 카테고리 라우터
-
-// 리팩터링 테스트용
-app.use("/api/jointest", joinRouterTest);
-app.use("/api/usertest", userRouterTest);
 
 // Error handlers
 app.use((req, res) => {

@@ -11,8 +11,6 @@ const getAllCategories = async () => {
   }
 };
 
-const addCategory = async () => {};
-
 /* parent의 유무에 따라 상위 카테고리와 하위 카테고리를 분리하여 리턴하는 함수 */
 
 const getCategoryMap = async () => {
@@ -31,4 +29,10 @@ const getCategoryMap = async () => {
   return category_map;
 };
 
-export { getCategoryMap };
+const getCategoryNameFromCategoryId = async (categoryId) => {
+  const category = await getAllCategories();
+  const target = category.find((item) => item._id === categoryId);
+  return category && target ? target.name : "";
+};
+
+export { getCategoryMap, getCategoryNameFromCategoryId };

@@ -1,0 +1,33 @@
+.title {
+  padding-top: 120px;
+  text-align: center;
+  color: var(--navy-color) !important;
+}
+
+.paymentPage_left {
+  display: flex;
+}
+
+.paymentPage section {
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  color: var(--navy-color) !important;
+  font-size: 22px !important;
+  font-weight: bold !important;
+  width: 100%;
+  border-bottom: solid var(--yellow-color) 2px;
+  margin-bottom: 10px;
+}
+
+.product {
+  border-bottom: dashed lightgray 1px;
+  padding: 10px;
+  align-items: center;
+}
+
+.product_img {
+  height: 100px;
+}

@@ -3,6 +3,8 @@ const asyncHandler = require("../utils/async-handler");
 const productModel = require("../models/productModel");
 const productService = require("../services/productService");
 const Category = require("../models/categoryModel");
+const { authenticate } = require("../middlewares/authentication");
+const { checkUserOrAdmin } = require("../middlewares/authorization");
 
 const productServiceInstance = new productService(productModel);
 
@@ -11,18 +13,21 @@ const router = Router();
 // 상품 추가 Post 요청
 router.post(
   "/add_product",
+  authenticate,
+  checkUserOrAdmin,
   asyncHandler(async (req, res) => {
     const new_product = req.body;
+    const { user } = req;
+
+    if (user.level != 1) {
+      throw createError("관리자 권한이 필요합니다.", 403);
+    }
 
     if (!new_product || Object.keys(new_product).length === 0) {
-      const error = new Error("상품 데이터가 요청 본문에 필요합니다");
-      error.statusCode = 400;
-      throw error;
+      throw createError("상품 데이터가 요청 본문에 필요합니다", 400);
     }
 
     const createdProduct = await productServiceInstance.addProduct(new_product);
-
-    console.log("상품 추가");
     return res.status(201).json({
       message: "상품이 성공적으로 추가되었습니다",
       order: createdProduct,
@@ -30,7 +35,6 @@ router.post(
   }),
 );
 
-// 상품 조회 Get 요청
 router.get(
   "/product_detail/:searchParams",
   asyncHandler(async (req, res) => {
@@ -46,31 +50,31 @@ router.get(
     }
 
     if (!search_product) {
-      const error = new Error("상품을 찾을 수 없습니다");
-      error.statusCode = 404;
-      throw error;
+      throw createError("상품을 찾을 수 없습니다", 404);
     }
 
     return res.status(200).json(search_product);
   }),
 );
 
-// 상품 수정 Patch 요청
 router.patch(
   "/product_detail/:productNumber",
+  authenticate,
+  checkUserOrAdmin,
   asyncHandler(async (req, res) => {
     const { productNumber } = req.params;
+    const { user } = req;
+
+    if (user.level != 1) {
+      throw createError("관리자 권한이 필요합니다.", 403);
+    }
 
     if (!productNumber) {
-      const error = new Error("상품 번호가 필요합니다");
-      error.statusCode = 400;
-      throw error;
+      throw createError("상품 번호가 필요합니다", 400);
     }
 
     if (!req.body || Object.keys(req.body).length === 0) {
-      const error = new Error("업데이트할 상품 데이터가 필요합니다");
-      error.statusCode = 400;
-      throw error;
+      throw createError("업데이트할 상품 데이터가 필요합니다", 400);
     }
 
     const updatedProduct = await productServiceInstance.updateProduct(
@@ -79,25 +83,29 @@ router.patch(
     );
 
     if (!updatedProduct) {
-      const error = new Error("상품을 찾을 수 없거나 업데이트되지 않았습니다");
-      error.statusCode = 404;
-      throw error;
+      throw createError("상품을 찾을 수 없거나 업데이트되지 않았습니다", 404);
     }
 
     return res.status(200).json(updatedProduct);
   }),
 );
 
-// 상품 삭제
 router.delete(
   "/delete_product/:product_number",
+  authenticate,
+  checkUserOrAdmin,
   asyncHandler(async (req, res) => {
     const { product_number } = req.params;
+    const { user } = req;
+
+    if (user.level != 1) {
+      throw createError("관리자 권한이 필요합니다.", 403);
+    }
+
     const deletedProduct =
       await productServiceInstance.deleteProduct(product_number);
     if (!deletedProduct) {
-      res.status(404).send("상품을 찾을 수 없습니다");
-      return;
+      throw createError("상품을 찾을 수 없습니다", 404);
     }
 
     return res.status(200).json(deletedProduct);
@@ -116,7 +124,19 @@ router.get(
   asyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 10;
+    const sortType = req.query.sortType || "default";
     const skip = (page - 1) * pageSize;
+
+    const validSortTypes = [
+      "priceDesc",
+      "priceAscend",
+      "recent",
+      "old",
+      "default",
+    ];
+    if (!validSortTypes.includes(sortType)) {
+      throw createError("정렬 기준이 잘못되었습니다.", 404);
+    }
 
     const filter = {};
 
@@ -130,9 +150,7 @@ router.get(
         filter.higher_category = higherCategory._id;
         console.log("상위 카테고리 id = " + filter.higher_category);
       } else {
-        return res
-          .status(400)
-          .json({ error: "유효하지 않은 상위 카테고리입니다" });
+        throw createError("카테고리가 유효하지 않습니다.", 400);
       }
     } else if (req.query.lowerCategory) {
       // console.log("하위 카테고리 = " + req.query.lowercategory);
@@ -144,9 +162,7 @@ router.get(
         filter.lower_category = lowerCategory._id;
         console.log("하위 카테고리 id = " + filter.lower_category);
       } else {
-        return res
-          .status(400)
-          .json({ error: "유효하지 않은 하위 카테고리입니다" });
+        throw createError("카테고리가 유효하지 않습니다.", 400);
       }
     }
 
@@ -154,10 +170,17 @@ router.get(
       filter,
       skip,
       pageSize,
+      sortType,
     );
 
     return res.status(200).json(products);
   }),
 );
+
+function createError(message, statusCode) {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+}
 
 module.exports = router;

@@ -64,12 +64,12 @@ class ProductService {
 
   // 번호로 조회
   async getProductByNumber(productNumber) {
-    return await this.getProductsByField("product_number", productNumber);
+    return await this.getProductByField("product_number", productNumber);
   }
 
   // 이름으로 조회
   async getProductByName(productName) {
-    return await this.getProductsByField("product_name", productName);
+    return await this.getProductByField("product_name", productName);
   }
 
   // 검색기능을 위한 조회
@@ -137,42 +137,32 @@ class ProductService {
   }
 
   // 페이징 처리를 위한 함수
-  async pagingProducts(filter = {}, skip = 0, limit = 10) {
-    return await this.productModel.find(filter).skip(skip).limit(limit);
+  async pagingProducts(filter = {}, skip = 0, limit = 10, sortType) {
+    let sortTo;
+
+    switch (sortType) {
+      case "priceDesc":
+        sortTo = { price: -1, product_number: 1 };
+        break;
+      case "priceAscend":
+        sortTo = { price: 1, product_number: 1 };
+        break;
+      case "recent":
+        sortTo = { inDate: 1, product_number: 1 };
+        break;
+      case "old":
+        sortTo = { inDate: -1, product_number: 1 };
+      default:
+        sortTo = { product_number: 1 };
+        break;
+    }
+
+    return await this.productModel
+      .find(filter)
+      .sort(sortTo)
+      .skip(skip)
+      .limit(limit);
   }
 }
 
 module.exports = ProductService;
-
-/* 페이징 하면서 불필요해 짐
-
-  // 카테고리 상품 조회
-  async getProductsByCategory(categoryType, categoryValue) {
-    const query = {};
-    if (
-      categoryType !== "higher_category" &&
-      categoryType !== "lower_category"
-    ) {
-      throw new Error("Invalid category type");
-    }
-    query[categoryType] = categoryValue;
-
-    const products = await this.productModel.find(query);
-
-    if (!products || products.length === 0) {
-      throw new Error("카테고리에 해당하는 상품 정보 없음");
-    }
-
-    return products;
-  }
-
-  // 상위 카테고리로 조회
-  async getProductsByHigherCategory(category) {
-    return await this.getProductsByCategory("higher_category", category);
-  }
-
-  // 하위 카테고리로 조회
-  async getProductsByLowerName(category) {
-    return await this.getProductsByCategory("lower_category", category);
-  }
-  */
