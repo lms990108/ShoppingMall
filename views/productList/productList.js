@@ -3,6 +3,7 @@ const URLMatch = new URLSearchParams(location.search); // 쿼리스트링이 있
 let mainCategory = URLMatch.get("higherCategory");      // 상위카테고리
 let subCategory = URLMatch.get("lowerCategory");       // 하위카테고리
 let maxPage = 1;    // 최대 페이지.
+let nowPage = 1;    // 현재 페이지
 const pageSize = 6; // 한 페이지당 호출할 상품 갯수
 
 /* GET category List */
@@ -156,7 +157,6 @@ function makeProductList(listdata) {
 // 페이징 생성 메서드
 function makePagenation(totalCnt) { // (Number) 총 상품 갯수. totalCnt
   const pageWrap = document.querySelector('.pagination-list');
-  let nowPage = 1;
   maxPage = Math.floor(totalCnt / pageSize) + 1;
   if (URLMatch.get("page")) nowPage = Number(URLMatch.get("page"))
 
@@ -180,6 +180,20 @@ function makePagenation(totalCnt) { // (Number) 총 상품 갯수. totalCnt
     li.appendChild(a)
     pageWrap.appendChild(li)
   }
+}
+
+// 이전 페이지 이동 메서드
+function goToPrevPage() {
+  if (nowPage === 1) return false
+  
+  location.href = "/products?higherCategory=" + mainCategory + "&lowerCategory=" + subCategory + '&page=' + (nowPage - 1)
+}
+
+// 다음 페이지 이동 메서드
+function goToNextPage() {
+  if (nowPage === maxPage) return false
+
+  location.href = "/products?higherCategory=" + mainCategory + "&lowerCategory=" + subCategory + '&page=' + (nowPage + 1)
 }
 
 // 가격 콤마 표시 함수 (3자리 단위로)
