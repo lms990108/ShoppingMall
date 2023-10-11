@@ -44,7 +44,7 @@ h3 {
 
 .is-grid {
   display: grid;
-  grid-template-columns: 100px 200px;
+  grid-template-columns: 100px 300px;
   align-items: center;
 }
 
@@ -57,4 +57,13 @@ h3 {
 .is-gird span {
   margin: 10px 0;
   height: 30px;
+}
+
+#order_summary .total_price {
+  border-top: solid gray 1px;
+  font-size: 20px !important;
+}
+
+#order_summary .total_price label {
+  font-size: 20px !important;
 }
