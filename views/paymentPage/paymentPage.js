@@ -4,20 +4,22 @@ const delivery_info = document.querySelector("#delivery_info");
 const order_summary = document.querySelector("#order_summary");
 const payment_method = document.querySelector("#payment_method");
 
-/* 주문 상품 정보 불러오기 */
+/* 단일 상품 정보 컴포넌트 */
 const orderProductHTML = (product) => {
   return /*html*/ `<div class="is-flex product">
   <div class="is-flex-grow-1">  <img class="product_img" src="${
     product.main_img_url
   }"/></div>
-<div class="is-flex-grow-2">  <p>${product.product_name}</p>
-  <p>개수 : <input type="number" class="input_qty" value=${product.qty}>개</p>
-  <p>총 금액 : ${product.price * product.qty} 원</p></div>
+<div class="is-flex-grow-2">  <p class="label">${product.product_name}</p>
+  <p>개수 : <input type="number" class="input_qty mx-1" value=${
+    product.qty
+  }>개</p>
+  <p>총 금액 : ${(product.price * product.qty).toLocaleString()} 원</p></div>
 
   </div>`;
 };
 
-/* 단일 상품 정보 컴포넌트 */
+/* 주문 상품 정보 불러오기 */
 const loadOrderProductInfo = (products) => {
   products.forEach((product) => {
     orderProduct_info.insertAdjacentHTML(
@@ -118,6 +120,38 @@ const loadOrderSumary = (order_products) => {
   );
 };
 
+/* 결제 방법 불러오기 */
+const loadPaymentMethod = () => {
+  payment_method.insertAdjacentHTML(
+    "beforeend",
+    /*html*/ `
+  <div class="buttons is-flex p-2">
+  <!--
+  <button class="button my-1 is-light">네이버 페이</button>
+  <button class="button my-1 is-light">카카오 페이</button>
+  <button class="button my-1 is-light">페이코</button>
+  -->
+  <button class="button is-active my-1 is-flex is-medium is-justify-content-space-between "><span class="has-text-weight-bold">신용카드</span>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 4h-20c-1.104 0-2 .896-2 2v12c0 1.104.896 2 2 2h20c1.104 0 2-.896 2-2v-12c0-1.104-.896-2-2-2zm0 13.5c0 .276-.224.5-.5.5h-19c-.276 0-.5-.224-.5-.5v-6.5h20v6.5zm0-9.5h-20v-1.5c0-.276.224-.5.5-.5h19c.276 0 .5.224.5.5v1.5zm-9 6h-9v-1h9v1zm-3 2h-6v-1h6v1zm10-2h-3v-1h3v1z"/></svg>
+  </button>
+  <button class="button my-1 is-flex is-medium is-justify-content-space-between"><span class="has-text-weight-bold">무통장 입금</span>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14 11c-1.656 0-3 1.344-3 3s1.344 3 3 3 3-1.344 3-3-1.344-3-3-3zm.15 4.484v.315h-.3v-.299c-.311-.005-.632-.079-.899-.217l.135-.493c.287.11.669.229.968.162.345-.078.415-.433.034-.604-.279-.129-1.133-.242-1.133-.973 0-.409.313-.775.895-.855v-.319h.301v.305c.217.006.461.043.732.126l-.108.493c-.23-.08-.485-.154-.733-.139-.446.026-.486.413-.174.575.514.242 1.182.42 1.182 1.063.001.516-.403.791-.9.86zm-10.15-7.484v12h20v-12h-20zm18 10h-16v-8h16v8zm-1-12h-19v11h-2v-13h21v2z"/></svg></button><br>
+  </div>
+
+</div>
+  `,
+  );
+  const method_buttons = document.querySelectorAll(".buttons .button");
+  method_buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      method_buttons.forEach((innerButton) => {
+        innerButton.classList.remove("is-active");
+      });
+      button.classList.add("is-active");
+    });
+  });
+};
+
 /* 주문 상품 mockData */
 const order_products = [
   {
@@ -170,3 +204,4 @@ loadOrderProductInfo(order_products);
 loadOrdererInfo(orderer);
 loadDeliveryInfo(orderer);
 loadOrderSumary(order_products);
+loadPaymentMethod();

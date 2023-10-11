@@ -1,5 +1,5 @@
 .title {
-  padding-top: 120px;
+  padding-top: 130px;
   text-align: center;
   color: var(--navy-color) !important;
 }
@@ -60,10 +60,34 @@ h3 {
 }
 
 #order_summary .total_price {
-  border-top: solid gray 1px;
+  border-top: solid gray 2px;
   font-size: 20px !important;
 }
 
 #order_summary .total_price label {
   font-size: 20px !important;
+}
+
+#payment_method .button {
+  width: 100%;
+  border: solid 1px var(--navy-color);
+  color: var(--navy-color);
+}
+
+#payment_method .button svg {
+  fill: var(--navy-color);
+}
+
+#payment_method .button.is-active {
+  background-color: lightgray;
+}
+
+#payment_buttonContainer .button {
+  width: 100%;
+  margin: 50px 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: var(--navy-color);
+  color: white;
 }
