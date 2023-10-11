@@ -43,10 +43,6 @@ const orderSchema = new Schema(
           required: true,
           default: 1,
         },
-        size: {
-          type: String,
-          required: true,
-        },
       },
     ],
   },
