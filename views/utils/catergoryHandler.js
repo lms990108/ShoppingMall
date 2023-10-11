@@ -1,6 +1,8 @@
+const url = "http://localhost:5001";
+
 const getAllCategories = async () => {
   try {
-    const response = await fetch("http://localhost:5001/api/category", {
+    const response = await fetch(`${url}/api/category`, {
       method: "GET",
     });
     const category = await response.json();

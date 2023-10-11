@@ -7,15 +7,20 @@
 }
 
 #mainPage svg {
-  width: 50px;
+  fill: var(--navy-color);
 }
 
 #mainPage h2 {
   text-align: center;
+  color: var(--navy-color);
 }
 
 #mainPage div {
   text-align: center;
+}
+
+#mainPage div a {
+  width: 100%;
 }
 
 .mainPage_title {
@@ -30,4 +35,24 @@
   margin: 10px 0;
   width: 100%;
   max-height: 500px;
+}
+
+.container {
+  display: flex;
+  margin: 20px;
+}
+
+.container div {
+  flex: 1;
+  margin: 10px;
+}
+
+.container div img {
+  height: 200px;
+  width: auto;
+}
+
+.container div p {
+  color: var(--navy-color);
+  font-weight: bold;
 }
