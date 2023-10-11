@@ -18,7 +18,11 @@ DevGears
 - 팀원3 : 이성민(FE)
 - 팀원4 : 이지원(FE)
 
-## ⚙️ 개발 환경
+## ⚙️ 환경 및 기술 스택
+
+### Run-time env & Manage
+<img src="https://img.shields.io/badge/Node.js-339933.svg?&style=for-the-badge&logo=Node.js&logoColor=white">
+<img src="https://img.shields.io/badge/PM2-2B037A.svg?&style=for-the-badge&logo=PM2&logoColor=white">
 
 ### Front-end
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white">
@@ -26,6 +30,8 @@ DevGears
 <img src="https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white">
 
 ### Back-end
-<img src="https://img.shields.io/badge/Node.js-339933.svg?&style=for-the-badge&logo=Node.js&logoColor=white">
+<img src="https://img.shields.io/badge/Express-000000.svg?&style=for-the-badge&logo=Nginx&logoColor=white">
+<img src="https://img.shields.io/badge/Nginx-009639.svg?&style=for-the-badge&logo=Nginx&logoColor=white">
+<img src="https://img.shields.io/badge/MongoDB-47A248.svg?&style=for-the-badge&logo=MongoDB&logoColor=white">
 
 ## 📌 주요 기능
