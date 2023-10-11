@@ -48,6 +48,40 @@ class ProductService {
     return await this.productModel.create(newProduct);
   }
 
+  // 데이터 여러개 한꺼번에 배열로 추가
+  async addProducts(newProducts) {
+    const lastProduct = await this.productModel
+      .findOne()
+      .sort({ product_number: -1 });
+    let nextProductNumber = lastProduct ? lastProduct.product_number + 1 : 1;
+
+    // 데이터 전처리
+    const processedProducts = await Promise.all(
+      newProducts.map(async (product) => {
+        const higher_category = await categoryModel.findOne({
+          name: product.higher_category,
+        });
+        const lower_category = await categoryModel.findOne({
+          name: product.lower_category,
+        });
+
+        if (!higher_category || !lower_category) {
+          throw new Error("Category not found");
+        }
+
+        return {
+          ...product,
+          product_number: nextProductNumber++,
+          higher_category: higher_category._id,
+          lower_category: lower_category._id,
+        };
+      }),
+    );
+
+    // 데이터 일괄 추가
+    return await this.productModel.insertMany(processedProducts);
+  }
+
   // 상품조회, 필드는 번호인지 이름인지 등
   async getProductByField(fieldName, value) {
     const query = {};
