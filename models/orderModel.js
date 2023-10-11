@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const User = require('./User'); const Product = require('./Product');
 const { Schema } = require("mongoose");
 const orderSchema = new Schema(
   {
@@ -27,7 +26,7 @@ const orderSchema = new Schema(
       required: true,
     },
     order_number: {
-      type: String,
+      type: Number,
     },
     items: [
       {
@@ -43,24 +42,11 @@ const orderSchema = new Schema(
           required: true,
           default: 1,
         },
-        size: {
-          type: String,
-          required: true,
-        },
       },
     ],
   },
   { timestamps: true },
 );
-
-/*
-orderSchema.methods.toJSON = function () {     
-    const obj = this._doc;
-    delete obj.__v;     
-    delete obj.updatedAt;     
-    return obj; 
-};
-*/
 
 const order = mongoose.model("order", orderSchema);
 module.exports = order;
