@@ -7,7 +7,7 @@ const orderSchema = new Schema(
       type: String,
     },
     status: {
-      // 0: 배송 전, 1: 배송 중, 2: 배송 완료, 3: 취소 됨
+      // 0: 배송 전, 1: 배송 중, 2:  배송 완료, 3: 취소 됨
       type: Number,
       default: "0",
     },
