@@ -83,10 +83,9 @@ router.delete(
     const targetOrderNumber = req.query.order_number;
     const { user } = req;
 
-    // 유저 정보가 없거나 유저 레벨이 1이 아닐 경우 에러 처리
-    if (!user.level === 1) {
+    if (user.level != 1) {
       const error = new Error("관리자 권한이 필요합니다.");
-      error.statusCode = 403; // 권한이 없는 경우 403 Forbidden을 반환하는 것이 적합합니다.
+      error.statusCode = 403;
       throw error;
     }
 
