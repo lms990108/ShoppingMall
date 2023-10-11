@@ -64,12 +64,12 @@ class ProductService {
 
   // 번호로 조회
   async getProductByNumber(productNumber) {
-    return await this.getProductsByField("product_number", productNumber);
+    return await this.getProductByField("product_number", productNumber);
   }
 
   // 이름으로 조회
   async getProductByName(productName) {
-    return await this.getProductsByField("product_name", productName);
+    return await this.getProductByField("product_name", productName);
   }
 
   // 검색기능을 위한 조회

@@ -3,6 +3,8 @@ const asyncHandler = require("../utils/async-handler");
 const productModel = require("../models/productModel");
 const productService = require("../services/productService");
 const Category = require("../models/categoryModel");
+const { authenticate } = require("../middlewares/authentication");
+const { checkUserOrAdmin } = require("../middlewares/authorization");
 
 const productServiceInstance = new productService(productModel);
 
@@ -11,8 +13,17 @@ const router = Router();
 // 상품 추가 Post 요청
 router.post(
   "/add_product",
+  authenticate,
+  checkUserOrAdmin,
   asyncHandler(async (req, res) => {
     const new_product = req.body;
+    const { user } = req;
+
+    if (user.level != 1) {
+      const error = new Error("관리자 권한이 필요합니다.");
+      error.statusCode = 403;
+      throw error;
+    }
 
     if (!new_product || Object.keys(new_product).length === 0) {
       const error = new Error("상품 데이터가 요청 본문에 필요합니다");
@@ -58,8 +69,17 @@ router.get(
 // 상품 수정 Patch 요청
 router.patch(
   "/product_detail/:productNumber",
+  authenticate,
+  checkUserOrAdmin,
   asyncHandler(async (req, res) => {
     const { productNumber } = req.params;
+    const { user } = req;
+
+    if (user.level != 1) {
+      const error = new Error("관리자 권한이 필요합니다.");
+      error.statusCode = 403;
+      throw error;
+    }
 
     if (!productNumber) {
       const error = new Error("상품 번호가 필요합니다");
@@ -91,8 +111,18 @@ router.patch(
 // 상품 삭제
 router.delete(
   "/delete_product/:product_number",
+  authenticate,
+  checkUserOrAdmin,
   asyncHandler(async (req, res) => {
     const { product_number } = req.params;
+    const { user } = req;
+
+    if (user.level != 1) {
+      const error = new Error("관리자 권한이 필요합니다.");
+      error.statusCode = 403;
+      throw error;
+    }
+
     const deletedProduct =
       await productServiceInstance.deleteProduct(product_number);
     if (!deletedProduct) {
