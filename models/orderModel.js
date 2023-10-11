@@ -46,6 +46,7 @@ const orderSchema = new Schema(
     ],
   },
   { timestamps: true },
+  { versionKey: false },
 );
 
 const order = mongoose.model("order", orderSchema);

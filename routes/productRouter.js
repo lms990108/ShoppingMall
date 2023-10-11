@@ -35,6 +35,35 @@ router.post(
   }),
 );
 
+// 다중 상품 추가 POST 요청
+router.post(
+  "/add_products",
+  authenticate,
+  checkUserOrAdmin,
+  asyncHandler(async (req, res) => {
+    const new_products = req.body;
+    const { user } = req;
+
+    if (user.level != 1) {
+      throw createError("관리자 권한이 필요합니다.", 403);
+    }
+
+    if (!new_products || new_products.length === 0) {
+      throw createError("상품 데이터가 요청 본문에 필요합니다", 400);
+    }
+
+    const createdProducts =
+      await productServiceInstance.addProducts(new_products);
+
+    return res.status(201).json({
+      message: `${createdProducts.length}개의 상품이 성공적으로 추가되었습니다.`,
+      products: createdProducts,
+    });
+  }),
+);
+
+module.exports = router;
+
 router.get(
   "/product_detail/:searchParams",
   asyncHandler(async (req, res) => {
