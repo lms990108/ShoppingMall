@@ -3,21 +3,21 @@ const cron = require("node-cron");
 
 function updateOrderStatus() {
   cron.schedule(
-    "0 12 * * *",
+    "*/1 * * * *", // 매 분마다 실행
     async function () {
-      console.log("주문 상태 변경");
+      const oneDayAgo = new Date(new Date() - 24 * 60 * 60 * 1000);
 
-      const ordersInPreShipping = await orderModel.find({ status: 0 });
-      for (const order of ordersInPreShipping) {
-        order.status = 1;
-        await order.save();
-      }
+      // status: 0인 주문 중 24시간이 경과한 주문을 status: 1로 업데이트
+      await orderModel.updateMany(
+        { status: 0, createdAt: { $lte: oneDayAgo } },
+        { status: 1 },
+      );
 
-      const ordersInShipping = await orderModel.find({ status: 1 });
-      for (const order of ordersInShipping) {
-        order.status = 2;
-        await order.save();
-      }
+      // status: 1인 주문 중 24시간이 경과한 주문을 status: 2로 업데이트
+      await orderModel.updateMany(
+        { status: 1, createdAt: { $lte: oneDayAgo } },
+        { status: 2 },
+      );
     },
     {
       timezone: "Asia/Seoul",
