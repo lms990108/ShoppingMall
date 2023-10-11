@@ -2,12 +2,8 @@
 const URLMatch = new URLSearchParams(location.search); // 쿼리스트링이 있는지 없는지
 let mainCategory = URLMatch.get("higherCategory");      // 상위카테고리
 let subCategory = URLMatch.get("lowerCategory");       // 하위카테고리
-
-// 둘 중에 하나라도 없으면
-if (!mainCategory || !subCategory) {
-  getCategoryCode(); // 실행
- 
-}
+let maxPage = 1;    // 최대 페이지.
+const pageSize = 6; // 한 페이지당 호출할 상품 갯수
 
 /* GET category List */
 
@@ -21,6 +17,14 @@ const getAllCategories = async () => {
     return [];
   }
 };
+
+// 둘 중에 하나라도 없으면
+if (!mainCategory || !subCategory) {
+  getCategoryCode(); // 실행
+ 
+}
+
+
 
 // 상위, 하위 카테고리 완성 -> 페이지 이동 메서드
 async function getCategoryCode() {
@@ -93,7 +97,7 @@ async function makeTabButtons(tabs) {
 }
 
 
-getProductsList();
+if (mainCategory && subCategory) getProductsList();
 
 
 // 상품 목록 호출 메소드
@@ -104,13 +108,18 @@ async function getProductsList() {
   // 페이지에 맞는 페이지 값
   if (URLMatch.get("page")) page = Number(URLMatch.get("page"))
   
-  // Response data
-  const res = await fetch("/api/product/?lowerCategory=" + subCategory + "&page=" + page)
+  try {
+    // Response data
+    const res = await fetch("/api/product/?lowerCategory=" + subCategory + "&page=" + page + '&pageSize=' + pageSize)
 
-  const listdata = await res.json();
-  console.log(listdata);
-  
-  makeProductList(listdata);
+    const listdata = await res.json();
+    
+    makeProductList(listdata.products);  // 상품 엘리먼트 생성
+    makePagenation(listdata.totalCnt)  // totalCnt. 페이지 엘리먼트 생성.
+  } catch(err) {
+    console.log(err)
+    alert('데이터 호출에 실패했습니다. 잠시 후, 다시 시도해 주세요.')
+  }
 
 }
 
@@ -142,6 +151,35 @@ function makeProductList(listdata) {
     list.appendChild(li);
   })
   
+}
+
+// 페이징 생성 메서드
+function makePagenation(totalCnt) { // (Number) 총 상품 갯수. totalCnt
+  const pageWrap = document.querySelector('.pagination-list');
+  let nowPage = 1;
+  maxPage = Math.floor(totalCnt / pageSize) + 1;
+  if (URLMatch.get("page")) nowPage = Number(URLMatch.get("page"))
+
+  for (var i = 1; i <= maxPage; i++) {
+    const li = document.createElement('li')
+    const a = document.createElement('a')
+    a.classList.add('pagination-link')
+    a.innerText = i
+    a.href = "/products?higherCategory=" + mainCategory + "&lowerCategory=" + subCategory + '&page=' + i
+
+    // 페이지 버튼을 만드는 순서 i 와 현재 들어온 페이지가 같으면
+    if (i === nowPage) {
+      a.classList.add('is-current')
+      a.setAttribute('area-label', 'Page ' + i)
+      a.setAttribute('area-current', 'page')
+    
+    // 그 외 페이지
+    } else {
+      a.setAttribute('area-label', 'Goto Page ' + i)
+    }
+    li.appendChild(a)
+    pageWrap.appendChild(li)
+  }
 }
 
 // 가격 콤마 표시 함수 (3자리 단위로)

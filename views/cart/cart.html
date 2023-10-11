@@ -11,22 +11,23 @@
 <body>
   <header id="header"></header>
 
-  <section class="cartpage">
-    <p class="title">
+  <section class="cartpage inner">
+    <div class="titlebox">
       <h1>CART</h1>
-    </p>
+    </div>
 
     <!-- 추후 있을 반응형을 위해 table 대신 form 사용 -->
     <form name="cartform" method="post" class="cartform">
-    
-      <input type="hidden" name="cmd" value="order">
-      <div class="basketarea">
+      <input type="hidden" value="order">
+      
+        <div class="basketarea">
           <div class="row head">
               <div class="subdiv">
                   <div class="check">선택</div>
                   <div class="img">이미지</div>
                   <div class="pname">상품명</div>
               </div>
+
               <div class="subdiv">
                   <div class="basketprice">가격</div>
                   <div class="num">수량</div>
@@ -56,11 +57,11 @@
                       <button type="button" class="plusbtn">+</button>
           
                   </div>
-                      <!-- <div class="updown">
+                      <div class="updown">
                           <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="2" onkeyup="javascript:basket.changePNum(1);">
                           <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
                           <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
-                      </div> -->
+                      </div>
                   </div>
                   
               </div>
@@ -125,7 +126,7 @@
       <div id="goorder" class="">
           <div class="clear"></div>
           <div class="buttongroup center-align cmd">
-              <a href="javascript:void(0);">선택한 상품 주문</a>
+              <a href="javascript:void(0);">상품 주문하기</a>
           </div>
       </div>
   </form>
