@@ -1,3 +1,6 @@
+<img src="/uploads/857bc1bbfef1e7efa696253d63db75fa/KakaoTalk_20231012_000817714_02.png"  width="150" height="150">
+
+
 ## 🛒 프로젝트 명
 
 - DevGears
