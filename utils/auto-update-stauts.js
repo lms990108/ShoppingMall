@@ -5,8 +5,6 @@ function updateOrderStatus() {
   cron.schedule(
     "*/1 * * * *", // 매 분마다 실행
     async function () {
-      console.log("주문 상태 변경");
-
       const oneDayAgo = new Date(new Date() - 24 * 60 * 60 * 1000);
 
       // status: 0인 주문 중 24시간이 경과한 주문을 status: 1로 업데이트
