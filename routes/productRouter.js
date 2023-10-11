@@ -148,7 +148,7 @@ router.get(
       });
       if (higherCategory) {
         filter.higher_category = higherCategory._id;
-        console.log("상위 카테고리 id = " + filter.higher_category);
+        // console.log("상위 카테고리 id = " + filter.higher_category);
       } else {
         throw createError("카테고리가 유효하지 않습니다.", 400);
       }
@@ -173,7 +173,7 @@ router.get(
       sortType,
     );
 
-    const totalCnt = await productModel.countDocuments();
+    const totalCnt = await productModel.find(filter).countDocuments();
     return res.status(200).json({ totalCnt, products });
   }),
 );
