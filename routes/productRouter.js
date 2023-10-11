@@ -173,7 +173,8 @@ router.get(
       sortType,
     );
 
-    return res.status(200).json(products);
+    const totalCnt = await productModel.countDocuments();
+    return res.status(200).json({ totalCnt, products });
   }),
 );
 
