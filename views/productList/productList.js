@@ -108,7 +108,7 @@ async function getProductsList() {
   const res = await fetch("/api/product/?lowerCategory=" + subCategory + "&page=" + page)
 
   const listdata = await res.json();
-  // console.log(listdata);
+  console.log(listdata);
   
   makeProductList(listdata);
 
@@ -120,23 +120,25 @@ function makeProductList(listdata) {
   const list = document.querySelector('.products_container .items');
 
   listdata.forEach((item) => {
+    const div = document.createElement("div");
     const li = document.createElement('li');
     const a = document.createElement("a");
 
     a.href = "/product_detail?productNumber=" + item.product_number;
     const img = document.createElement('img');
     img.src = item.main_img_url;
-    
+
     const title =  document.createElement('p');
     const price = document.createElement('p');
     
     title.innerText = item.product_name;
     price.innerText = priceFormat(item.price) + '원';
     
-    li.appendChild(a);
-    a.appendChild(img);
+    a.appendChild(div);
+    div.appendChild(img);
     a.appendChild(title);
     a.appendChild(price);
+    li.appendChild(a);
     list.appendChild(li);
   })
   

@@ -16,57 +16,122 @@
       <h1>CART</h1>
     </p>
 
-    <table>
-      <thead>
-        <tr>
-            <th><input type="checkbox" class="item_checkbox"></th>
-            <th>상품 이미지</th>
-            <th>상품명</th>
-            <th>판매가</th>
-            <th>수량</th>
-            <th></th>
-            <th>선택</th>
-        </tr>
-    </thead>
+    <!-- 추후 있을 반응형을 위해 table 대신 form 사용 -->
+    <form name="cartform" method="post" class="cartform">
+    
+      <input type="hidden" name="cmd" value="order">
+      <div class="basketarea">
+          <div class="row head">
+              <div class="subdiv">
+                  <div class="check">선택</div>
+                  <div class="img">이미지</div>
+                  <div class="pname">상품명</div>
+              </div>
+              <div class="subdiv">
+                  <div class="basketprice">가격</div>
+                  <div class="num">수량</div>
+                  
+              </div>
+              <div class="subdiv">
 
-    <tbody>
-      <tr>
-          <td><input type="checkbox" class="item_checkbox"></td>
-          <td><img src="" alt="상품 이미지"/></td>
-          <td>키크론 K10 PRO 화이트 저소음 키보드</td>
-          <td>130,000원</td>
-          <td>
-              <button class="quantity_minusbtn">-</button>
-              <input type="number" class="quantity" value="1">
-              <button class="quantity_plusbtn">+</button>
-          </td>
-          <td></td>
-          <td><button class="delete_btn">삭제</button></td>
-      </tr>
+                  <div class="basketcmd">삭제</div>
+              </div>
+              <div class="split"></div>
+          </div>
+  
+          <div class="row data">
+              <div class="subdiv">
+                  <div class="check"><input type="checkbox" name="buy" value="260" checked="" onclick="javascript:basket.checkItem();">&nbsp;</div>
+                  <div class="img"><img src="./img/basket1.jpg" width="60"></div>
+                  <div class="pname">
+                      <span>키크론 키보드 Q38</span>
+                  </div>
+              </div>
+              <div class="subdiv">
+                  <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="120000">120000원</div>
+                  <div class="num">
+                    <div class="numbox">
+                      <button type="button" class="minusbtn">-</button>
+                      <input type="text" class="quantity" value="1" />
+                      <button type="button" class="plusbtn">+</button>
+          
+                  </div>
+                      <!-- <div class="updown">
+                          <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="2" onkeyup="javascript:basket.changePNum(1);">
+                          <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
+                          <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
+                      </div> -->
+                  </div>
+                  
+              </div>
+              <div class="subdiv">
+                  <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
+              </div>
+          </div>
+          <div class="row data">
+              <div class="subdiv">
+                  <div class="check"><input type="checkbox" name="buy" value="261" checked="" onclick="javascript:basket.checkItem();">&nbsp;</div>
+                  <div class="img"><img src="./img/basket2.jpg" width="60"></div>
+                  <div class="pname">
+                      <span>멜긱 키보드</span>
+                  </div>
+              </div>
+              <div class="subdiv">
+                  <div class="basketprice"><input type="hidden" name="p_price" id="p_price2" class="p_price" value="190000">190,000원</div>
+                  <div class="num">
+                      <div class="updown">
+                          <input type="text" name="p_num2" id="p_num2" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:basket.changePNum(2);">
+                          <span onclick="javascript:basket.changePNum(2);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
+                          <span onclick="javascript:basket.changePNum(2);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="subdiv">
+                  <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
+              </div>
+          </div>
+          <div class="row data">
+              <div class="subdiv">
+                  <div class="check"><input type="checkbox" name="buy" value="262" checked="" onclick="javascript:basket.checkItem();">&nbsp;</div>
+                  <div class="img"><img src="./img/basket3.jpg" width="60"></div>
+                  <div class="pname">
+                      <span>MelGeek Mojo84 플라스틱 시스루 기계식 키보드</span>
+                  </div>
+              </div>
+              <div class="subdiv">
+                  <div class="basketprice"><input type="hidden" name="p_price" id="p_price3" class="p_price" value="215000">215,000원</div>
+                  <div class="num">
+                      <div class="updown">
+                          <input type="text" name="p_num3" id="p_num3" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:basket.changePNum(3);">
+                          <span onclick="javascript:basket.changePNum(3);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
+                          <span onclick="javascript:basket.changePNum(3);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="subdiv">
+                  <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
+              </div>
+          </div>
+  
+      </div>
 
-      <tr>
-        <td><input type="checkbox" class="item_checkbox"></td>
-        <td><img src="" alt="상품 이미지"/></td>
-        <td>MelGeek Mojo68 플라스틱 키보드</td>
-        <td>235,000원</td>
-        <td>
-            <button class="quantity_minusbtn">-</button>
-            <input type="number" class="quantity" value="1">
-            <button class="quantity_plusbtn">+</button>
-        </td>
-        <td></td>
-        <td><button class="delete_btn">삭제</button></td>
-    </tr>
-      
-  </tbody>
+      <div class="right-align basketrowcmd">
+          <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delCheckedItem();">선택상품 삭제</a>
+          <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delAllItem();">장바구니 비우기</a>
+      </div>
 
-    </table>
+      <div class="bigtext right-align box blue summoney" id="sum_p_price">합계금액: 74,200원</div>
+
+      <div id="goorder" class="">
+          <div class="clear"></div>
+          <div class="buttongroup center-align cmd">
+              <a href="javascript:void(0);">선택한 상품 주문</a>
+          </div>
+      </div>
+  </form>
 
     </div>
   </section>
-
-
-
 
 
 

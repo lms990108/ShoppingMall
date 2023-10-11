@@ -158,5 +158,21 @@
   text-align: center;
 }
 
+/* 상단 이동 버튼 */
+
+.topbotton .to_top {
+  position: fixed;
+  top: 90%;
+  left: 90%;
+  width: 80px;
+  opacity: 0;
+  transition: .6s ease-in;
+  cursor: pointer;
+
+}
+
+.to_top.on {
+  opacity: 1;
+}
 
 
