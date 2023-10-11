@@ -15,10 +15,14 @@ const modal_content = document.querySelector(".modal-card-body table");
 
 /* 주문 정보 mockData */
 let order_info = {
-  userId: "",
-  items: null,
-  destination: "",
-  totalPrice: 0,
+  destination: {
+    name: "",
+    address: "",
+    city: "",
+    zip: "",
+  },
+  contact: { phone: "", email: "" },
+  items: [],
 };
 
 /* 단일 상품 정보 컴포넌트 */
@@ -106,7 +110,6 @@ const loadOrderSumary = (order_products) => {
 
   const total_price = product_price + delivery_price;
   order_info.totalPrice = total_price;
-  console.log(order_info);
 
   order_summary.insertAdjacentHTML(
     "beforeend",
@@ -201,6 +204,46 @@ const loadToggle = () => {
       </tbody>
   </table>
   `;
+  const submit_button = document.querySelector(".submit-btn");
+  const delivery_form = document.querySelector(".delivery_form");
+
+  submit_button.addEventListener("click", () => {
+    const formData = new FormData(delivery_form);
+
+    const deliveryData = {};
+    formData.forEach((value, key) => {
+      deliveryData[key] = value;
+    });
+    const orderData = {
+      destination: `(${deliveryData.zip}) ${deliveryData.address}, ${deliveryData.city}`,
+      phone_number: deliveryData.phone,
+      items: order_products,
+      memo:
+        deliveryData.directMemo.length > 0
+          ? deliveryData.directMemo
+          : deliveryData.memo,
+    };
+    fetch(`${url}/add_order`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => Promise.reject(data));
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert(`결제가 완료되었습니다.`);
+        location.reload();
+      })
+      .catch((error) => {
+        alert(`결제에 실패했습니다. \n ${error.message}`);
+      });
+  });
 };
 
 /* 주문 상품 mockData */

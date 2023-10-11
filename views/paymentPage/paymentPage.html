@@ -33,19 +33,19 @@
               정보와 동일</span
             >
           </h3>
-          <div class="m-5 is-grid">
+          <form class="delivery_form m-5 is-grid">
             <label class="label has-text-weight-bold">수령인 </label
-            ><input class="input-name" />
+            ><input class="input-name" name="name" value="" />
             <label class="label has-text-weight-bold">연락처 </label
-            ><input class="input-contact" />
+            ><input class="input-contact" name="phone" />
             <label class="label has-text-weight-bold">우편번호 </label
-            ><input class="input-zip_code" />
+            ><input class="input-zip_code" name="zip" />
             <label class="label has-text-weight-bold">주소 </label
-            ><input class="input-address" />
+            ><input class="input-address" name="city" />
             <label class="label has-text-weight-bold">상세 주소 </label
-            ><input class="input-detail_address" />
+            ><input class="input-detail_address" name="address" />
             <label class="label has-text-weight-bold">배송 메모 </label>
-            <select name="input-deliveryMemo" class="select">
+            <select name="memo" class="select">
               <option>부재 시 경비실에 맡겨주세요.</option>
               <option>집 앞에 놔주세요.</option>
               <option>택배함에 놔주세요.</option>
@@ -54,10 +54,11 @@
             </select>
             <label></label>
             <input
+              name="directMemo"
               class="direct_input is-hidden"
               placeholder="배송 시 요청사항을 입력해주세요."
             />
-          </div>
+          </form>
         </section>
       </div>
       <div class="paymentPage_right column">
