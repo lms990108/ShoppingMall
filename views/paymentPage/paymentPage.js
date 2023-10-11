@@ -168,7 +168,7 @@ close_btn.addEventListener("click", toggleModal);
 cancel_btn.addEventListener("click", toggleModal);
 
 /* 모달 창 내용 불러오기 */
-const loadToggle = () => {
+const loadToggle = async () => {
   const orderer_name = orderer.name;
 
   const products_name = order_products
@@ -207,7 +207,7 @@ const loadToggle = () => {
   const submit_button = document.querySelector(".submit-btn");
   const delivery_form = document.querySelector(".delivery_form");
 
-  submit_button.addEventListener("click", () => {
+  submit_button.addEventListener("click", async () => {
     const formData = new FormData(delivery_form);
 
     const deliveryData = {};
@@ -223,7 +223,7 @@ const loadToggle = () => {
           ? deliveryData.directMemo
           : deliveryData.memo,
     };
-    fetch(`${url}/add_order`, {
+    await fetch(`${url}/add_order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -238,7 +238,7 @@ const loadToggle = () => {
       })
       .then((data) => {
         alert(`결제가 완료되었습니다.`);
-        location.reload();
+        // location.reload();
       })
       .catch((error) => {
         alert(`결제에 실패했습니다. \n ${error.message}`);
