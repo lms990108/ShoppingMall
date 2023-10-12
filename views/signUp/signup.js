@@ -90,7 +90,7 @@ document.getElementById('signup-button').addEventListener('click', async functio
 
         if (response.status === 201) {
             alert("회원가입 성공!");
-            window.location.href = "/mainPage"
+            window.location.href = "/"
         } else {
             alert("회원가입 실패: " + responseData.message);
         }

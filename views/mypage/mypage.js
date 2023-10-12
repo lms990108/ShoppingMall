@@ -171,5 +171,26 @@ logoutButton.addEventListener('click', function() {
     window.location.href = '/'; // 메인 페이지의 URL
 });
 
+// MyPage에 문구 보여주기
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:5001/api/user', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    });
 
-  
+    if (response.ok) {
+      const userData = await response.json();
+      document.getElementById('welcomeMessage').textContent = `${userData.name}님 환영합니다!`;
+      document.getElementById('emailMessage').textContent = `${userData.name}님의 이메일: ${userData.email}`;
+    } else {
+      // 에러 처리
+      console.error("Error fetching user data:", await response.json());
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+});

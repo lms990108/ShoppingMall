@@ -23,6 +23,10 @@
                     <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
                 </figure>
                 <h2 class="title mt-4">My Page</h2>
+                <div class="welcome">
+                  <h2 id="welcomeMessage"></h2>
+                  <p id="emailMessage"></p>
+                </div>
         
                 <div class="buttons is-centered">
                     <button class="button is-fullwidth is-info mb-2" id="showOrderModal">My Order</button>
@@ -30,55 +34,8 @@
                 </div>
             </div>
         </div>
-          
-        <!-- Right Column -->
-        <div class="column">
-          <div class="box">
-              <h2 class="title is-4 has-text-centered">User Information</h2>
-              
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                      <label class="label">Email</label>
-                  </div>
-                  <div class="field-body">
-                      <div class="field">
-                          <input class="input is-static" type="email" value="myemail@gmail.com" id="emailField" readonly>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                      <label class="label">Name</label>
-                  </div>
-                  <div class="field-body">
-                      <div class="field">
-                          <input class="input is-static" type="text" value="이 **" id="nameField" readonly>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                      <label class="label">Address</label>
-                  </div>
-                  <div class="field-body">
-                      <div class="field">
-                          <input class="input is-static" type="text" value="00시 00구 00동 00 (우편번호)" id="addressField" readonly>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                      <label class="label">Phone</label>
-                  </div>
-                  <div class="field-body">
-                      <div class="field">
-                          <input class="input is-static" type="tel" value="010-xxxx-xxxx" id="phoneField" readonly>
-                      </div>
-                  </div>
-              </div>
+        
+        
               
               <div class="has-text-right">
                   <button class="button is-danger is-outlined" id="deleteAccountBtn">
