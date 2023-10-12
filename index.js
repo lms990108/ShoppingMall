@@ -28,6 +28,8 @@ mongoose
 
 const app = express();
 
+console.log("테스트를 위한 commit");
+
 // status 상태 자동 업데이트
 updateOrderStatus();
 
