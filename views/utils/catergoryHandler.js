@@ -31,12 +31,14 @@ const getCategoryMap = async () => {
   return category_map;
 };
 
+/* 상위 카테고리의 이름에 따라 하위카테고리 배열을 리턴하는 함수 */
 const getLowerCategory = async (higherCategory) => {
   const category = await getAllCategories();
   const target_higher = category.find((item) => item.name === higherCategory);
   return category.filter((item) => item.parent === target_higher._id);
 };
 
+/* 카테고리의 아이디에 따라 카테고리 이름을 리턴하는 함수 */
 const getCategoryNameFromCategoryId = async (categoryId) => {
   const category = await getAllCategories();
   const target = category.find((item) => item._id === categoryId);
