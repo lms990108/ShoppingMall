@@ -106,6 +106,7 @@ body {
   background-color: lightgray;
   color: var(--navy-color);
   padding: 20px;
+  margin-top: 100px;
 }
 
 #footer > div {
