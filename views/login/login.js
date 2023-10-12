@@ -24,11 +24,13 @@
                 localStorage.setItem("token", data.token);
                 // 로그인 성공 시 "my page"로 리다이렉트
                 alert("로그인 성공")
-                window.location.href = "../mypage/mypage.html";
+                window.location.href = "/myPage";
             } else {
                 // 로그인 실패 시 에러 메시지 표시
-                alert(data.error);
-                window.location.href = "./login.html";
+                
+                const errorData = await response.json();
+                alert(errorData.error);
+                window.location.href = "/login";
             }
         } catch (error) {
             

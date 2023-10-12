@@ -3,7 +3,7 @@ const logoutButton = document.getElementById('logoutButton'); // 로그아웃 �
 logoutButton.addEventListener('click', function() {
     // 토큰 삭제
     localStorage.removeItem('token');
-    
+    alert("로그아웃 하셨습니다.")
     // 메인 페이지로 리다이렉션
-    window.location.href = '../mainPage/mainPage.html'; // 메인 페이지의 URL
+    window.location.href = '/mainPage'; // 메인 페이지의 URL
 });
