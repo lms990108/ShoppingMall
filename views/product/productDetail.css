@@ -25,7 +25,6 @@
 .product_images .detail_image {
   max-width: 500px;
   background-color: #E0E0E0;
-  /* border: 3px solid #1c3761; */
   padding: 10px;
   box-sizing: border-box;
 }
@@ -33,7 +32,6 @@
 .product_images .thumnails {
   max-width: 500px;
   margin: 20px 0;
-  /* border: 1px solid #1c3761; */
 }
 .thumnails ul {
   display: flex;
@@ -82,6 +80,8 @@
   text-align: center;
 }
 
+/* 수량 */
+
 .numbox {
   display: inline-block;
   position: relative;
@@ -97,7 +97,6 @@
   position: absolute;
   top: 0;
   border: 0;
-  /* background: #F1C40F; */
   background: #ffc436;
   ;
   color: #000;
@@ -159,7 +158,6 @@
 }
 
 /* 상단 이동 버튼 */
-
 .topbotton .to_top {
   position: fixed;
   top: 90%;
