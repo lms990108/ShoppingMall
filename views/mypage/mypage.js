@@ -161,15 +161,19 @@ const deleteAccountButton = document.getElementById('deleteAccountBtn');
 
 
 // 로그아웃
-const logoutButton = document.getElementById('logoutButton'); // 로그아웃 버튼의 ID
-
-logoutButton.addEventListener('click', function() {
-    // 토큰 삭제
+document.addEventListener('DOMContentLoaded', (event) => {
+  
+  const logoutButton = document.getElementById('logoutButton');
+  logoutButton.addEventListener('click', () => {
+    
     localStorage.removeItem('token');
     alert("로그아웃 하셨습니다.")
     // 메인 페이지로 리다이렉션
-    window.location.href = '/'; // 메인 페이지의 URL
+    window.location.href = '/'; 
+    console.log("로그아웃버튼이 눌러졌습니다!");
+  });
 });
+
 
 // MyPage에 문구 보여주기
 document.addEventListener('DOMContentLoaded', async () => {
