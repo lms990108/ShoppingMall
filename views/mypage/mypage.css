@@ -3,12 +3,17 @@
   margin-right: auto;
 }
 
-#showOrderModal {
+#showOrder {
   background-color: var(--navy-color) !important;
 }
-#submitForm {
+#submitForm  {
   background-color: var(--navy-color) !important;
 }
+#closeOrderModalFooter {
+  background-color: var(--navy-color) !important;
+  color: white;
+}
+
 
 #showModal {
   background-color: var(--yellow-color) !important;

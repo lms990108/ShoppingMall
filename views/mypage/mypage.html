@@ -27,7 +27,7 @@
             <p id="emailMessage"></p>
 
             <div class="buttons is-centered mt-4">
-              <button class="button is-info" id="showOrderModal">주문 조회</button>
+              <button class="button is-info" id="showOrder">주문 조회</button>
               <button class="button is-success" id="showModal">회원정보 수정</button>
               <button class="button is-danger is-light" id="logoutButton">
                 <span class="icon">
@@ -114,33 +114,20 @@
         </div>
     </div>
 
-      <!-- My Order Modal -->
+      <!-- 주문조회 모달 -->
 <div class="modal" id="modal2">
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">My Orders</p>
+      <p class="modal-card-title">주문 목록</p>
       <button id="closeOrderModal" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <!-- List of Ordered Products -->
-      <table class="table is-fullwidth">
-        <thead>
-          <tr>
-            <th>제품명</th>
-            <th>제품수량</th>
-            <th>총가격</th>
-            <th>배송지</th>
-            <th>배송상태</th>
-          </tr>
-        </thead>
-        <tbody id="orderList">
-          <!-- You can dynamically populate this section using JavaScript -->
-        </tbody>
-      </table>
+      <div id="orderLists"></div>
     </section>
     <footer class="modal-card-foot">
-      <button id="closeOrderModalFooter" class="button">Close</button>
+      <button id="closeOrderModalFooter" class="button">닫기</button>
     </footer>
   </div>
 </div>
