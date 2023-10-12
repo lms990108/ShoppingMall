@@ -11,7 +11,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { email, password, name, level = 0 } = req.body;
 
-    // 사용자 객체 검증 로직.
+
     if (!email || !password || !name) {
       throw new Error("Invalid input data");
     }
