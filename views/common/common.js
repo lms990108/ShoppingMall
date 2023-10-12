@@ -23,7 +23,7 @@ header.insertAdjacentHTML(
   "beforeend",
   /*html*/
   ` <div>
-    <section class="header_top">[OPEN EVENT] 전품목 무료배송 이벤트 <a href="/product/?higherCategory=키보드">상품 구경하기</a></section>
+    <section class="header_top">[OPEN EVENT] 전품목 무료배송 이벤트 <a href="/products?higherCategory=키보드">상품 구경하기</a></section>
     <section class="header_bottom">
         <a class="header_logo" href="/">
             <img src="/common/logo.png">
@@ -58,7 +58,6 @@ header.insertAdjacentHTML(
     </section>
 </div>`,
 );
-
 
 /* Category nav 띄우기 위한 HTML 생성 */
 const generateCategoryHtml = (category) => {
@@ -112,5 +111,3 @@ melgeek (멜긱)<br>
   <div class="footer_third"><img src="/common/logo2.png"></div>
 </div>`,
 );
-
-
