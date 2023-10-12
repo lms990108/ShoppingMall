@@ -36,6 +36,16 @@ viewRouter.get("/login", async (req, res) => {
   res.sendFile(path.join(resourcePath, "/login/login.html"));
 });
 
+// 회원가입페이지 연결
+viewRouter.get("/signUp", async (req, res) => {
+  res.sendFile(path.join(resourcePath, "/signUp/signUp.html"));
+});
+
+// 마이페이지 연결
+viewRouter.get("/myPage", async (req, res) => {
+  res.sendFile(path.join(resourcePath, "/myPage/myPage.html"));
+});
+
 // 관리자페이지 연결
 viewRouter.get("/admin", async (req, res) => {
   res.sendFile(path.join(resourcePath, "/admin/admin.html"));
