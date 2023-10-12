@@ -18,7 +18,7 @@
 
       <!-- 왼쪽 이미지 영역 -->
       <div class="product_images">
-        <img class="detail_image" src="https://www.melgeek.com/cdn/shop/products/f58620219c6834a592e3ee566c096710.jpg?v=1681894613&width=1500" alt="상품 상세정보 큰 이미지"/>
+        <div class="main_img_box"></div>
 
         <!-- 상품 상세 썸네일(작은이미지) 영역-->
         <div class="thumnails">
@@ -49,12 +49,11 @@
 
       <!-- 오른쪽 영역 (상품명, 가격, 특징, 수량, 구매/장바구니 버튼) -->
       <div class="product_info_pannel">
-        <h1 class="product_title">MelGeek Mojo84 플라스틱 시스루 기계식 키보드</h1>
+        <h1 class="product_title"></h1>
 
         <h3 class="product_destitle">상품 내용</h3>
-        <p class="destext">Mojo84 타이핑 경험을 향상시키는 기계식 키보드</p>
-
-        <p class="price">249,000원</p>
+        <p class="destext"></p>
+        <p class="price"></p>
 
         
         <h3>상품 특징</h3>
@@ -64,18 +63,14 @@
           <li>핫 스왑 가능</li>
         </ul>
         
-        <!-- 수량, 금액 -->
-        
         <h3>수량</h3>
         <div class="numbox">
             <button type="button" class="minusbtn">-</button>
             <input type="text" class="quantity" value="1" disabled/>
             <button type="button" class="plusbtn">+</button>
-
         </div>
 
-        <span class="total_price">249,000원</span>
-
+        <span class="total_price"></span>
 
         <div class="product_btns">
           <button class="button is-info buy_btn">구매하기</button>
@@ -84,21 +79,18 @@
 
       </div>
 
-
-<!--  모달 창 작업 추후 진행 예정...
-      <div class="modal">
-        <div class="modal-content">
-          <span class="close-modal-button">&times;</span>
-            <h3>해당 상품이 장바구니에 추가되었습니다!</h3>
-            <button class="button is-info">장바구니로 이동</button>
-            <button class="button is-warning">상품 더 둘러보기</button>
-        </div>
-      </div> -->
-
     </section>
 
-    
 
+    <!-- 모달 창 -->
+    <div class="modal">
+      <div class="modal_content">
+        <span class="close_modal_button">&times;</span>
+        <p class="content"></p>
+        <button class="confirm_button btnConfirm"></button>
+        <button class="confirm_button btnCancel"></button>
+      </div>
+    </div>
 
     <!-- 제품 상세 정보(상품 설명 상세정보 이미지 & 제품 사양 이미지 들어갈곳입니다.) -->
     <section class="product_detail_info">
@@ -109,13 +101,8 @@
       <p>이 사이트는 상업적 목적이 아닌 학업적 목적의 가상 쇼핑몰로서, 출처(키크론, 멜긱)의 데이터들을 포함하고 있습니다.</p>
       
       <div class="detail_info_content">
-        <img src="https://cdn.shopifycdn.net/s/files/1/0078/2863/5712/files/2_2aa4abac-0ceb-4169-b7df-570b562a05bd.jpg?v=1665241370" alt="상품 상세 정보 이미지"/>
-
+        <!-- 제품 상세 정보 이미지 들어갈 곳 -->
       </div>
-      
-      
-  
-
 
     </section>
 
