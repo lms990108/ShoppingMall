@@ -41,7 +41,7 @@ minus.addEventListener("click", () => {
     quantity.value = countnum;
 
     let totalcost = countnum * 249000; // 기본금액 임의 설정
-    totalprice.textContent = totalcost.toLocaleString()
+    totalprice.innerText = `${totalcost.toLocaleString()}원`;
 
   } 
   
@@ -54,7 +54,25 @@ plus.addEventListener("click", () => {
   quantity.value = countnum;
 
   let totalcost = countnum * 249000; // 기본금액 임의 설정
-  totalprice.textContent = totalcost.toLocaleString()
+  totalprice.innerText = `${totalcost.toLocaleString()}원`;
+})
+
+
+// 구매하기 버튼
+const buyButton = document.querySelector(".product_btns .button is-info");
+
+buyButton.addEventListener("click", () => {
+  alert("해당 상품을 구매하시겠습니까?");
+  location.href = "http://localhost:5001/login/"
+})
+
+
+// 장바구니 버튼
+const cartButton = document.querySelector(".product_btns .button is-warning");
+
+cartButton.addEventListener("click", () => {
+  alert("해당 상품이 장바구니에 담겼습니다!");
+  location.href = "http://localhost:5001/cart/"
 })
 
 
