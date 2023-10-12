@@ -93,9 +93,8 @@ const getAllProducts = async (page) => {
 
 const loadProducts = async (page) => {
   const productsTable = document.querySelector("#product_manage tbody");
-  const products = await getAllProducts(page);
+  const { products } = await getAllProducts(page);
   productsTable.innerHTML = "";
-
   for (const product of products) {
     const higher_category = await getCategoryNameFromCategoryId(
       product.higher_category,

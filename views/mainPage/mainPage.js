@@ -13,7 +13,7 @@ const getThreeProducts = async (category, container) => {
       return response.json();
     })
     .then((data) => {
-      loadProductsContainer(data.slice(0, 3), container);
+      loadProductsContainer(data.products.slice(0, 3), container);
     })
     .catch((error) => {
       console.error(error);
