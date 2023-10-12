@@ -2,9 +2,10 @@
 const URLMatch = new URLSearchParams(location.search); // 쿼리스트링이 있는지 없는지
 let mainCategory = URLMatch.get("higherCategory");      // 상위카테고리
 let subCategory = URLMatch.get("lowerCategory");       // 하위카테고리
-let maxPage = 1;    // 최대 페이지.
+let maxPage = 1;    // 최대 페이지
 let nowPage = 1;    // 현재 페이지
 const pageSize = 6; // 한 페이지당 호출할 상품 갯수
+let sortType = 'recent';  // 정렬순 기본 recent (최신순)
 
 /* GET category List */
 
@@ -99,6 +100,8 @@ async function makeTabButtons(tabs) {
 
 
 if (mainCategory && subCategory) getProductsList();
+// 정렬순서 변경 이벤트 바인딩
+document.querySelector('.sortSelect').addEventListener('change', changeSortType);
 
 
 // 상품 목록 호출 메소드
@@ -111,13 +114,14 @@ async function getProductsList() {
   
   try {
     // Response data
-    const res = await fetch("/api/product/?lowerCategory=" + subCategory + "&page=" + page + '&pageSize=' + pageSize)
+    const res = await fetch("/api/product/?lowerCategory=" + subCategory + "&page=" + page + '&pageSize=' + pageSize + '&sortType=' + sortType)
 
     const listdata = await res.json();
     
     makeProductList(listdata.products);  // 상품 엘리먼트 생성
     makePagenation(listdata.totalCnt)  // totalCnt. 페이지 엘리먼트 생성.
-  } catch(err) {
+  }
+  catch (err) { // 응답 값 요청 예외처리
     console.log(err)
     alert('데이터 호출에 실패했습니다. 잠시 후, 다시 시도해 주세요.')
   }
@@ -155,9 +159,10 @@ function makeProductList(listdata) {
 }
 
 // 페이징 생성 메서드
-function makePagenation(totalCnt) { // (Number) 총 상품 갯수. totalCnt
+function makePagenation(totalCnt) { // (Number) 총 상품 갯수(=totalCnt)
   const pageWrap = document.querySelector('.pagination-list');
   maxPage = Math.floor(totalCnt / pageSize) + 1;
+  // ex) lowerCategory=USB&page=1
   if (URLMatch.get("page")) nowPage = Number(URLMatch.get("page"))
 
   for (var i = 1; i <= maxPage; i++) {
@@ -167,9 +172,9 @@ function makePagenation(totalCnt) { // (Number) 총 상품 갯수. totalCnt
     a.innerText = i
     a.href = "/products?higherCategory=" + mainCategory + "&lowerCategory=" + subCategory + '&page=' + i
 
-    // 페이지 버튼을 만드는 순서 i 와 현재 들어온 페이지가 같으면
+    // 페이지 버튼을 만드는 순서(i)와 현재 들어온 페이지가 같으면..
     if (i === nowPage) {
-      a.classList.add('is-current')
+      a.classList.add('is-current') // 현재 페이지 표시
       a.setAttribute('area-label', 'Page ' + i)
       a.setAttribute('area-current', 'page')
     
@@ -194,6 +199,25 @@ function goToNextPage() {
   if (nowPage === maxPage) return false
 
   location.href = "/products?higherCategory=" + mainCategory + "&lowerCategory=" + subCategory + '&page=' + (nowPage + 1)
+}
+
+// 옵션에 따른 정렬순서 변경(최신순,오래된순, 가격 오름차순/내림차순)
+function changeSortType() {
+  sortType = document.querySelector('.sortSelect').value;
+  
+  // 페이지 초기화 후 다시 상품 조회
+  pageInit();
+  getProductsList();  
+}
+
+// 페이지 초기화
+function pageInit() {
+  maxPage = 1;
+  nowPage = 1; 
+  const productList = document.querySelector('.items')
+  const pageList = document.querySelector('.pagination-list')
+  productList.innerHTML = '';
+  pageList.innerHTML = '';
 }
 
 // 가격 콤마 표시 함수 (3자리 단위로)

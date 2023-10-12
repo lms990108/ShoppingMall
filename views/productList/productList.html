@@ -40,10 +40,11 @@
       <!-- 옵션 -->
       <div class="options inner">
         <div class="select">
-          <select class="select is-link">
-            <option>최신순</option>
-            <option>인기순</option>
-            <option>오래된순</option>
+          <select class="select is-link sortSelect">
+            <option value="recent" selected>최신순</option>
+            <option value="old">오래된순</option>
+            <option value="priceAscend">가격 오름차순</option>
+            <option value="priceDesc">가격 내림차순</option>
           </select>
         </div>
       </div>
@@ -54,7 +55,7 @@
           <!-- 상품 목록 동적 생성 -->
         </ul>
 
-       <!-- 페이징 처리 영역 -->
+       <!-- 페이지네이션 영역 -->
        <div class="paginationArea">
 
         <nav class="pagination is-centered" role="navigation" aria-label="pagination">
@@ -64,8 +65,6 @@
           </ul>
         </nav>
        </div>
-
-
 
       </div>
       
