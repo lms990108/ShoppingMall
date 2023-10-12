@@ -63,15 +63,15 @@ userSchema.methods.generateToken = function () {
   return token;
 };
 
-// 보여질 정보들 중에서 제외되어야 할 것에 대한 처리 (사용자가 보기에 불편한 정보 삭제)
-// userSchema.methods.toJSON = function() {
-//     const obj = this._doc;
-//     delete obj.password;
-//     delete obj.__v; // 버전 정보도 빼준다
-//     delete obj.updatedAt;
-//     delete obj.createdAt;
-//     return obj;
-// };
+//보여질 정보들 중에서 제외되어야 할 것에 대한 처리 (사용자가 보기에 불편한 정보 삭제)
+userSchema.methods.toJSON = function() {
+    const obj = this._doc;
+    delete obj.password;
+    delete obj.__v; // 버전 정보도 빼준다
+    delete obj.updatedAt;
+    delete obj.createdAt;
+    return obj;
+};
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

@@ -2,3 +2,27 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+#showOrderModal {
+  background-color: var(--navy-color) !important;
+}
+#submitForm {
+  background-color: var(--navy-color) !important;
+}
+
+#showModal {
+  background-color: var(--yellow-color) !important;
+}
+
+#deleteAccountBtn {
+  background-color: #dc134c;
+  color: white;
+}
+
+#mainContent {
+  padding-top: 100px;  /* Adjust this value according to your header height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80vh;
+}

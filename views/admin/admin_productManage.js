@@ -27,7 +27,6 @@ const loadProductTable = () => {
               <th title="higher_category">상위카테고리</th>
               <th title="lower_category">하위카테고리</th>
               <th title="indate">생성일자</th>
-              <th title="cnt">조회수</th>
               <th title="button"></th>
             </tr>
           </thead>
@@ -94,9 +93,8 @@ const getAllProducts = async (page) => {
 
 const loadProducts = async (page) => {
   const productsTable = document.querySelector("#product_manage tbody");
-  const products = await getAllProducts(page);
+  const { products } = await getAllProducts(page);
   productsTable.innerHTML = "";
-
   for (const product of products) {
     const higher_category = await getCategoryNameFromCategoryId(
       product.higher_category,
@@ -116,7 +114,6 @@ const loadProducts = async (page) => {
       <td>${higher_category}</td>
       <td>${lower_category}</td>
       <td>${new Date(product.inDate).toLocaleString()}</td>
-      <td>${product.cnt}</td>
       <td>      <button class="button patch_product_btn is-warning is-light is-small">수정</button>
       <button class="button delete_product_btn is-danger is-light is-small">삭제</button></td>
       </tr>`,

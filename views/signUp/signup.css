@@ -4,3 +4,32 @@
 .is-success {
   border-color: green !important;
 }
+.fas {
+  
+  color: var(--navy-color) ;
+}
+
+button {
+  background-color: var(--navy-color) !important;
+}
+h2 {
+  color: var(--navy-color) !important;
+}
+
+body {
+  padding-top: 120px !important; /* #header의 높이와 같게 설정 */
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.is-half {
+  max-width: 400px;
+}
+
+.main-content {
+  flex: 1 0 auto;  /* 이 부분은 flex-grow, flex-shrink, flex-basis를 한 줄로 결합한 것입니다. */
+}
+

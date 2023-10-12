@@ -1,0 +1,19 @@
+button {
+  background-color: var(--navy-color) !important;
+}
+body {
+  padding-top: 95px !important; /* #header의 높이와 같게 설정 */
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1 0 auto;  /* 이 부분은 flex-grow, flex-shrink, flex-basis를 한 줄로 결합한 것입니다. */
+}
+
+#footer {
+  flex-shrink: 0;  /* 푸터의 크기를 줄이지 않도록 설정 */
+}

@@ -1,7 +1,9 @@
 const bcrypt = require("bcryptjs");
+const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 const dotenv = require("dotenv");
+
 
 dotenv.config();
 
@@ -47,6 +49,13 @@ class UserService {
   }
 
   async updateUser(userId, updates) {
+
+    if (updates.password) {
+
+      const saltRounds = 10;
+      updates.password = await bcrypt.hash(updates.password, saltRounds);
+    }
+
     const user = await this.userModel.findByIdAndUpdate(userId, updates, {
       new: true,
     });

@@ -10,24 +10,27 @@
         const password = passwordInput.value;
 
         try {
-            const response = await fetch("/login", {
+            const response = await fetch("http://localhost:5001/api/user/login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
             });
 
             const data = await response.json();
 
-            if (data.status === "성공") {
+            if (response.status === 200) {
                 localStorage.setItem("token", data.token);
                 // 로그인 성공 시 "my page"로 리다이렉트
-                window.location.href = "./mypage.html";
+                alert("로그인 성공")
+                window.location.href = "/myPage";
             } else {
                 // 로그인 실패 시 에러 메시지 표시
-                alert(data.error);
-                window.location.href = "./login.html";
+                
+                const errorData = await response.json();
+                alert(errorData.error);
+                window.location.href = "/login";
             }
         } catch (error) {
             

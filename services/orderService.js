@@ -9,9 +9,24 @@ class orderService {
   async addOrder(newOrder, userId) {
     if (!userId) throw new Error("사용자 ID가 필요합니다");
 
+    // 가장 최근 주문을 찾고, 새로운 주문 번호 설정
+    const lastOrder = await this.orderModel
+      .findOne()
+      .sort({ order_number: -1 });
+
+    const nextOrderNumber = lastOrder ? lastOrder.order_number + 1 : 1;
+    newOrder.order_number = nextOrderNumber;
+    newOrder.userId = userId;
+    newOrder.totalPrice = 0;
+
+    // 각 항목의 가격과 수량을 이용하여 총 가격 계산
+    newOrder.items.forEach((item) => {
+      newOrder.totalPrice += item.price * item.qty;
+    });
+
+    console.log(newOrder);
     // userId를 newOrder에 추가합니다.
-    const orderWithUser = { ...newOrder, userId };
-    const createNewOrder = await this.orderModel.create(orderWithUser);
+    const createNewOrder = await this.orderModel.create(newOrder);
     return createNewOrder;
   }
 

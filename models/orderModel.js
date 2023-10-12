@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const User = require('./User'); const Product = require('./Product');
 const { Schema } = require("mongoose");
 const orderSchema = new Schema(
   {
@@ -17,17 +16,20 @@ const orderSchema = new Schema(
       default: 0,
     },
     destination: {
-      // 배송지
-      type: Object,
+      // 배송주소
+      type: String,
       required: true,
     },
-    contact: {
+    phone_number: {
       // 연락처
-      type: Object,
+      type: String,
       required: true,
+    },
+    memo: {
+      type: String,
     },
     order_number: {
-      type: String,
+      type: Number,
     },
     items: [
       {
@@ -43,24 +45,12 @@ const orderSchema = new Schema(
           required: true,
           default: 1,
         },
-        size: {
-          type: String,
-          required: true,
-        },
       },
     ],
   },
   { timestamps: true },
+  { versionKey: false },
 );
-
-/*
-orderSchema.methods.toJSON = function () {     
-    const obj = this._doc;
-    delete obj.__v;     
-    delete obj.updatedAt;     
-    return obj; 
-};
-*/
 
 const order = mongoose.model("order", orderSchema);
 module.exports = order;

@@ -4,96 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DevGear</title>
-    <link rel="stylesheet" href="./login.css" type="text/css" />
+    <link rel="stylesheet" href="./myPage.css" type="text/css" />
     <link rel="stylesheet" href="../common/common.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   </head>
   <body>
     <header id="header"></header>
 
-    
-    
+    <div id="mainContent">
     <div class="container mt-6">
-      <div class="columns">
-          
-          <!-- Left Column -->
-          <div class="column is-one-third">
-            <div class="box has-text-centered">
-                <figure class="image is-128x128 is-inline-block">
-                    <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
-                </figure>
-                <h2 class="title mt-4">My Page</h2>
+      <div class="columns is-multiline">
+
         
-                <div class="buttons is-centered">
-                    <button class="button is-fullwidth is-info mb-2" id="showOrderModal">My Order</button>
-                    <button class="button is-fullwidth is-success is-pulled-right" id="showModal">Edit Profile</button>
-                </div>
+        <div class="column is-full">
+          <div class="box has-text-centered">
+            <span class="icon is-large">
+              <i class="fas fa-user-circle fa-3x"></i>
+            </span>
+            <h1 class="title mt-4">My Page</h1>
+            
+            <h2 class="title mt-4" id="welcomeMessage">🥲로그인이 필요합니다.</h2>
+            <p id="emailMessage"></p>
+
+            <div class="buttons is-centered mt-4">
+              <button class="button is-info" id="showOrderModal">주문 조회</button>
+              <button class="button is-success" id="showModal">회원정보 수정</button>
+              <button class="button is-danger is-light" id="logoutButton">
+                <span class="icon">
+                  <i class="fas fa-sign-out-alt"></i>
+                </span>
+                <span>로그아웃</span>
+              </button>
+              <button class="button is-light" id="deleteAccountBtn">회원 탈퇴</button>
             </div>
-        </div>
-          
-        <!-- Right Column -->
-        <div class="column">
-          <div class="box">
-              <h2 class="title is-4 has-text-centered">User Information</h2>
-              
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                      <label class="label">Email</label>
-                  </div>
-                  <div class="field-body">
-                      <div class="field">
-                          <input class="input is-static" type="email" value="myemail@gmail.com" id="emailField" readonly>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                      <label class="label">Name</label>
-                  </div>
-                  <div class="field-body">
-                      <div class="field">
-                          <input class="input is-static" type="text" value="이 **" id="nameField" readonly>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                      <label class="label">Address</label>
-                  </div>
-                  <div class="field-body">
-                      <div class="field">
-                          <input class="input is-static" type="text" value="00시 00구 00동 00 (우편번호)" id="addressField" readonly>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                      <label class="label">Phone</label>
-                  </div>
-                  <div class="field-body">
-                      <div class="field">
-                          <input class="input is-static" type="tel" value="010-xxxx-xxxx" id="phoneField" readonly>
-                      </div>
-                  </div>
-              </div>
-              
-              <div class="has-text-right">
-                  <button class="button is-danger is-outlined">
-                      <span>회원 탈퇴</span>
-                      <span class="icon is-small">
-                          <i class="fa-solid fa-trash-can"></i>
-                      </span>
-                  </button>
-              </div>
           </div>
-      </div>
-          
-      </div>
-  </div>
+        </div>
 
+      </div>
+    </div>
+  </div>
 
 
 
@@ -109,39 +58,61 @@
           </header>
           <section class="modal-card-body">
             <!-- Form -->
-            <form id="signupForm">
-              <div class="field">
-                <label class="label">ID</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Enter new ID" name="newId">
+            <div class="container mt-200 pt-10">
+              <div class="columns is-centered">
+                <div class="column is-fullwidth">
+                  <div class="box">
+                    <div class="field">
+                      <label class="label">Email</label>
+                      <div class="control has-icons-left">
+                        <input class="input" type="email" placeholder="e.g. alex@example.com" id="email">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                      </div>
+                    </div>
+            
+                    <div class="field">
+                      <label class="label">Name</label>
+                      <div class="control has-icons-left">
+                        <input class="input" type="text" placeholder="이름" id="name">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
+                    </div>
+            
+                    <div class="field">
+                      <label class="label">Password</label>
+                      <div class="control has-icons-left">
+                        <input class="input" type="password" placeholder="8자이상, 특수문자, 영문 포함" id="password">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                      </div>
+                    </div>
+            
+                    <div class="field">
+                      <label class="label">Confirm Password</label>
+                      <div class="control has-icons-left">
+                        <input class="input" type="password" placeholder="비밀번호 확인" id="confirmPassword">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+            
                 </div>
               </div>
-              <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                  <input class="input" type="password" placeholder="Enter new password" name="newPassword">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Phone Number</label>
-                <div class="control">
-                  <input class="input" type="tel" placeholder="Enter new phone number" name="newPhoneNumber">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Address</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Enter new address" name="newAddress">
-                </div>
-              </div>
-            </form>
+            </div>
           </section>
           <footer class="modal-card-foot">
             <button class="button is-success" id="submitForm">Submit</button>
             <button class="button" id="cancelModal">Cancel</button>
           </footer>
         </div>
-      </div>
+    </div>
 
       <!-- My Order Modal -->
 <div class="modal" id="modal2">
@@ -174,7 +145,7 @@
   </div>
 </div>
 
-    <script src="./mypage.js"></script>
-    <script src="../common/common.js"></script>
+    <script src="./myPage.js"></script>
+    <script src="../common/common.js" type="module"></script>
   </body>
 </html>

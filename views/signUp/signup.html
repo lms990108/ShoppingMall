@@ -4,35 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DevGear</title>
-    <link rel="stylesheet" href="./signup.css" type="text/css" />
+    <link rel="stylesheet" href="./signUp.css" type="text/css" />
     <link rel="stylesheet" href="../common/common.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   </head>
   <body>
     <header id="header"></header>
-
-    <div class="container mt-6">
+    <div class="main-content">
+    <div class="container pt-10">
       <div class="columns is-centered">
         <div class="column is-half">
           <div class="box">
-            <h2 class="title has-text-centered ">Sign Up</h2>
+            <h2 class="title has-text-centered ">회원가입</h2>
     
             <div class="field">
               <label class="label">Email</label>
               <div class="control has-icons-left">
                 <input class="input" type="email" placeholder="e.g. alex@example.com" id="email">
                 <span class="icon is-small is-left">
-                  <i class="fas fa-envelope has-text-info"></i>
+                  <i class="fas fa-envelope"></i>
                 </span>
               </div>
             </div>
     
             <div class="field">
-              <label class="label">UserId</label>
+              <label class="label">Name</label>
               <div class="control has-icons-left">
-                <input class="input" type="text" placeholder="ID">
+                <input class="input" type="text" placeholder="이름" id="name">
                 <span class="icon is-small is-left">
-                  <i class="fas fa-user has-text-info"></i>
+                  <i class="fas fa-user"></i>
                 </span>
               </div>
             </div>
@@ -42,7 +42,7 @@
               <div class="control has-icons-left">
                 <input class="input" type="password" placeholder="8자이상, 특수문자, 영문 포함" id="password">
                 <span class="icon is-small is-left">
-                  <i class="fas fa-lock has-text-info"></i>
+                  <i class="fas fa-lock"></i>
                 </span>
               </div>
             </div>
@@ -50,9 +50,9 @@
             <div class="field">
               <label class="label">Confirm Password</label>
               <div class="control has-icons-left">
-                <input class="input" type="password" placeholder="비밀번호 확인">
+                <input class="input" type="password" placeholder="비밀번호 확인" id="confirmPassword">
                 <span class="icon is-small is-left">
-                  <i class="fas fa-lock has-text-info"></i>
+                  <i class="fas fa-lock"></i>
                 </span>
               </div>
             </div>
@@ -67,17 +67,17 @@
           </div>
     
           <div class="has-text-centered mt-3">
-            이미 계정이 있으신가요? <a href="../login/login.html" class="has-text-weight-bold has-text-link">Login</a>
+            이미 계정이 있으신가요? <a href="/login" class="has-text-weight-bold has-text-link">로그인 하기</a>
           </div>
     
         </div>
       </div>
     </div>
-  
+  </div>
 
     <footer id="footer"></footer>
 
-    <script src="./signup.js"></script>
-    <script src="../common/common.js"></script>
+    <script src="./signUp.js" type="module"></script>
+    <script src="../common/common.js" type="module"></script>
   </body>
 </html>
