@@ -1,10 +1,13 @@
-
+  // 1. Edit Profile 누를 시 모달 창
   const showModalButton = document.getElementById('showModal');
   const closeModalButton = document.getElementById('closeModal');
   const cancelModalButton = document.getElementById('cancelModal');
   const submitFormButton = document.getElementById('submitForm');
   const modal = document.getElementById('modal1');
-  const form = document.getElementById('signupForm');
+  const formInput = document.getElementById('signupForm');
+  const emailInput = document.getElementById('email');
+  const nameInput = document.getElementById('name');
+  const passwordInput = document.getElementById("password");
 
   // Show modal
   showModalButton.addEventListener('click', function() {
@@ -21,33 +24,70 @@
     modal.classList.remove('is-active');
   });
 
-  // Submit form
-  submitFormButton.addEventListener('click', function() {
-    // Here you can fetch the form data and send it somewhere
-    const formData = new FormData(form);
+  // Submit 버튼을 누르면 => 회원정보수정
+  submitFormButton.addEventListener('click', async function(e) {
+    e.preventDefault();
+
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    const name = nameInput.value;
     
-    // Just an example: Log out the ID
-    console.log(formData.get('newId'));
+    
+    try {
+        const token = localStorage.getItem('token'); 
+        console.log(token)
+        const response = await fetch('http://localhost:5001/api/user', { 
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + token 
+            },
+            body: JSON.stringify({
+              email: email,
+              name: name,
+              password: password,
+          }),
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            console.log(result);
+            alert('회원정보가 수정되었습니다!');
+            modal.classList.remove('is-active');
+        } else {
+            const errorData = await response.json();
+            console.error("Error updating user:", errorData);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+});
 
-    modal.classList.remove('is-active');
-  });
-
-  // My Order 누를 시 모달창
+  // 2. My Order 누를 시 모달창
   const showOrderModalButton = document.getElementById('showOrderModal');
   const closeOrderModalButton = document.getElementById('closeOrderModal');
   const closeOrderModalFooterButton = document.getElementById('closeOrderModalFooter');
   const orderModal = document.getElementById('modal2');
   
+  // api 호출 
+  async function fetchOrders(userId) {
+    const response = await fetch(`http://kdt-sw-6-team05.elicecoding.com/user/${userId}/orders`);
+    const data = await response.json();
+    return data;
+  }
+
   // Show order modal
-  showOrderModalButton.addEventListener('click', function() {
-    // Before showing the modal, you can fetch and display the order data here
-    // For demonstration purposes, I'll populate it with some dummy data:
-    populateOrderList([
-      { name: '제품1', quantity: 2, price: '$20', address: '서울', status: '배송중' },
-      { name: '제품2', quantity: 1, price: '$15', address: '부산', status: '배송완료' },
-    ]);
-  
-    orderModal.classList.add('is-active');
+  showOrderModalButton.addEventListener('click', async function() {
+    
+    try {
+      const orders = await fetchOrders(userId);
+      populateOrderList(orders);
+      orderModal.classList.add('is-active');
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+      // 추가적인 에러 핸들링을 여기서 수행할 수 있습니다.
+    }
+    
   });
   
   // Close order modal
@@ -66,11 +106,16 @@
     orders.forEach(order => {
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td>${order.name}</td>
-        <td>${order.quantity}</td>
-        <td>${order.price}</td>
-        <td>${order.address}</td>
-        <td>${order.status}</td>
+      <tr>
+      <td>${order.orderNum}</td>
+      <td>${order.status}</td>
+      <td>${order.totalPrice}</td>
+      <td>${order.shipTo.address}</td> // Type이 오브젝트 인데 어케 하는지 모르겠음
+      <td>${order.contact.phone}</td>  // 여기도 
+      <td>
+          ${order.items.map(item => `${item.qty} x ${item.productId}`).join('<br>')}
+      </td>
+      </tr>
       `;
       orderListElem.appendChild(row);
     });

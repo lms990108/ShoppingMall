@@ -2,3 +2,14 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+#showOrderModal {
+  background-color: var(--navy-color) !important;
+}
+#submitForm {
+  background-color: var(--navy-color) !important;
+}
+
+#showModal {
+  background-color: var(--yellow-color) !important;
+}

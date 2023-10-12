@@ -4,14 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DevGear</title>
-    <link rel="stylesheet" href="./login.css" type="text/css" />
     <link rel="stylesheet" href="../common/common.css" type="text/css" />
+    <link rel="stylesheet" href="./login.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   </head>
   <body>
+    <div class="main-content">
     <header id="header"></header>
-
-    
     <!-- 로그인 창 구현 -->
     <div class="container mt-6">
         <div class="columns is-centered">
@@ -41,7 +40,7 @@
       
               <div class="field">
                 <div class="control">
-                  <button class="button is-primary is-fullwidth has-text-weight-bold" id="login-btn">Login</button>
+                  <button class="button is-primary is-fullwidth has-text-weight-bold" id="login-btn">로그인</button>
                 </div>
               </div>
       
@@ -50,17 +49,17 @@
             </div>
       
             <div class="has-text-centered mt-3">
-              계정이 없으신가요? <a href="../signUp/signup.html" class="has-text-weight-bold has-text-link">회원가입</a>
+              계정이 없으신가요? <a href="../signUp/signUp.html" class="has-text-weight-bold has-text-link">회원가입</a>
             </div>
       
           </div>
         </div>
       </div>
-  
+    </div>
 
     <footer id="footer"></footer>
 
-    <script src="./login.js"></script>
-    <script src="../common/common.js"></script>
+    <script src="./login.js" ></script>
+    <script src="../common/common.js" type="module"></script>
   </body>
 </html>
