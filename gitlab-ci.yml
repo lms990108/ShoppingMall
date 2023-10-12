@@ -1,0 +1,15 @@
+stages:
+  - deploy
+
+variables:
+  # 환경 변수 설정
+  PM2_APP_NAME: "index" # PM2에서 사용할 애플리케이션 이름
+
+deploy_dev:
+  stage: deploy
+  only:
+    - dev # dev 브랜치에 변경 사항이 있을 때만 실행
+  script:
+    - npm install # npm 패키지 업데이트
+    - git checkout origin/dev # 원격 dev 브랜치로 이동
+    - pm2 restart $PM2_APP_NAME # PM2를 사용하여 애플리케이션 재시작
