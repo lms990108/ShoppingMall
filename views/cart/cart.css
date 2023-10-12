@@ -1,6 +1,6 @@
 .cartpage {
-  height: 1000px;
   padding-top: 150px;
+  padding-bottom: 50px;
 }
 
 .inner {
@@ -52,6 +52,11 @@ input[type="checkbox"] {
   vertical-align: middle;
 }
 
+.cart_table img {
+  width: 100px;
+}
+
+
 .cartlist tr td {
   max-width: 100px;
   overflow: hidden;
@@ -59,25 +64,8 @@ input[type="checkbox"] {
   white-space: normal;
 }
 
+
 /* 수량 */
-/* .quantity_input {
-  width: 45px;
-  text-align: center;
-  padding: 8px;
-}
-
-.quantity_btn {
-  background-color: var(--navy-color);
-  border: none;
-  color: #fff;
-  padding: 8px 16px;
-  cursor: pointer;
-} */
-
-/* .quantity_btn:hover {
-  background-color: #666;
-} */
-
 .numbox {
   display: inline-block;
   position: relative;
@@ -114,8 +102,6 @@ input[type="checkbox"] {
 }
 
 
-
-
 /* 가격 표시 */
 .total_price {
   float: right;
@@ -124,6 +110,11 @@ input[type="checkbox"] {
   content: "";
   clear: both;
 }
+.totaltext {
+  transform: translateX(942px);
+}
+
+
 /* 장바구니 관련 버튼들 */
 .cart_btns {
   margin-top: 130px;

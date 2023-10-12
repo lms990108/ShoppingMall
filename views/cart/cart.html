@@ -16,7 +16,6 @@
       <h1>CART</h1>
     </div>
 
-    <form id="cartform">
 
       <!-- 장바구니 영역 -->
       <table class="cart_table">
@@ -38,84 +37,13 @@
 
           <!-- 장바구니에 담긴 상품 목록 -->
           <tbody class="cartlist">
-              <tr class="row data">
-                  <td>
-                    <label class="checkbox">
-                      <input style='zoom:1.3;' type="checkbox" checked>
-                      <a href="#"></a>
-                    </label>
-                </td>
-                  <td>
-                    <img src="https://www.melgeek.com/cdn/shop/products/f58620219c6834a592e3ee566c096710.jpg?v=1681894613&width=100" alt="상품 이미지">
-                  </td>
-                  <td>MelGeek Mojo84 플라스틱 기계식 키보드</td>
-                  <td>235,000원</td>
-                  <td>
-                    <div class="numbox">
-                      <button type="button" class="minusbtn">-</button>
-                      <input type="text" class="quantity" value="1" disabled/>
-                      <button type="button" class="plusbtn">+</button>
-                    </div>
-                  </td>
-                  <td>
-                    <button type="button" class="button is-info is-small delete_button">삭제</button>
-                  </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkbox">
-                  <input style='zoom:1.3;' type="checkbox" checked>
-                  <a href="#"></a>
-                </label>
-              </td>
-                <td>
-                  <img src="https://www.melgeek.com/cdn/shop/files/20230807-173844.jpg?v=1691401289&width=100" alt="상품 이미지">
-                </td>
-                <td>MelGeek Modern97 소형 기계 키보드</td>
-                <td>150,000원</td>
-                <td> 
-                  <div class="numbox">
-                    <button type="button" class="minusbtn">-</button>
-                    <input type="text" class="quantity" value="1" disabled/>
-                    <button type="button" class="plusbtn">+</button>
-                  </div>
-                  
-                <td>
-                  <button type="button" class="button is-info is-small delete_button">삭제</button>
-                  
-                </td>
-            </tr>
-
-            <tr>
-              <td>
-                <label class="checkbox">
-                <input style='zoom:1.3;' type="checkbox" checked>
-                <a href="#"></a>
-              </label>
-            </td>
-              <td>
-                <img src="https://tbnws.hgodo.com/wordpress/keychorn/products/q8pro/products_thumb_1.jpg" alt="상품 이미지">
-              </td>
-              <td>K150 텐키리스 멤브레인</td>
-              <td>180,000원</td>
-              <td> 
-                <div class="numbox">
-                  <button type="button" class="minusbtn">-</button>
-                  <input type="text" class="quantity" value="1" disabled/>
-                  <button type="button" class="plusbtn">+</button>
-                </div>
-              <td>
-                <button type="button" class="button is-info is-small delete_button">삭제</button>
-                
-              </td>
-          </tr>
+             
           </tbody>
       </table>
 
+      <p class="totaltext">총 금액</p>
       <!-- 총 가격 -->
-      <p class="total_price">
-        총 금액 : 0원
-      </p>
+      <p class="total_price"></p>
 
       <div class="cart_btns">
           <div class="left_btns">
@@ -124,10 +52,9 @@
           </div>
           
           <div class="right_btn">
-            <button type="submit" class="button is-warning buy_button">구매하기</button>
+            <button type="submit" class="button is-warning buy_button" onclick="doBuy()">구매하기</button>
           </div>
       </div>
-  </form>
     </div>
   </section>
 
