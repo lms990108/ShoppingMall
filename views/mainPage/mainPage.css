@@ -55,4 +55,5 @@
 .container div p {
   color: var(--navy-color);
   font-weight: bold;
+  word-break: keep-all;
 }
