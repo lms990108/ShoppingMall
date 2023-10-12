@@ -11,52 +11,38 @@
   <body>
     <header id="header"></header>
 
-    
-    
+    <div id="mainContent">
     <div class="container mt-6">
-      <div class="columns">
-          
-          <!-- Left Column -->
-          <div class="column is-one-third">
-            <div class="box has-text-centered">
-                <figure class="image is-128x128 is-inline-block">
-                    <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
-                </figure>
-                <h2 class="title mt-4">My Page</h2>
-                <div class="welcome">
-                  <h2 id="welcomeMessage"></h2>
-                  <p id="emailMessage"></p>
-                </div>
+      <div class="columns is-multiline">
+
         
-                <div class="buttons is-centered">
-                    <button class="button is-fullwidth is-info mb-2" id="showOrderModal">My Order</button>
-                    <button class="button is-fullwidth is-success is-pulled-right" id="showModal">Edit Profile</button>
-                </div>
-            </div>
-        </div>
-        
-        
-              
-              <div class="has-text-right">
-                  <button class="button is-danger is-outlined" id="deleteAccountBtn">
-                      <span>회원 탈퇴</span>
-                      <span class="icon is-small">
-                          <i class="fa-solid fa-trash-can"></i>
-                      </span>
-                  </button>
-              </div>
-              <button class="button is-danger" id="logoutButton">
+        <div class="column is-full">
+          <div class="box has-text-centered">
+            <span class="icon is-large">
+              <i class="fas fa-user-circle fa-3x"></i>
+            </span>
+            <h1 class="title mt-4">My Page</h1>
+            
+            <h2 class="title mt-4" id="welcomeMessage">🥲로그인이 필요합니다.</h2>
+            <p id="emailMessage"></p>
+
+            <div class="buttons is-centered mt-4">
+              <button class="button is-info" id="showOrderModal">주문 조회</button>
+              <button class="button is-success" id="showModal">회원정보 수정</button>
+              <button class="button is-danger is-light id="logoutButton">
                 <span class="icon">
                   <i class="fas fa-sign-out-alt"></i>
                 </span>
                 <span>로그아웃</span>
               </button>
+              <button class="button is-light" id="deleteAccountBtn">회원 탈퇴</button>
+            </div>
           </div>
-      </div>
-          
-      </div>
-  </div>
+        </div>
 
+      </div>
+    </div>
+  </div>
 
 
 
