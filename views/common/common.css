@@ -78,6 +78,7 @@ body {
 .header_bottom svg {
   width: 25px;
   margin: 0 5px;
+  fill: var(--navy-color);
 }
 
 .header_bottom_right {
