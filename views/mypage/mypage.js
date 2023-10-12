@@ -52,8 +52,10 @@
         if (response.ok) {
             const result = await response.json();
             console.log(result);
-            alert('회원정보가 수정되었습니다!');
+            alert('회원정보가 수정되었습니다. 다시 로그인 해주세요!');
+            localStorage.removeItem('token');
             modal.classList.remove('is-active');
+            window.location.href = '/'; 
         } else {
             const errorData = await response.json();
             console.error("Error updating user:", errorData);
@@ -158,7 +160,8 @@ const deleteAccountButton = document.getElementById('deleteAccountBtn');
   });
 
 
-  const logoutButton = document.getElementById('logoutButton'); // 로그아웃 버튼의 ID
+// 로그아웃
+const logoutButton = document.getElementById('logoutButton'); // 로그아웃 버튼의 ID
 
 logoutButton.addEventListener('click', function() {
     // 토큰 삭제

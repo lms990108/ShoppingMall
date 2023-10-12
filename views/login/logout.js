@@ -5,5 +5,5 @@ logoutButton.addEventListener('click', function() {
     localStorage.removeItem('token');
     alert("로그아웃 하셨습니다.")
     // 메인 페이지로 리다이렉션
-    window.location.href = '/mainPage'; // 메인 페이지의 URL
+    window.location.href = '/'; // 메인 페이지의 URL
 });
