@@ -31,10 +31,16 @@ const getCategoryMap = async () => {
   return category_map;
 };
 
+const getLowerCategory = async (higherCategory) => {
+  const category = await getAllCategories();
+  const target_higher = category.find((item) => item.name === higherCategory);
+  return category.filter((item) => item.parent === target_higher._id);
+};
+
 const getCategoryNameFromCategoryId = async (categoryId) => {
   const category = await getAllCategories();
   const target = category.find((item) => item._id === categoryId);
   return category && target ? target.name : "";
 };
 
-export { getCategoryMap, getCategoryNameFromCategoryId };
+export { getCategoryMap, getCategoryNameFromCategoryId, getLowerCategory };
