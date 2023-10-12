@@ -10,3 +10,231 @@ response
 200 : 성공 => { code: 200, message: "success", response: {} }
 400 : 파라미터 누락 => { code: 400, message: "Parameter Missing", response: {} }
 403 : 인증 오류 => { code: 403, message: "User Id Missing", response: {} }
+
+주문 API
+기본 URL: http://kdt-sw-6-team05.elicecoding.com/
+
+회원가입
+URL: /
+Method: POST
+Payload: json
+{
+    "email": "user email",
+    "password": "user password",
+    "name": "user name",
+    "level": "user level (default is 0)"
+}
+Success Response:
+Status Code: 201
+Content: json
+{
+    "message": "User created successfully",
+    "user": {
+        "id": "user id",
+        "email": "user email",
+        "name": "user name",
+        "level": "user level (admin or customer)"
+    }
+}
+Error Response:
+Condition: If email, password, or name is not provided.
+Status Code: 400
+Content: "Invalid input data"
+Condition: If user with given email already exists.
+Status Code: 400
+Content: "이미 존재하는 회원입니다"
+
+로그인
+URL: /login
+Method: POST
+Payload: json
+{
+    "email": "user email",
+    "password": "user password"
+}
+Success Response:
+Status Code: 200
+Content: json
+{
+    "user": {
+        "user details"
+    },
+    "token": "authentication token"
+}
+Error Response:
+Condition: If user with given email does not exist.
+Status Code: 400
+Content: "가입되지 않은 사용자입니다."
+Condition: If provided password is incorrect.
+Status Code: 400
+Content: "잘못된 아이디 혹은 패스워드입니다."
+
+사용자 정보 조회
+URL: /
+Method: GET
+Headers:
+Authorization: Bearer <token>
+Middleware: authenticate, checkUserOrAdmin
+Success Response:
+Status Code: 200
+Content: json
+{
+    "user details"
+}
+
+사용자 정보 수정
+URL: /
+Method: PUT
+Authentication: Required (Bearer Token)
+Authorization: User or Admin
+Headers
+Authorization: Bearer [Your Token]
+Request Body
+{
+  ...[User fields to update]
+}
+Response
+HTTP 200 OK
+
+성공적으로 사용자 정보를 수정한 경우
+{
+  ...[Updated user data]
+}
+
+사용자 삭제
+URL: /
+Method: DELETE
+Authentication: Required (Bearer Token)
+Authorization: User or Admin
+Headers
+Authorization: Bearer [Your Token]
+Response
+HTTP 200 OK
+
+성공적으로 사용자를 삭제한 경우
+
+{
+  "message": "사용자가 성공적으로 삭제되었습니다.",
+  "user": {
+    ...[Deleted user data]
+  }
+}
+HTTP 404 Not Found
+
+해당 사용자를 찾을 수 없는 경우
+{
+  "error": "사용자를 찾을 수 없습니다."
+}주문 API
+기본 URL: http://kdt-sw-6-team05.elicecoding.com/
+
+회원가입
+URL: /
+Method: POST
+Payload: json
+{
+    "email": "user email",
+    "password": "user password",
+    "name": "user name",
+    "level": "user level (default is 0)"
+}
+Success Response:
+Status Code: 201
+Content: json
+{
+    "message": "User created successfully",
+    "user": {
+        "id": "user id",
+        "email": "user email",
+        "name": "user name",
+        "level": "user level (admin or customer)"
+    }
+}
+Error Response:
+Condition: If email, password, or name is not provided.
+Status Code: 400
+Content: "Invalid input data"
+Condition: If user with given email already exists.
+Status Code: 400
+Content: "이미 존재하는 회원입니다"
+
+로그인
+URL: /login
+Method: POST
+Payload: json
+{
+    "email": "user email",
+    "password": "user password"
+}
+Success Response:
+Status Code: 200
+Content: json
+{
+    "user": {
+        "user details"
+    },
+    "token": "authentication token"
+}
+Error Response:
+Condition: If user with given email does not exist.
+Status Code: 400
+Content: "가입되지 않은 사용자입니다."
+Condition: If provided password is incorrect.
+Status Code: 400
+Content: "잘못된 아이디 혹은 패스워드입니다."
+
+사용자 정보 조회
+URL: /
+Method: GET
+Headers:
+Authorization: Bearer <token>
+Middleware: authenticate, checkUserOrAdmin
+Success Response:
+Status Code: 200
+Content: json
+{
+    "user details"
+}
+
+사용자 정보 수정
+URL: /
+Method: PUT
+Authentication: Required (Bearer Token)
+Authorization: User or Admin
+Headers
+Authorization: Bearer [Your Token]
+Request Body
+{
+  ...[User fields to update]
+}
+Response
+HTTP 200 OK
+
+성공적으로 사용자 정보를 수정한 경우
+{
+  ...[Updated user data]
+}
+
+사용자 삭제
+URL: /
+Method: DELETE
+Authentication: Required (Bearer Token)
+Authorization: User or Admin
+Headers
+Authorization: Bearer [Your Token]
+Response
+HTTP 200 OK
+
+성공적으로 사용자를 삭제한 경우
+
+{
+  "message": "사용자가 성공적으로 삭제되었습니다.",
+  "user": {
+    ...[Deleted user data]
+  }
+}
+HTTP 404 Not Found
+
+해당 사용자를 찾을 수 없는 경우
+{
+  "error": "사용자를 찾을 수 없습니다."
+}
