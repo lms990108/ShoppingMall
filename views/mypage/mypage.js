@@ -120,4 +120,42 @@
       orderListElem.appendChild(row);
     });
   }
+
+// 회원탈퇴
+const deleteAccountButton = document.getElementById('deleteAccountBtn');
+
+  deleteAccountButton.addEventListener('click', async function() {
+      // 확인 팝업창 띄우기
+      const isConfirmed = window.confirm("정말로 탈퇴하시겠습니까?");
+
+      if (isConfirmed) {
+          try {
+              const token = localStorage.getItem('token');
+              
+              const response = await fetch('http://localhost:5001/api/user', {
+                  method: 'DELETE',
+                  headers: {
+                      'Authorization': 'Bearer ' + token
+                  }
+              });
+
+              if (response.ok) {
+                  const result = await response.json();
+                  console.log(result.message);
+                  alert(result.message); // 성공 메시지를 사용자에게 보여줍니다.
+                  localStorage.removeItem('token'); // 토큰 삭제
+                  window.location.href = '/'; // 메인 페이지로 리다이렉션
+              } else {
+                  const errorData = await response.json();
+                  console.error("Error deleting user:", errorData);
+                  alert("회원 탈퇴 중 오류가 발생했습니다.");
+                  window.location.href = '/myPage';
+              }
+          } catch (error) {
+              console.error("Error:", error);
+          }
+      }
+  });
+
+
   
