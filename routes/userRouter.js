@@ -9,7 +9,7 @@ const asyncHandler = require("../utils/async-handler");
 const userRouter = express.Router();
 const userServiceInstance = new UserService(userModel);
 
-// 조회
+
 userRouter.get(
   "/",
   authenticate,
@@ -21,7 +21,6 @@ userRouter.get(
 );
 
 
-// 수정
 userRouter.put(
   "/",
   authenticate,
@@ -35,7 +34,7 @@ userRouter.put(
   }),
 );
 
-//삭제
+
 userRouter.delete(
   "/",
   authenticate,
@@ -52,23 +51,6 @@ userRouter.delete(
   }),
 );
 
-userRouter.get(
-  "/list",
-  authenticate,
-  checkUserOrAdmin,
-  asyncHandler(async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
-    const users = await userServiceInstance.getUsersWithPaging(
-      {},
-      parseInt(page),
-      parseInt(limit),
-    );
-    res.status(200).json(users);
-  }),
-);
-
-
-// 로그인
 userRouter.post(
   "/login",
   asyncHandler(async (req, res) => {

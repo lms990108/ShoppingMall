@@ -1,5 +1,6 @@
-<img src="/uploads/857bc1bbfef1e7efa696253d63db75fa/KakaoTalk_20231012_000817714_02.png"  width="150" height="150">
+<img src="/uploads/97350ef12d03f8e73cd93123958c4452/배너.png"  width="650" height="330">
 
+- 배포 URL : https://kdt-sw-6-team05.elicecoding.com/
 
 ## 🛒 프로젝트 명
 
@@ -11,7 +12,7 @@
 
 ## 🕰️ 개발 기간
 
-- 23.10.02 ~ 23.10.13 (2주간)
+- 23.10.02(월) ~ 23.10.13(금) (2주간)
 
 ## 🧑‍🤝‍🧑 멤버 구성
 
@@ -49,3 +50,32 @@
 - 관리자를 통해 상품, 카테고리, 유저, 주문 데이터에 대해 CRUD
 - Nginx를 통해 프록시 설정
 - HTTPS (SSL) 설정
+
+## 💾 프로젝트 구조
+
+├─ .gitignore <br>
+├─ .gitlab-ci.yml<br>
+├─ .prettierrc<br>
+├─ API명세 팁.txt<br>
+├─ README.md<br>
+├─ api specs<br>
+├─ gitlab-ci.yml<br>
+├─ index.js<br>
+├─ middlewares<br>
+├─ models<br>
+├─ package-lock.json<br>
+├─ package.json<br>
+├─ services<br>
+├─ utils<br>
+└─ views<br>
+│  ├─ admin<br>
+│  ├─ cart<br>
+│  ├─ common<br>
+│  ├─ login<br>
+│  ├─ mainPage<br>
+│ ├─ mypage<br>
+│  ├─ paymentPage<br>
+│  ├─ product<br>
+│  ├─ productList<br>
+│  ├─ signUp<br>
+│  └─ utils

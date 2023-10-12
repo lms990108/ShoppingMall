@@ -62,7 +62,7 @@ header.insertAdjacentHTML(
 /* Category nav 띄우기 위한 HTML 생성 */
 const generateCategoryHtml = (category) => {
   let categoryHtml = "";
-  category.forEach(({ higher_category, lower_category }) => {
+  category.reverse().forEach(({ higher_category, lower_category }) => {
     categoryHtml += `<div class="navbar-item is-hoverable has-dropdown">
    <a class="navbar-link is-arrowless" href="/products?higherCategory=${higher_category.name}">${higher_category.name}</a>
   <div class="navbar-dropdown">`;

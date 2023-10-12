@@ -105,7 +105,8 @@ body {
 #footer {
   background-color: lightgray;
   color: var(--navy-color);
-  padding: 20px;
+  padding: 40px 20px;
+  margin-top: 120px;
 }
 
 #footer > div {
@@ -118,15 +119,11 @@ body {
   padding: 5px;
   margin: 0 10px;
   text-align: left;
-  font-size: small;
-}
-
-.footer_first {
-  font-size: 32px;
+  font-size: 1rem;
 }
 
 .footer_third img {
-  width: 120px;
+  width: 130px;
 }
 
 /* 공통 테마컬러 (네이비,옐로우 컬러) - Bulma 스타일 우선순위를 위해 적용 */
