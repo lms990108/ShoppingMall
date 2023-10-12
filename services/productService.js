@@ -182,10 +182,11 @@ class ProductService {
         sortTo = { price: 1, product_number: 1 };
         break;
       case "recent":
-        sortTo = { inDate: 1, product_number: 1 };
+        sortTo = { inDate: -1, product_number: 1 };
         break;
       case "old":
-        sortTo = { inDate: -1, product_number: 1 };
+        sortTo = { inDate: 1, product_number: -1 };
+        break;
       default:
         sortTo = { product_number: 1 };
         break;
