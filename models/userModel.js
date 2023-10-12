@@ -22,10 +22,10 @@ const userSchema = new Schema(
     level: {
       type: Number,
       default: 0,
-    }, 
+    },
   },
   { timestamps: true },
-); 
+);
 
 userSchema.virtual("role").get(function () {
   switch (this.level) {
@@ -46,14 +46,14 @@ userSchema.methods.generateToken = function () {
 };
 
 // 이 부분은 의논 후 삭제
-userSchema.methods.toJSON = function() {
-    const obj = this._doc;
-    delete obj.password;
-    delete obj.__v; // 버전 정보도 빼준다
-    delete obj.updatedAt;
-    delete obj.createdAt;
-    return obj;
-};
+// userSchema.methods.toJSON = function() {
+//     const obj = this._doc;
+//     delete obj.password;
+//     delete obj.__v; // 버전 정보도 빼준다
+//     delete obj.updatedAt;
+//     delete obj.createdAt;
+//     return obj;
+// };
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
