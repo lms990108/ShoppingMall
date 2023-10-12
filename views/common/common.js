@@ -59,7 +59,6 @@ header.insertAdjacentHTML(
 </div>`,
 );
 
-/* GET category List */
 
 /* Category nav 띄우기 위한 HTML 생성 */
 const generateCategoryHtml = (category) => {
@@ -113,3 +112,5 @@ melgeek (멜긱)<br>
   <div class="footer_third"><img src="/common/logo2.png"></div>
 </div>`,
 );
+
+

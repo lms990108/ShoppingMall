@@ -9,19 +9,21 @@
     <link rel="stylesheet" href="../common/common.css" type="text/css" />
   </head>
   <body>
-    <div id="header"></div>
+    <header id="header"></header>
 
     <!-- 상품 리스트 페이지 -->
     <section class="productListPage">
 
       <div class="main_category">
 
-        <!-- 상위 카테고리에 맞는 이미지 반영될곳. -->
+        <!-- 상위 카테고리에 맞는 이미지 반영될곳. (데이터 필요) -->
         <img src="https://www.melgeek.com/cdn/shop/files/111_MelGeek_2800_2.jpg?v=1681803768&width=2800" alt="카테고리 이미지" />
 
         <!-- 상위(메인)카테고리 타이틀명 영역 -->
         <div class="title_box">
-          <p class="main_title">KEYBOARD</p>
+          <p class="main_title">
+            <!-- 타이틀 명 동적으로 생성 -->
+          </p>
           
         </div>
 
@@ -30,32 +32,47 @@
       <!-- 탭버튼 메뉴 하위 카테고리 영역  -->
       <div class="sub_category inner">
         <div class="tabs">
-          <button class="button bg-primary">기계식 키보드</button>
-          <button class="button bg-primary2">무접점 키보드</button>
-          <button class="button bg-primary2">멤브레인 키보드</button>
-          <button class="button bg-primary2">키캡</button>
+          <!-- 탭버튼 동적 생성 & 페이지 이동 -->
         </div>
         
       </div>
 
-      <!-- 상품 리스트 이미지 나올곳 (추후 동적으로 아이템 갯수에 따라 상품 뜨도록 진행할 예정! )-->
+      <!-- 옵션 -->
+      <div class="options inner">
+        <div class="select">
+          <select class="select is-link sortSelect">
+            <option value="recent" selected>최신순</option>
+            <option value="old">오래된순</option>
+            <option value="priceAscend">가격 오름차순</option>
+            <option value="priceDesc">가격 내림차순</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 상품 리스트 이미지 나올곳 -->
       <div class="products_container inner">
         <ul class="items">
-        
-          
+          <!-- 상품 목록 동적 생성 -->
         </ul>
 
-       <!-- 페이징 처리 영역 -->
+       <!-- 페이지네이션 영역 -->
+       <div class="paginationArea">
+
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+          <a href="javascript:goToPrevPage()" class="pagination-previous"> < </a>
+          <a href="javascript:goToNextPage()" class="pagination-next"> > </a>
+          <ul class="pagination-list">
+          </ul>
+        </nav>
+       </div>
 
       </div>
       
-      
     </section>
 
-    <div id="footer"></div>
+    <footer id="footer"></footer>
 
-    <script src="../common/common.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../common/common.js" type="module"></script>
     <script src="../productList/productList.js"></script>
   </body>
 </html>

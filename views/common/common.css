@@ -154,13 +154,12 @@ html .bg-primary2 {
 html .bg-primary:hover {
   color: #fff;
 }
-
 html h1 {
   font-size: 30px;
   font-weight: bold;
 }
 
-html h2 {
+html h3 {
   font-size: 18px;
   font-weight: bold;
 }

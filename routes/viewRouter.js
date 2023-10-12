@@ -17,8 +17,13 @@ viewRouter.get("/products", async (req, res) => {
 });
 
 // 상품 상세페이지 연결
-viewRouter.get("/product", async (req, res) => {
+viewRouter.get("/product_detail", async (req, res) => {
   res.sendFile(path.join(resourcePath, "/product/productDetail.html"));
+});
+
+// 장바구니 페이지 연결
+viewRouter.get("/cart", async (req, res) => {
+  res.sendFile(path.join(resourcePath, "/cart/cart.html"));
 });
 
 // 결제페이지 연결

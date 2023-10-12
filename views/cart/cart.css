@@ -1,0 +1,102 @@
+.cartpage {
+  height: 1000px;
+  padding-top: 150px;
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto; 
+}
+
+.cartpage .titlebox {
+  width: 320px;
+  height: 90px;
+  border-radius: 25px;
+  background-color: var(--navy-color);
+  color: #fff;
+  margin: 0 auto;
+  margin-bottom: 60px;
+  box-sizing: border-box;
+}
+.titlebox h1 {
+  line-height: 90px;
+  font-size: 50px;
+  text-align: center;
+}
+
+.cart_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+.cart_table .toprow {
+  background: #EAEAEA;
+  font-size: 18px;
+}
+
+input[type="checkbox"] {
+  line-height: 10px;
+}
+
+
+.cart_table th, 
+.cart_table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.cart_table td {
+  vertical-align: middle;
+}
+
+.cartlist tr td {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: normal;
+}
+
+.check_item {
+  margin-right: 10px;
+}
+
+.quantity_input {
+  width: 45px;
+  text-align: center;
+  padding: 8px;
+}
+
+.quantity_btn, .delete_button {
+  background-color: var(--navy-color); 
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+
+.quantity_btn:hover, .delete_button:hover {
+  background-color: #666;
+}
+
+.cart_btns {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.clear_button, .checkout_button {
+  /* background-color: var(--navy-color); */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.clear_button:hover, .checkout_button:hover {
+  background-color: #45a049;
+}
