@@ -33,58 +33,31 @@ async function displayOrders(orders) {
 }
 
 async function displayOrderInfo(orders) {
-  console.log(orders[0]);
+  console.log(orders);
+  
   const tableBody = document.getElementById("orderInfoBody");
+    orders.forEach(order => {
+      const date = new Date(order.createdAt);
+      tableBody.innerHTML +=
+/*html*/ `<tr>
+      <td>${order.totalPrice}</td>
+      <td>${order.destination}</td>
+      <td>${getStatusString(order.status)}</td>
+      <td>${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}시${String(date.getMinutes()).padStart(2, '0')}분</td>
+      <td>${order.memo}</td>
+      <td>${order.phone_number}</td>
+      </tr>
+      `})
 
-  const row = document.createElement("tr");
-
-  const totalPrice = document.createElement("td");
-  totalPrice.textContent = orders[0].totalPrice;
-
-  const destination = document.createElement("td");
-  destination.textContent = orders[0].destination;
-
-  const status = document.createElement("td");
-  status.textContent = getStatusString(orders[0].status);
-
-  const date = new Date(orders[0].createdAt);
-  const orderTime = document.createElement("td");
-  orderTime.textContent = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()} ${date.getHours()}시${String(date.getMinutes()).padStart(
-    2,
-    "0",
-  )}분`;
-
-  const memo = document.createElement("td");
-  memo.textContent = orders[0].memo;
-
-  const phoneNumber = document.createElement("td");
-  phoneNumber.textContent = orders[0].phone_number;
-
-  row.appendChild(totalPrice);
-  row.appendChild(destination);
-  row.appendChild(status);
-  row.appendChild(orderTime);
-  row.appendChild(memo);
-  row.appendChild(phoneNumber);
-
-  tableBody.appendChild(row);
-
-  function getStatusString(status) {
-    switch (status) {
-      case 0:
-        return "배송 준비 중";
-      case 1:
-        return "배송 중";
-      case 2:
-        return "배송완료";
-      case 3:
-        return "주문 취소";
-      default:
-        return "주문상태 미확인";
-    }
-  }
+      function getStatusString(status) {
+        switch (status) {
+            case 0: return '배송 준비 중';
+            case 1: return '배송 중';
+            case 2: return '배송완료';
+            case 3: return '주문 취소';
+            default: return '주문상태 미확인';
+        }
+      }
 }
 
 // order json으로부터 상품정보 찾아냄.
