@@ -47,17 +47,12 @@ viewRouter.get("/myPage", async (req, res) => {
 });
 
 // 주문조회페이지 연결
-viewRouter.get("/myOrder", async (req, res)=> {
+viewRouter.get("/myOrder", async (req, res) => {
   res.sendFile(path.join(resourcePath, "/myOrder/myOrder.html"));
-})
+});
 
 // 관리자페이지 연결
 viewRouter.get("/admin", async (req, res) => {
   res.sendFile(path.join(resourcePath, "/admin/admin.html"));
 });
-
-// viewRouter.use((req, res, next) => {
-//   res.status(404).sendFile(path.join(resourcePath, "/404/404.html"));
-// });
-
 module.exports = { viewRouter };
