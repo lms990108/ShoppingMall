@@ -1,4 +1,3 @@
-// 토큰 검증 미들웨어 (마이페이지 접속 등)
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 

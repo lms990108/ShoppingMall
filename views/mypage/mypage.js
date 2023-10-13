@@ -66,30 +66,33 @@
 });
 
   // 2. My Order 누를 시 모달창
-  const showOrderModalButton = document.getElementById('showOrderModal');
+  const showOrderModalButton = document.getElementById('showOrder');
   const closeOrderModalButton = document.getElementById('closeOrderModal');
   const closeOrderModalFooterButton = document.getElementById('closeOrderModalFooter');
   const orderModal = document.getElementById('modal2');
   
-  // api 호출 
-  async function fetchOrders(userId) {
-    const response = await fetch(`http://kdt-sw-6-team05.elicecoding.com/user/${userId}/orders`);
-    const data = await response.json();
-    return data;
-  }
 
   // Show order modal
-  showOrderModalButton.addEventListener('click', async function() {
+  showOrderModalButton.addEventListener('click',async () => {  
+  
+    
+    const token = localStorage.getItem('token');
     
     try {
-      const orders = await fetchOrders(userId);
-      populateOrderList(orders);
-      orderModal.classList.add('is-active');
+        const response = await fetch('/api/order/user/orders',{
+          method : 'Get',
+          headers: {
+          'Authorization': "Bearer "+token,  
+          'Content-Type': 'application/json'
+          }
+        });
+        
+        const data = await response.json();
+        
+        displayOrders(data);
     } catch (error) {
-      console.error("Failed to fetch orders:", error);
-      // 추가적인 에러 핸들링을 여기서 수행할 수 있습니다.
+        console.error('Error fetching orders:', error);
     }
-    
   });
   
   // Close order modal
@@ -101,26 +104,65 @@
     orderModal.classList.remove('is-active');
   });
   
-  function populateOrderList(orders) {
-    const orderListElem = document.getElementById('orderList');
-    orderListElem.innerHTML = '';  // Clear current list
+  function displayOrders(orders) {
+    const container = document.getElementById('orderLists');
+    container.innerHTML = '';  // Clear any previous data
   
     orders.forEach(order => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-      <tr>
-      <td>${order.orderNum}</td>
-      <td>${order.status}</td>
-      <td>${order.totalPrice}</td>
-      <td>${order.shipTo.address}</td> // Type이 오브젝트 인데 어케 하는지 모르겠음
-      <td>${order.contact.phone}</td>  // 여기도 
-      <td>
-          ${order.items.map(item => `${item.qty} x ${item.productId}`).join('<br>')}
-      </td>
-      </tr>
-      `;
-      orderListElem.appendChild(row);
-    });
+      const orderDiv = document.createElement('div');
+      orderDiv.classList.add('box');  // Bulma's box component for a white container with a shadow
+      const date = new Date(order.createdAt);
+      
+      orderDiv.innerHTML = `
+      <article class="media">
+        <div class="media-content">
+          
+          <div class="content">
+            
+            <p><strong>총 가격:</strong> ${order.totalPrice}</p>
+            <p><strong>배송지:</strong> ${order.destination}</p>
+            <p><strong>배송상태:</strong> ${getStatusString(order.status)}</p>
+            <p><strong>주문시간:</strong> ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}시${String(date.getMinutes()).padStart(2, '0')}분</p>
+            <p><strong>요청사항:</strong> ${order.memo}</p>
+            <p><strong>전화번호:</strong> ${order.phone_number}</p> 
+            <p><strong>주문 상품은 아래와 같습니다.</strong></p>
+            <table class="table is-bordered is-narrow is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th>상품 번호</th>
+                    <th>가격</th>
+                    <th>수량</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${order.items.map(item => `
+                    <tr>
+                        <td>${item.product_number}</td>
+                        <td>${item.price}</td>
+                        <td>${item.qty}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+          </div>
+        </div>
+      </article>
+  `;
+  
+      container.appendChild(orderDiv);
+  });
+
+    orderModal.classList.add('is-active');  
+  }
+  
+  function getStatusString(status) {
+    switch (status) {
+        case 0: return '배송 준비 중';
+        case 1: return '배송 중';
+        case 2: return '배송완료';
+        case 3: return '주문 취소';
+        default: return '주문상태 미확인';
+    }
   }
 
 // 회원탈퇴
