@@ -12,8 +12,6 @@ const categoryRouter = require("./routes/categoryRouter");
 const joinRouterTest = require("./routes/joinRouter");
 const userRouterTest = require("./routes/userRouter");
 
-dotenv.config();
-
 const PORT = process.env.PORT || 5001;
 const mongoURI = process.env.MONGO_DB_PATH;
 
@@ -44,6 +42,13 @@ app.use("/api/order", orderRouter); // 주문 라우터
 app.use("/api/product", productRouter); // 상품 라우터
 app.use("/api/category", categoryRouter); // 카테고리 라우터
 
+if (process.env.NODE_ENV === "development") {
+  dotenv.config({ path: ".env" });
+}
+if (process.env.NODE_ENV === "production") {
+  dotenv.config({ path: ".env.prod" });
+}
+
 // Error handlers
 app.use((req, res) => {
   res.status(404).end("Not Found");
@@ -55,5 +60,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`서버 시작: http://localhost:${PORT}`);
+  console.log(`서버 시작: connecting to ${PORT}`);
 });

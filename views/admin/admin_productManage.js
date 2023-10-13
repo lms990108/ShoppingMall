@@ -3,11 +3,8 @@ import {
   getCategoryNameFromCategoryId,
 } from "../utils/catergoryHandler.js";
 import { toggleModal } from "./admin.js";
+const APIURL = "/api/product";
 
-const url =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:5001/api/product"
-    : "https://kdt-sw-6-team05.elicecoding.com/api/product"; // api 요청 endpoint
 const token = localStorage.getItem("token"); // 토큰
 let currentPage = 1; // 현재 페이지
 
@@ -82,7 +79,7 @@ const loadProductTable = () => {
 /* 전체 product 불러오기  */
 const getAllProducts = async (page) => {
   try {
-    const response = await fetch(`${url}/?page=${page}&sortType=recent`, {
+    const response = await fetch(`${APIURL}/?page=${page}&sortType=recent`, {
       method: "GET",
     });
     const products = await response.json();
@@ -141,7 +138,7 @@ const loadProducts = async (page) => {
       const target = products[index];
       if (confirm(`${target.product_name}을 삭제하시겠습니까?`)) {
         await fetch(
-          `${url}/delete_product/${parseInt(target.product_number)}`,
+          `${APIURL}/delete_product/${parseInt(target.product_number)}`,
           {
             method: "DELETE",
             headers: {
@@ -171,16 +168,16 @@ const loadProducts = async (page) => {
 
 /* 상품추가 or 상품수정에 따라 modal 구분하여 보여줌 */
 const setProductModal = async (method, target = null) => {
-  let api_url = `${url}`;
+  let api_url = `${APIURL}`;
   let method_korean = "";
   switch (method) {
     case "POST": {
-      api_url = `${url}/add_product`;
+      api_url = `${APIURL}/add_product`;
       method_korean = "추가";
       break;
     }
     case "PATCH": {
-      api_url = `${url}/product_detail/${parseInt(target.product_number)}`;
+      api_url = `${APIURL}/product_detail/${parseInt(target.product_number)}`;
       method_korean = "수정";
       break;
     }
