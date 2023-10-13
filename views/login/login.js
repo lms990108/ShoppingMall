@@ -28,7 +28,9 @@ loginButton.addEventListener("click", async (e) => {
 
     if (response.status === 200) {
       localStorage.setItem("token", data.token);
-      window.location.href = "/myPage";
+
+      alert("환영합니다!");
+      window.location.href = "/";
     } else {
       alert(data.message);
       window.location.href = "/login";
