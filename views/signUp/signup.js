@@ -64,10 +64,11 @@ document.getElementById('signup-button').addEventListener('click', async functio
 
     if(password.length < 8 || !hasAlphabet || !hasSpecialChar){
         alert("비밀번호는 8자이상, 알파벳 및 특수기호를 포함해주세요!")
+        return;
     }
 
     if (password !== confirmPassword) {
-        alert('비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+        alert('비밀번호와 비밀번호 확인란이 일치하지 않습니다.');
         return;
     }
 
@@ -95,7 +96,7 @@ document.getElementById('signup-button').addEventListener('click', async functio
             alert("회원가입 실패: " + responseData.message);
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+        alert(error +" 다시 시도해주세요.");
+        window.location.href = "/signUp"
     }
 });         

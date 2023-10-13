@@ -17,16 +17,18 @@ h2 {
 }
 
 body {
-  padding-top: 120px !important; /* #header의 높이와 같게 설정 */
-}
-body {
-  display: flex;
-  flex-direction: column;
+  padding-top: 150px !important; /* #header의 높이와 같게 설정 */
   min-height: 100vh;
 }
 
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .is-half {
-  max-width: 400px;
+  max-width: 550px;
 }
 
 .main-content {

@@ -15,7 +15,7 @@ class JoinService {
       !this.validatePassword(password) ||
       !name
     ) {
-      throw new Error("Invalid input data");
+      throw new Error("이름,이메일을 양식에 맞게 작성해 주세요!");
     }
 
     // 이미 존재하는 사용자인지 체크하기 위해, 데이터베이스에서 동일한 이메일을 가진 사용자를 조회합니다.
