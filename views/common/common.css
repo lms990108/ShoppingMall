@@ -54,7 +54,7 @@ body {
 }
 
 .header_bottom img {
-  width: 120px;
+  width: 130px;
 }
 
 .navbar {
@@ -76,13 +76,28 @@ body {
 }
 
 .header_bottom svg {
-  width: 25px;
-  margin: 0 5px;
+  margin-right: 3px;
+  fill: var(--navy-color);
 }
 
 .header_bottom_right {
   display: flex;
   padding-right: 2%;
+}
+
+.header_bottom #cartCount {
+  z-index: 12;
+  position: fixed;
+  font-weight: 900;
+  font-size: 10px;
+  background-color: rgba(255, 221, 87, 0.5) !important;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  top: 35px;
+  text-align: center;
 }
 
 .search {

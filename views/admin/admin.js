@@ -8,7 +8,27 @@ const add_btn = document.querySelector(".add_btn");
 const modal = document.querySelector(".modal");
 const close_btn = document.querySelector(".close");
 const cancel_btn = document.querySelector(".cancel");
+const token = localStorage.getItem("token");
+const url = "http://localhost:5001";
 
+/* 관리자가 아닌데 관리자페이지 접근 시 접근 막고, 이전페이지로 이동함 */
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const response = await fetch(`${url}/api/user`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    const { level } = await response.json();
+    if (!response.ok || (response.ok && level != 1)) {
+      alert("페이지 접근 권한이 없습니다.\n이전 페이지로 이동합니다.");
+      history.go(-1);
+    }
+  } catch {}
+});
+
+/* 모달 창의 toggle 기능 구현 */
 const toggleModal = () => {
   modal.classList.toggle("is-active");
 };

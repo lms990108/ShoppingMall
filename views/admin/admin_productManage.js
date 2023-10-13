@@ -5,6 +5,7 @@ import {
 import { toggleModal } from "./admin.js";
 
 const url = "http://localhost:5001/api/product"; // api 요청 endpoint
+const token = localStorage.getItem("token"); // 토큰
 let currentPage = 1; // 현재 페이지
 
 /* 상품 관리 section */
@@ -75,10 +76,10 @@ const loadProductTable = () => {
   loadProducts(currentPage);
 };
 
-/* 전체 product 불러오기 , pagination 미구현 */
+/* 전체 product 불러오기  */
 const getAllProducts = async (page) => {
   try {
-    const response = await fetch(`${url}/?page=${page}`, {
+    const response = await fetch(`${url}/?page=${page}&sortType=recent`, {
       method: "GET",
     });
     const products = await response.json();
@@ -93,7 +94,7 @@ const getAllProducts = async (page) => {
 
 const loadProducts = async (page) => {
   const productsTable = document.querySelector("#product_manage tbody");
-  const { products } = await getAllProducts(page);
+  const { products, totalCnt } = await getAllProducts(page);
   productsTable.innerHTML = "";
   for (const product of products) {
     const higher_category = await getCategoryNameFromCategoryId(
@@ -132,17 +133,21 @@ const loadProducts = async (page) => {
 
   /* 삭제 버튼 클릭 시  confirn창 띄우고 상품 삭제 */
   document.querySelectorAll(".delete_product_btn").forEach((btn, index) => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", async (e) => {
       e.preventDefault();
       const target = products[index];
       if (confirm(`${target.product_name}을 삭제하시겠습니까?`)) {
-        fetch(`${url}/delete_product/${parseInt(target.product_number)}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
+        await fetch(
+          `${url}/delete_product/${parseInt(target.product_number)}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: "Bearer " + token,
+            },
+            body: JSON.stringify(target),
           },
-          body: JSON.stringify(target),
-        })
+        )
           .then((response) => {
             if (!response.ok) {
               return response.json().then((data) => Promise.reject(data));
@@ -165,7 +170,6 @@ const loadProducts = async (page) => {
 const setProductModal = async (method, target = null) => {
   let api_url = `${url}`;
   let method_korean = "";
-  console.log(method);
   switch (method) {
     case "POST": {
       api_url = `${url}/add_product`;
@@ -268,10 +272,11 @@ const setProductModal = async (method, target = null) => {
       });
     });
 
-    fetch(api_url, {
+    await fetch(api_url, {
       method: method,
       headers: {
         "Content-Type": "application/json",
+        authorization: "Bearer " + token,
       },
       body: JSON.stringify(productData),
     })

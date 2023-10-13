@@ -13,7 +13,7 @@ router.post(
 
 
     if (!email || !password || !name) {
-      throw new Error("Invalid input data");
+      throw new Error("이메일과 이름을 양식에 맞게 작성해주세요.");
     }
 
     const user = await joinService.createUser({ email, password, name, level });

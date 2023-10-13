@@ -13,6 +13,48 @@ const close_btn = document.querySelector(".close");
 const cancel_btn = document.querySelector(".cancel");
 const modal_content = document.querySelector(".modal-card-body table");
 
+const token = localStorage.getItem("token") || "";
+const orderItem = JSON.parse(sessionStorage.getItem("orderItem")) || [];
+const cartItem = JSON.parse(localStorage.getItem("cartItem")) || [];
+
+/* 주문자 data */
+let orderer = {
+  userId: "",
+  name: "",
+  email: "",
+  contact: "010-1111-1111",
+  address: "서울특별시 성동구",
+  detail_address: "123-12",
+  zip_code: "10101",
+};
+
+/* 페이지가 로드되면 사용자의 정보를 받아 orderer에 저장 */
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const response = await fetch(`${url}/api/user`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    if (response.ok) {
+      const { name, email, _id } = await response.json();
+      orderer.name = name;
+      orderer.email = email;
+      orderer.userId = _id;
+      loadOrderProductInfo(orderItem);
+      loadOrdererInfo(orderer);
+      loadDeliveryInfo(orderer);
+      loadOrderSumary(orderItem);
+      loadPaymentMethod();
+    } else {
+      alert("회원 정보가 없습니다.");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 /* 주문 정보 mockData */
 let order_info = {
   destination: {
@@ -27,15 +69,14 @@ let order_info = {
 
 /* 단일 상품 정보 컴포넌트 */
 const orderProductHTML = (product) => {
-  return /*html*/ `<div class="is-flex product">
-    <div class="is-flex-grow-1"> <img class="product_img" src="${
-      product.main_img_url
-    }" /></div>
-    <div class="is-flex-grow-2">
+  return /*html*/ `
+  <div class="is-flex product">
+    <div> 
+      <img class="product_img" src="${product.main_img_url}" />
+    </div>
+    <div>
         <p class="label">${product.product_name}</p>
-        <p>개수 : <input type="number" class="input_qty mx-1" value=${
-          product.qty
-        }>개</p>
+        <p>수량 : ${product.qty}개</p>
         <p>총 금액 : ${(product.price * product.qty).toLocaleString()} 원</p>
     </div>
 </div>`;
@@ -100,11 +141,11 @@ const loadDeliveryInfo = (orderer) => {
 };
 
 /* 주문 요약 불러오기 */
-const loadOrderSumary = (order_products) => {
+const loadOrderSumary = (orderItem) => {
   let product_price = 0;
   let delivery_price = 0;
 
-  order_products.forEach(({ price, qty }) => {
+  orderItem.forEach(({ price, qty }) => {
     product_price += price * qty;
   });
 
@@ -113,11 +154,12 @@ const loadOrderSumary = (order_products) => {
 
   order_summary.insertAdjacentHTML(
     "beforeend",
-    /*html*/ `<div class="py-5">
-  <div class="mx-5 my-3 is-flex is-justify-content-space-between"><label class="label has-text-weight-bold">상품 가격</label><span>${product_price.toLocaleString()} 원</span></div>
-  <div class="mx-5 my-3 is-flex is-justify-content-space-between"> <label class="label has-text-weight-bold">배송비</label></label><span class="has-text-grey-light">OPEN EVENT ★전상품 무료배송★</span><span>${delivery_price} 원</span></div>
-  <div class="mx-5 my-3 py-2 is-flex is-justify-content-space-between total_price"> <label class="label has-text-weight-bold">총 결제금액</label></label><span class="has-text-weight-bold">${total_price.toLocaleString()} 원</span>
-  </div></div>
+    /*html*/
+    `<div class="py-5">
+      <div class="mx-5 my-3 is-flex is-justify-content-space-between"><label class="label has-text-weight-bold">상품 가격</label><span>${product_price.toLocaleString()} 원</span></div>
+      <div class="mx-5 my-3 is-flex is-justify-content-space-between"> <label class="label has-text-weight-bold">배송비</label></label><span class="has-text-grey-light">OPEN EVENT ★전상품 무료배송★</span><span>${delivery_price} 원</span></div>
+      <div class="mx-5 my-3 py-2 is-flex is-justify-content-space-between total_price"> <label class="label has-text-weight-bold">총 결제금액</label></label><span class="has-text-weight-bold">${total_price.toLocaleString()} 원</span></div>
+    </div>
   `,
   );
 };
@@ -139,7 +181,6 @@ const loadPaymentMethod = () => {
   <button class="button my-1 is-flex is-medium is-justify-content-space-between"><span class="has-text-weight-bold">무통장 입금</span>
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14 11c-1.656 0-3 1.344-3 3s1.344 3 3 3 3-1.344 3-3-1.344-3-3-3zm.15 4.484v.315h-.3v-.299c-.311-.005-.632-.079-.899-.217l.135-.493c.287.11.669.229.968.162.345-.078.415-.433.034-.604-.279-.129-1.133-.242-1.133-.973 0-.409.313-.775.895-.855v-.319h.301v.305c.217.006.461.043.732.126l-.108.493c-.23-.08-.485-.154-.733-.139-.446.026-.486.413-.174.575.514.242 1.182.42 1.182 1.063.001.516-.403.791-.9.86zm-10.15-7.484v12h20v-12h-20zm18 10h-16v-8h16v8zm-1-12h-19v11h-2v-13h21v2z"/></svg></button><br>
   </div>
-
 </div>
   `,
   );
@@ -164,6 +205,7 @@ payment_button.addEventListener("click", () => {
   toggleModal();
   loadToggle();
 });
+
 close_btn.addEventListener("click", toggleModal);
 cancel_btn.addEventListener("click", toggleModal);
 
@@ -171,7 +213,7 @@ cancel_btn.addEventListener("click", toggleModal);
 const loadToggle = async () => {
   const orderer_name = orderer.name;
 
-  const products_name = order_products
+  const products_name = orderItem
     .map(({ product_name }) => product_name)
     .join(",<br>");
 
@@ -204,6 +246,8 @@ const loadToggle = async () => {
       </tbody>
   </table>
   `;
+
+  /* 결제 버튼 클릭 시 배송자 정보 formData로 저장 */
   const submit_button = document.querySelector(".submit-btn");
   const delivery_form = document.querySelector(".delivery_form");
 
@@ -214,90 +258,43 @@ const loadToggle = async () => {
     formData.forEach((value, key) => {
       deliveryData[key] = value;
     });
+
     const orderData = {
       destination: `(${deliveryData.zip}) ${deliveryData.address}, ${deliveryData.city}`,
       phone_number: deliveryData.phone,
-      items: order_products,
+      items: orderItem,
       memo:
         deliveryData.directMemo.length > 0
           ? deliveryData.directMemo
           : deliveryData.memo,
+      userId: orderer.userId,
     };
-    await fetch(`${url}/add_order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => Promise.reject(data));
-        }
-        return response.json();
-      })
-      .then((data) => {
-        alert(`결제가 완료되었습니다.`);
-        // location.reload();
-      })
-      .catch((error) => {
-        alert(`결제에 실패했습니다. \n ${error.message}`);
+
+    try {
+      const response = await fetch(`${url}/api/order/add_order`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(orderData),
       });
+      if (!response.ok) {
+        return response.json().then((data) => Promise.reject(data));
+      }
+      const resultCart = cartItem.filter(
+        (cart) => !orderItem.some((order) => order._id === cart._id),
+      );
+
+      /* 주문 완료시, 카트에 구매한 상품을 지우고, sessionStorage의 orderItem을 비움*/
+
+      localStorage.setItem("cartItem", JSON.stringify(resultCart));
+      sessionStorage.setItem("orderItem", null);
+
+      alert("주문이 성공적으로 처리되었습니다.");
+      window.location.href = "/myOrder";
+    } catch (err) {
+      console.error(err);
+    }
   });
 };
-
-/* 주문 상품 mockData */
-const order_products = [
-  {
-    main_img_url:
-      "https://tbnws.hgodo.com/gtgear/ver4.0/product/keychron/k8_pro/white/products_thumb_k8pro_white.jpg",
-    price: 189000,
-    product_name: "K8 Pro White",
-    product_number: 1,
-    _id: "6523f7e111164c55fc21efd3",
-    qty: 1,
-  },
-  {
-    main_img_url:
-      "https://tbnws.hgodo.com/wordpress/keychorn/products/q3_retro/products_thumb_q3_retro_1.jpg",
-    price: 245000,
-    product_name: "Q3 Knob Retro 유선 키보드",
-    product_number: 5,
-    _id: "6523fcbb11164c55fc24dd28",
-    qty: 2,
-  },
-  {
-    main_img_url:
-      "https://tbnws.hgodo.com/wordpress/keychorn/products/m34k/products_thumb_1.png",
-    price: 35000,
-    product_name: "M3 4K 무선 마우스",
-    product_number: 10,
-    _id: "65240016511ecf47e58fe11c",
-    qty: 1,
-  },
-];
-
-/* 주문자 mockData */
-const orderer = {
-  userId: "6526a173167f8c9569575133",
-  name: "홍길동",
-  email: "hong123@gmail.com",
-  contact: "010-1111-1111",
-  address: "서울특별시 성동구",
-  detail_address: "123-12",
-  zip_code: "10101",
-};
-
-const delivery = {
-  name: "",
-  email: "",
-  contact: "",
-  address: "",
-  detail_address: "",
-};
-
-loadOrderProductInfo(order_products);
-loadOrdererInfo(orderer);
-loadDeliveryInfo(orderer);
-loadOrderSumary(order_products);
-loadPaymentMethod();

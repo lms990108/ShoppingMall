@@ -8,6 +8,11 @@
 
         const email = emailInput.value;
         const password = passwordInput.value;
+        const token = localStorage.getItem('token');
+        if(token){
+            alert('이미 로그인 하셨습니다!');
+            return;
+        }
 
         try {
             const response = await fetch("http://localhost:5001/api/user/login", {
@@ -17,23 +22,20 @@
                 },
                 body: JSON.stringify({ email, password }),
             });
-
+        
             const data = await response.json();
-
+            console.log(data);
+        
             if (response.status === 200) {
                 localStorage.setItem("token", data.token);
-                // 로그인 성공 시 "my page"로 리다이렉트
-                alert("로그인 성공")
                 window.location.href = "/myPage";
             } else {
-                // 로그인 실패 시 에러 메시지 표시
-                
-                const errorData = await response.json();
-                alert(errorData.error);
+                alert(data.message);  
                 window.location.href = "/login";
             }
         } catch (error) {
-            
-            alert(error);
+            alert("로그인 도중 오류가 발생했습니다.");  // 네트워크 문제 또는 예상치 못한 문제로 인해 발생할 수 있는 오류를 위해
+            window.location.href = "/login";
         }
+        
     });

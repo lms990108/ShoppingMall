@@ -32,10 +32,17 @@
     const password = passwordInput.value;
     const name = nameInput.value;
     
+    if(!email || !password || !name){
+      alert("회원정보 수정오류: 이메일,비밀번호,이름을 제대로 기입해주세요.");
+      return;
+    }
     
     try {
         const token = localStorage.getItem('token'); 
-        console.log(token)
+        if(!token){
+          alert("로그인 후 이용하세요!")
+          return
+        }
         const response = await fetch('http://localhost:5001/api/user', { 
             method: 'PUT',
             headers: {
@@ -58,7 +65,8 @@
             window.location.href = '/'; 
         } else {
             const errorData = await response.json();
-            console.error("Error updating user:", errorData);
+            console.log(errorData.message);
+            alert("회원정보 수정오류: "+ errorData.message);
         }
     } catch (error) {
         console.error("Error:", error);
@@ -77,6 +85,10 @@
   
     
     const token = localStorage.getItem('token');
+    if(!token){
+      alert("로그인 후 이용하세요!")
+      return
+    }
     
     try {
         const response = await fetch('/api/order/user/orders',{
@@ -92,6 +104,7 @@
         displayOrders(data);
     } catch (error) {
         console.error('Error fetching orders:', error);
+        alert("주문내역이 없습니다!")
     }
   });
   
@@ -169,13 +182,16 @@
 const deleteAccountButton = document.getElementById('deleteAccountBtn');
 
   deleteAccountButton.addEventListener('click', async function() {
+    const token = localStorage.getItem('token');
+    if(!token){
+      alert("로그인 후 이용하세요!")
+      return
+    }
       // 확인 팝업창 띄우기
       const isConfirmed = window.confirm("정말로 탈퇴하시겠습니까?");
 
       if (isConfirmed) {
           try {
-              const token = localStorage.getItem('token');
-              
               const response = await fetch('http://localhost:5001/api/user', {
                   method: 'DELETE',
                   headers: {
@@ -207,12 +223,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
   
   const logoutButton = document.getElementById('logoutButton');
   logoutButton.addEventListener('click', () => {
-    
+    const token = localStorage.getItem('token');
+    if(!token){
+      alert("로그인 후 이용하세요!")
+      return
+    }
     localStorage.removeItem('token');
     alert("로그아웃 하셨습니다.")
     // 메인 페이지로 리다이렉션
     window.location.href = '/'; 
-    console.log("로그아웃버튼이 눌러졌습니다!");
   });
 });
 
@@ -230,6 +249,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (response.ok) {
       const userData = await response.json();
+      localStorage.setItem('userName', userData.name);
       document.getElementById('welcomeMessage').textContent = `👋 ${userData.name}님 환영합니다!`;
       document.getElementById('emailMessage').textContent = `${userData.name}님의 이메일: ${userData.email}`;
     } else {
