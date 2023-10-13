@@ -71,3 +71,8 @@ async function getUserOrder(){
   .catch(error => {
       alert("Error:"+ error);
   });
+
+  const userName = localStorage.getItem('userName');
+  console.log(userName);
+  document.getElementById('userName').textContent = `${userName}님의 주문목록`;
+

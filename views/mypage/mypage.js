@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (response.ok) {
       const userData = await response.json();
+      localStorage.setItem('userName', userData.name);
       document.getElementById('welcomeMessage').textContent = `👋 ${userData.name}님 환영합니다!`;
       document.getElementById('emailMessage').textContent = `${userData.name}님의 이메일: ${userData.email}`;
     } else {

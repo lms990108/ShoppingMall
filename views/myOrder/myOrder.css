@@ -1,0 +1,17 @@
+.main-content {
+  margin-top: 200px; /* 상단바의 높이에 따라 조절 */
+}
+.navy-header {
+  background-color: navy;
+  color: white;  /* Assuming you want the text color to be white for better readability */
+}
+.custom-table {
+  margin: 0 auto;  /* This centers the table */
+  width: 80%;  /* Adjust this value as needed, 80% means the table will take up 80% of its parent's width */
+}
+
+h2 {
+  font-size: 2em;  /* Adjust size as needed */
+  text-align: center;
+  margin: 20px 0;  /* Some vertical spacing */
+}
