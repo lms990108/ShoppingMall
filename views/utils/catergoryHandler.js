@@ -1,8 +1,6 @@
-const url = "http://34.64.242.168:5001";
-
 const getAllCategories = async () => {
   try {
-    const response = await fetch(`${url}/api/category`, {
+    const response = await fetch(`/api/category`, {
       method: "GET",
     });
     const category = await response.json();

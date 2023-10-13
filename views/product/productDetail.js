@@ -1,5 +1,5 @@
 // 제품 상세 페이지
-// ex )http://localhost:5001/product_detail?productNumber=1
+// ex )/product_detail?productNumber=1
 
 const URLMatch = new URLSearchParams(location.search);
 const productNumber = URLMatch.get("productNumber");
@@ -41,9 +41,7 @@ function tokenCheck() {
 // 상품 정보 호출
 async function getProductDetail(number) {
   try {
-    const response = await fetch(
-      "http://localhost:5001/api/product/product_detail/" + number,
-    );
+    const response = await fetch("/api/product/product_detail/" + number);
     const data = await response.json();
     return data;
   } catch (error) {

@@ -63,9 +63,7 @@ async function displayOrderInfo(orders) {
 // order json으로부터 상품정보 찾아냄.
 async function getProductDetail(number) {
   try {
-    const response = await fetch(
-      "http://localhost:5001/api/product/product_detail/" + number,
-    );
+    const response = await fetch("/api/product/product_detail/" + number);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -96,17 +94,16 @@ async function getUserOrder() {
 
 // 상단 테이블 작성
 getUserOrder()
-  .then((orders)=>{
+  .then((orders) => {
     displayOrderInfo(orders);
   })
-  .catch((error)=> {
+  .catch((error) => {
     alert("Error: " + error);
-  })
+  });
 
 // 하단 테이블 작성
 getUserOrder()
   .then((orders) => {
-    
     displayOrders(orders);
   })
   .catch((error) => {

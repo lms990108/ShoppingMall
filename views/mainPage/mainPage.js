@@ -3,10 +3,8 @@ const mouseContainer = document.querySelector("#mouseContainer");
 const soundContainer = document.querySelector("#soundContainer");
 const etcContainer = document.querySelector("#etcContainer");
 
-const url = "http://localhost:5001";
-
 const getThreeProducts = async (category, container) => {
-  await fetch(`${url}/api/product/?higherCategory=${category}&sortType=recent`)
+  await fetch(`/api/product/?higherCategory=${category}&sortType=recent`)
     .then((response) => {
       if (!response.ok)
         return response.json().then((data) => Promise.reject(data));
@@ -25,7 +23,7 @@ const loadProductsContainer = (products, container) => {
     container.insertAdjacentHTML(
       "beforeend",
       /*html*/ `
-  <div><a href="${url}/product_detail?productNumber=${product.product_number}">
+  <div><a href="/product_detail?productNumber=${product.product_number}">
   <img src=${product.main_img_url}>
   <p class="is-size-5 mb-2">${product.product_name}</p>
   <p class="is-size-6">${parseInt(product.price).toLocaleString()}원</p></a>
