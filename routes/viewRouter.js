@@ -47,8 +47,8 @@ viewRouter.get("/myPage", async (req, res) => {
 });
 
 // 주문조회페이지 연결
-viewRouter.get("/orderList", async (req, res)=> {
-  res.sendFile(path.join(resourcePath, "/orderList/orderList.html"));
+viewRouter.get("/myOrder", async (req, res)=> {
+  res.sendFile(path.join(resourcePath, "/myOrder/myOrder.html"));
 })
 
 // 관리자페이지 연결
