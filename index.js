@@ -16,7 +16,6 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5001;
 const mongoURI = process.env.MONGO_DB_PATH;
-// console.log(mongoURI);
 
 mongoose
   .connect(mongoURI, {
@@ -27,8 +26,6 @@ mongoose
   .catch((err) => console.error("DB connection fail", err));
 
 const app = express();
-
-console.log("테스트를 위한 commit");
 
 // status 상태 자동 업데이트
 updateOrderStatus();
