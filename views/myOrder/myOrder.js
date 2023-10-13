@@ -33,38 +33,21 @@ async function displayOrders(orders) {
 }
 
 async function displayOrderInfo(orders) {
-  console.log(orders[0]);
+  console.log(orders);
+  
   const tableBody = document.getElementById("orderInfoBody");
-
-      const row = document.createElement("tr");
-
-      const totalPrice = document.createElement("td");
-      totalPrice.textContent = orders[0].totalPrice;
-
-      const destination = document.createElement("td");
-      destination.textContent = orders[0].destination;
-
-      const status = document.createElement("td");
-      status.textContent = getStatusString(orders[0].status);
-
-      const date = new Date(orders[0].createdAt);
-      const orderTime = document.createElement("td");
-      orderTime.textContent = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}시${String(date.getMinutes()).padStart(2, '0')}분`;
-
-      const memo = document.createElement("td");
-      memo.textContent = orders[0].memo;
-
-      const phoneNumber = document.createElement("td");
-      phoneNumber.textContent = orders[0].phone_number;
-
-      row.appendChild(totalPrice);
-      row.appendChild(destination);
-      row.appendChild(status);
-      row.appendChild(orderTime);
-      row.appendChild(memo);
-      row.appendChild(phoneNumber);
-
-      tableBody.appendChild(row);
+    orders.forEach(order => {
+      const date = new Date(order.createdAt);
+      tableBody.innerHTML +=
+/*html*/ `<tr>
+      <td>${order.totalPrice}</td>
+      <td>${order.destination}</td>
+      <td>${getStatusString(order.status)}</td>
+      <td>${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}시${String(date.getMinutes()).padStart(2, '0')}분</td>
+      <td>${order.memo}</td>
+      <td>${order.phone_number}</td>
+      </tr>
+      `})
 
       function getStatusString(status) {
         switch (status) {
