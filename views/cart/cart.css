@@ -26,7 +26,7 @@
 .cart_table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   text-align: center;
 }
 
@@ -108,9 +108,6 @@ input[type="checkbox"] {
 .total_price::after {
   content: "";
   clear: both;
-}
-.totaltext {
-  transform: translateX(942px);
 }
 
 

@@ -124,7 +124,7 @@ minus.addEventListener("click", () => {
     countnum -= 1; // - 버튼 클릭 시 마다 1씩 감소
     quantity.value = countnum;
 
-    let totalcost = countnum * product.price; // 기본금액 임의 설정
+    let totalcost = countnum * product.price; // 수량 * 가격
     totalprice.innerText = `${totalcost.toLocaleString()}원`;
 
   } 
@@ -136,7 +136,7 @@ plus.addEventListener("click", () => {
   countnum += 1;
   quantity.value = countnum;
 
-  let totalcost = countnum * product.price; // 기본금액 임의 설정
+  let totalcost = countnum * product.price;
   totalprice.innerText = `${totalcost.toLocaleString()}원`;
 })
 
