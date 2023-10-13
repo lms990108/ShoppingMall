@@ -72,8 +72,11 @@ function doBuy() {
     const item = cartItem[Number(chkPrdts[i].value)]
     orderProducts.push(item)
   }
-
+  // 세션스토리지에 담긴 상품정보(상품명,가격,수량) 배열 형태로 담아보냄.
   sessionStorage.setItem('orderItem', JSON.stringify(orderProducts))
+  
+  // 주문/결제페이지 이동
+  location.href = '/payment'
 
 }
 
