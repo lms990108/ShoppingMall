@@ -60,7 +60,6 @@ header.insertAdjacentHTML(
 </div>`,
 );
 
-const cartCount = document.querySelector("#cartCount");
 const logInButton = document.querySelector("#logInButton");
 const logOutButton = document.querySelector("#logOutButton");
 const myPageButton = document.querySelector("#myPageButton");
@@ -68,24 +67,20 @@ const adminPageButton = document.querySelector("#adminPageButton");
 
 logOutButton.addEventListener("click", () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("cartItem");
   alert("로그아웃 되었습니다.");
   location.reload();
 });
-document.addEventListener("DOMContentLoaded", async () => {
-  const cartItem = JSON.parse(localStorage.getItem("cartItem"));
 
-  if (!cartItem || cartItem.length === 0) {
-    cartCount.classList.add("is-hidden");
-  } else {
-    cartCount.innerHTML = cartItem.length;
-  }
+document.addEventListener("DOMContentLoaded", async () => {
+  updateCartCount();
 
   const token = localStorage.getItem("token");
   if (token) {
     logInButton.classList.add("is-hidden");
     logOutButton.classList.remove("is-hidden");
     try {
-      const response = await fetch(`${url}/api/user`, {
+      const response = await fetch(`/api/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -106,6 +101,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     logOutButton.classList.add("is-hidden");
   }
 });
+
+/* 헤더의 cartItem 갯수 업데이트하는 함수 */
+const updateCartCount = () => {
+  const cartCount = document.querySelector("#cartCount");
+  const cartItem = JSON.parse(localStorage.getItem("cartItem"));
+
+  if (!cartItem || cartItem.length === 0) {
+    cartCount.classList.add("is-hidden");
+  } else {
+    cartCount.innerHTML = cartItem.length;
+  }
+};
 
 /* Category nav 띄우기 위한 HTML 생성 */
 const generateCategoryHtml = (higher_category_name, lower_category) => {
@@ -161,3 +168,5 @@ hottracks (핫트랙스)<br>
   <div class="footer_third"><img src="/common/logo2.png"></div>
 </div>`,
 );
+
+export { updateCartCount };

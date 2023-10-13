@@ -1,5 +1,6 @@
 // 제품 상세 페이지
 // ex )/product_detail?productNumber=1
+import { updateCartCount } from "../common/common.js";
 
 const URLMatch = new URLSearchParams(location.search);
 const productNumber = URLMatch.get("productNumber");
@@ -179,6 +180,7 @@ btnCart.addEventListener("click", function () {
   setPopup(buyFlag);
 
   modal.style.display = "block";
+  updateCartCount();
 });
 
 // 모달 닫기

@@ -1,122 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../product/productDetail.css" type="text/css"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="../product/productDetail.css"
+      type="text/css"
     />
     <link rel="stylesheet" href="../common/common.css" type="text/css" />
-  <title>상품 상세 정보 페이지</title>
-</head>
-<body>
+    <title>상품 상세 정보 페이지</title>
+  </head>
+  <body>
+    <header id="header"></header>
 
-  <header id="header"></header>
+    <section class="productContents inner">
+      <!-- 상품 상세정보 상단영역(해당 아이템 이미지, 상품명, 수량, 특징, 구매/장바구니 버튼이 있습니다.) -->
+      <section class="product_detail">
+        <!-- 왼쪽 이미지 영역 -->
+        <div class="product_images">
+          <div class="main_img_box"></div>
 
-  <section class="productContents inner">
-    <!-- 상품 상세정보 상단영역(해당 아이템 이미지, 상품명, 수량, 특징, 구매/장바구니 버튼이 있습니다.) -->
-    <section class="product_detail">
+          <!-- 상품 상세 썸네일(작은이미지) 영역-->
+          <div class="thumnails">
+            <ul>
+              <li>
+                <a href="#"
+                  ><img
+                    src="https://www.melgeek.com/cdn/shop/products/f58620219c6834a592e3ee566c096710.jpg?v=1681894613&width=180"
+                    alt="상품 상세정보 작은이미지"
+                  />
+                </a>
+              </li>
 
-      <!-- 왼쪽 이미지 영역 -->
-      <div class="product_images">
-        <div class="main_img_box"></div>
+              <li>
+                <a href="#"
+                  ><img
+                    src="https://www.melgeek.com/cdn/shop/products/1_03651da1-bfff-428d-b15d-6661a30d3ee0.jpg?v=1686828451&width=180"
+                    alt="상품 상세정보 작은이미지"
+                  />
+                </a>
+              </li>
 
-        <!-- 상품 상세 썸네일(작은이미지) 영역-->
-        <div class="thumnails">
-          <ul>
-            <li>
-              <a href="#"><img src="https://www.melgeek.com/cdn/shop/products/f58620219c6834a592e3ee566c096710.jpg?v=1681894613&width=180" alt="상품 상세정보 작은이미지"/>
-              </a>
-            </li>
+              <li>
+                <a href="#"
+                  ><img
+                    src="https://www.melgeek.com/cdn/shop/products/6_38927b69-4ceb-4730-8244-b43ad32ffb20.jpg?v=1686828450&width=144"
+                    alt="상품 상세정보 작은이미지"
+                  />
+                </a>
+              </li>
 
-            <li>
-              <a href="#"><img src="https://www.melgeek.com/cdn/shop/products/1_03651da1-bfff-428d-b15d-6661a30d3ee0.jpg?v=1686828451&width=180" alt="상품 상세정보 작은이미지"/>
-              </a>
-            </li>
+              <li>
+                <a href="#"
+                  ><img
+                    src="https://www.melgeek.com/cdn/shop/products/10_b3cc6e20-ffaf-4303-9e3a-38123a21af87.jpg?v=1686828450&width=144"
+                    alt="상품 상세정보 작은이미지"
+                  />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-            <li>
-              <a href="#"><img src="https://www.melgeek.com/cdn/shop/products/6_38927b69-4ceb-4730-8244-b43ad32ffb20.jpg?v=1686828450&width=144" alt="상품 상세정보 작은이미지"/>
-              </a>
-            </li>
+        <!-- 오른쪽 영역 (상품명, 가격, 특징, 수량, 구매/장바구니 버튼) -->
+        <div class="product_info_pannel">
+          <h1 class="product_title"></h1>
 
-            <li>
-              <a href="#"><img src="https://www.melgeek.com/cdn/shop/products/10_b3cc6e20-ffaf-4303-9e3a-38123a21af87.jpg?v=1686828450&width=144" alt="상품 상세정보 작은이미지"/>
-              </a>
-            </li>
+          <h3 class="product_destitle">상품 내용</h3>
+          <p class="destext"></p>
+          <p class="price"></p>
+
+          <h3>상품 특징</h3>
+          <ul class="sp_list">
+            <li>기계식</li>
+            <li>개스킷 마운트 디자인</li>
+            <li>핫 스왑 가능</li>
           </ul>
-        </div>
-      </div>
 
-
-      <!-- 오른쪽 영역 (상품명, 가격, 특징, 수량, 구매/장바구니 버튼) -->
-      <div class="product_info_pannel">
-        <h1 class="product_title"></h1>
-
-        <h3 class="product_destitle">상품 내용</h3>
-        <p class="destext"></p>
-        <p class="price"></p>
-
-        
-        <h3>상품 특징</h3>
-        <ul class="sp_list">
-          <li>기계식</li>
-          <li>개스킷 마운트 디자인</li>
-          <li>핫 스왑 가능</li>
-        </ul>
-        
-        <h3>수량</h3>
-        <div class="numbox">
+          <h3>수량</h3>
+          <div class="numbox">
             <button type="button" class="minusbtn">-</button>
-            <input type="text" class="quantity" value="1" disabled/>
+            <input type="text" class="quantity" value="1" disabled />
             <button type="button" class="plusbtn">+</button>
+          </div>
+
+          <span class="total_price"></span>
+
+          <div class="product_btns">
+            <button class="button is-info buy_btn">구매하기</button>
+            <button class="button is-warning cart_btn">장바구니</button>
+          </div>
         </div>
+      </section>
 
-        <span class="total_price"></span>
-
-        <div class="product_btns">
-          <button class="button is-info buy_btn">구매하기</button>
-          <button class="button is-warning cart_btn">장바구니</button>
+      <!-- 모달 창 -->
+      <div class="modal">
+        <div class="modal_content">
+          <span class="close_modal_button">&times;</span>
+          <p class="content"></p>
+          <button class="confirm_button btnConfirm"></button>
+          <button class="confirm_button btnCancel"></button>
         </div>
-
       </div>
 
+      <!-- 제품 상세 정보(상품 설명 상세정보 이미지 & 제품 사양 이미지 들어갈곳입니다.) -->
+      <section class="product_detail_info">
+        <h1>제품 상세 정보</h1>
+
+        <!-- 아래의 이미지 상업목적 용도가 아님을 표기 하기 위해 문구 넣었습니다.-->
+        <p>
+          이 사이트는 상업적 목적이 아닌 학업적 목적의 가상 쇼핑몰로서,
+          출처(키크론, 멜긱)의 데이터들을 포함하고 있습니다.
+        </p>
+
+        <div class="detail_info_content">
+          <!-- 제품 상세 정보 이미지 들어갈 곳 -->
+        </div>
+      </section>
     </section>
 
-
-    <!-- 모달 창 -->
-    <div class="modal">
-      <div class="modal_content">
-        <span class="close_modal_button">&times;</span>
-        <p class="content"></p>
-        <button class="confirm_button btnConfirm"></button>
-        <button class="confirm_button btnCancel"></button>
-      </div>
+    <!-- 상단버튼 -->
+    <div class="topbotton">
+      <img
+        class="to_top"
+        src="https://ps.w.org/back-to-the-top-button/assets/icon-256x256.png?rev=2283756"
+        alt="상단이동아이콘"
+      />
     </div>
 
-    <!-- 제품 상세 정보(상품 설명 상세정보 이미지 & 제품 사양 이미지 들어갈곳입니다.) -->
-    <section class="product_detail_info">
+    <footer id="footer"></footer>
 
-      <h1>제품 상세 정보</h1>
-
-      <!-- 아래의 이미지 상업목적 용도가 아님을 표기 하기 위해 문구 넣었습니다.-->
-      <p>이 사이트는 상업적 목적이 아닌 학업적 목적의 가상 쇼핑몰로서, 출처(키크론, 멜긱)의 데이터들을 포함하고 있습니다.</p>
-      
-      <div class="detail_info_content">
-        <!-- 제품 상세 정보 이미지 들어갈 곳 -->
-      </div>
-
-    </section>
-
-  </section>
-
-  <!-- 상단버튼 -->
-  <div class="topbotton">
-    <img class="to_top" src="https://ps.w.org/back-to-the-top-button/assets/icon-256x256.png?rev=2283756" alt="상단이동아이콘"/>
-  </div>
-
-
-  <footer id="footer"></footer>
-
-  <script src="../common/common.js" type="module"></script>
-    <script src="../product/productDetail.js"></script>
-</body>
+    <script src="../common/common.js" type="module"></script>
+    <script src="../product/productDetail.js" type="module"></script>
+  </body>
 </html>
