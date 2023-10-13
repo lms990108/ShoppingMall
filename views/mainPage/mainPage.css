@@ -52,6 +52,11 @@
   width: auto;
 }
 
+.container div img:hover {
+  transform: scale(1.2);
+  transition: all 0.5s;
+}
+
 .container div p {
   color: var(--navy-color);
   font-weight: bold;

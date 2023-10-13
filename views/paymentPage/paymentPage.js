@@ -14,9 +14,10 @@ const cancel_btn = document.querySelector(".cancel");
 const modal_content = document.querySelector(".modal-card-body table");
 
 const token = localStorage.getItem("token") || "";
-const orderItems = JSON.parse(localStorage.getItem("orderItem")) || [];
+const orderItem = JSON.parse(sessionStorage.getItem("orderItem")) || [];
+const cartItem = JSON.parse(localStorage.getItem("cartItem")) || [];
 
-/* 주문자 mockData */
+/* 주문자 data */
 let orderer = {
   userId: "",
   name: "",
@@ -27,6 +28,7 @@ let orderer = {
   zip_code: "10101",
 };
 
+/* 페이지가 로드되면 사용자의 정보를 받아 orderer에 저장 */
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch(`${url}/api/user`, {
@@ -40,10 +42,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       orderer.name = name;
       orderer.email = email;
       orderer.userId = _id;
-      loadOrderProductInfo(orderItems);
+      loadOrderProductInfo(orderItem);
       loadOrdererInfo(orderer);
       loadDeliveryInfo(orderer);
-      loadOrderSumary(orderItems);
+      loadOrderSumary(orderItem);
       loadPaymentMethod();
     } else {
       alert("회원 정보가 없습니다.");
@@ -139,11 +141,11 @@ const loadDeliveryInfo = (orderer) => {
 };
 
 /* 주문 요약 불러오기 */
-const loadOrderSumary = (orderItems) => {
+const loadOrderSumary = (orderItem) => {
   let product_price = 0;
   let delivery_price = 0;
 
-  orderItems.forEach(({ price, qty }) => {
+  orderItem.forEach(({ price, qty }) => {
     product_price += price * qty;
   });
 
@@ -211,7 +213,7 @@ cancel_btn.addEventListener("click", toggleModal);
 const loadToggle = async () => {
   const orderer_name = orderer.name;
 
-  const products_name = orderItems
+  const products_name = orderItem
     .map(({ product_name }) => product_name)
     .join(",<br>");
 
@@ -244,6 +246,8 @@ const loadToggle = async () => {
       </tbody>
   </table>
   `;
+
+  /* 결제 버튼 클릭 시 배송자 정보 formData로 저장 */
   const submit_button = document.querySelector(".submit-btn");
   const delivery_form = document.querySelector(".delivery_form");
 
@@ -254,10 +258,11 @@ const loadToggle = async () => {
     formData.forEach((value, key) => {
       deliveryData[key] = value;
     });
+
     const orderData = {
       destination: `(${deliveryData.zip}) ${deliveryData.address}, ${deliveryData.city}`,
       phone_number: deliveryData.phone,
-      items: orderItems,
+      items: orderItem,
       memo:
         deliveryData.directMemo.length > 0
           ? deliveryData.directMemo
@@ -277,8 +282,17 @@ const loadToggle = async () => {
       if (!response.ok) {
         return response.json().then((data) => Promise.reject(data));
       }
+      const resultCart = cartItem.filter(
+        (cart) => !orderItem.some((order) => order._id === cart._id),
+      );
+
+      /* 주문 완료시, 카트에 구매한 상품을 지우고, sessionStorage의 orderItem을 비움*/
+
+      localStorage.setItem("cartItem", JSON.stringify(resultCart));
+      sessionStorage.setItem("orderItem", null);
+
       alert("주문이 성공적으로 처리되었습니다.");
-      window.location.href = "/mypage";
+      window.location.href = "/orderList";
     } catch (err) {
       console.error(err);
     }
