@@ -4,7 +4,10 @@ import {
 } from "../utils/catergoryHandler.js";
 import { toggleModal } from "./admin.js";
 
-const url = "http://localhost:5001/api/product"; // api 요청 endpoint
+const url =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:5001/api/product"
+    : "https://kdt-sw-6-team05.elicecoding.com/api/product"; // api 요청 endpoint
 const token = localStorage.getItem("token"); // 토큰
 let currentPage = 1; // 현재 페이지
 
