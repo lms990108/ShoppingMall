@@ -186,6 +186,7 @@ btnCart.addEventListener("click", function () {
 // 모달 닫기
 btnModalClose.addEventListener("click", function () {
   modalClose();
+  updateCartCount();
 });
 
 // 모달 팝업창 세팅 메서드
