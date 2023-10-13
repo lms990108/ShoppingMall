@@ -292,7 +292,7 @@ const loadToggle = async () => {
       sessionStorage.setItem("orderItem", null);
 
       alert("주문이 성공적으로 처리되었습니다.");
-      window.location.href = "/orderList";
+      window.location.href = "/myOrder";
     } catch (err) {
       console.error(err);
     }
