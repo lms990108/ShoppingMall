@@ -117,9 +117,12 @@ async function getProductsList() {
     const res = await fetch("/api/product/?lowerCategory=" + subCategory + "&page=" + page + '&pageSize=' + pageSize + '&sortType=' + sortType)
 
     const listdata = await res.json();
+
+    console.log(listdata)
     
     makeProductList(listdata.products);  // 상품 엘리먼트 생성
     makePagenation(listdata.totalCnt)  // totalCnt. 페이지 엘리먼트 생성.
+    
   }
   catch (err) { // 응답 값 요청 예외처리
     console.log(err)
