@@ -45,6 +45,7 @@ userSchema.methods.generateToken = function () {
   return token;
 };
 
+
 // 이 부분은 의논 후 삭제
 // userSchema.methods.toJSON = function() {
 //     const obj = this._doc;
@@ -54,6 +55,7 @@ userSchema.methods.generateToken = function () {
 //     delete obj.createdAt;
 //     return obj;
 // };
+
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

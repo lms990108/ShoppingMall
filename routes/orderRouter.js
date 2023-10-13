@@ -11,11 +11,12 @@ const router = Router();
 
 // 주문 목록 조회
 router.get(
-  "/user/:userId/orders",
+  "/user/orders", // 임시수정. (/:userId) 뺌
   authenticate,
   checkUserOrAdmin,
   asyncHandler(async (req, res) => {
-    const { userId } = req.params;
+    const userId  = req.userId;// 임시수정 (.parmas), {userId}
+    
     const { page, limit } = req.query;
 
     if (!userId) {

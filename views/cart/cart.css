@@ -1,5 +1,4 @@
 .cartpage {
-  height: 1000px;
   padding-top: 150px;
 }
 
@@ -31,7 +30,6 @@
   text-align: center;
 }
 
-
 .cart_table .toprow {
   background: #EAEAEA;
   font-size: 18px;
@@ -53,6 +51,11 @@ input[type="checkbox"] {
   vertical-align: middle;
 }
 
+.cart_table img {
+  width: 100px;
+}
+
+
 .cartlist tr td {
   max-width: 100px;
   overflow: hidden;
@@ -60,43 +63,79 @@ input[type="checkbox"] {
   white-space: normal;
 }
 
-.check_item {
-  margin-right: 10px;
-}
 
-.quantity_input {
-  width: 45px;
-  text-align: center;
-  padding: 8px;
+/* 수량 */
+.numbox {
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  padding: 0 25px;
+  border: 1px solid #F0F0F0;
+  overflow: hidden;
+  box-sizing: border-box;
 }
-
-.quantity_btn, .delete_button {
-  background-color: var(--navy-color); 
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
+.numbox button {
+  width: 38px;
+  height: 35px;
+  position: absolute;
+  top: 0;
+  border: 0;
+  background: var(--navy-color);
+  color: #FFF;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
 }
-
-
-.quantity_btn:hover, .delete_button:hover {
-  background-color: #666;
+.numbox .minusbtn {
+  left: 0;
 }
-
-.cart_btns {
-  margin-top: 20px;
+.numbox .plusbtn {
+  right: 0;
+}
+.numbox .quantity {
+  display: block;
+  width: 100px;
+  height: 35px;
+  border: 0;
   text-align: center;
 }
 
-.clear_button, .checkout_button {
-  /* background-color: var(--navy-color); */
+
+/* 가격 표시 */
+.total_price {
+  float: right;
+}
+.total_price::after {
+  content: "";
+  clear: both;
+}
+.totaltext {
+  transform: translateX(942px);
+}
+
+
+/* 장바구니 관련 버튼들 */
+.cart_btns {
+  margin-top: 130px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.left_btns {
+  float: left;
+}
+.right_btn {
+  float: right;
+}
+.right_btn .buy_button {
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+}
+
+.clear_button, 
+.cart_clear {
   color: #fff;
-  border: none;
   padding: 10px 20px;
   margin: 0 10px;
-  cursor: pointer;
-}
-
-.clear_button:hover, .checkout_button:hover {
-  background-color: #45a049;
 }
