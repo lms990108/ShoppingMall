@@ -92,7 +92,7 @@ document
 
       if (response.status === 201) {
         alert("회원가입 성공!");
-        window.location.href = "/";
+        window.location.href = "/login";
       } else {
         alert("회원가입 실패: " + responseData.message);
       }
