@@ -29,7 +29,7 @@
 .btn_container {
   display: flex;
   justify-content: flex-end;
-  margin: 5px;
+  margin: 0 20px;
 }
 
 th {
@@ -37,7 +37,7 @@ th {
 }
 
 td {
-  max-width: 120px;
+  max-width: 130px;
   word-break: break-all;
   text-align: center !important;
   font-size: small;

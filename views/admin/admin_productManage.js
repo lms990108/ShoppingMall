@@ -111,7 +111,7 @@ const loadProducts = async (page) => {
       <td><img src="${product.main_img_url}"></td>
       <td><img src="${product.des_img_url}"></td>
       <td>${product.content}</td>
-      <td>${product.price}</td>
+      <td>${parseInt(product.price).toLocaleString()} 원</td>
       <td>${higher_category}</td>
       <td>${lower_category}</td>
       <td>${new Date(product.inDate).toLocaleString()}</td>
