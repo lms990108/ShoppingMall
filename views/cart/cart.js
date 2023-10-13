@@ -9,7 +9,7 @@ function makeCartItem() {
 
   console.log("장바구니 상품 동적 생성")
   const list = document.querySelector('.cartlist')
-  list.innerHTML = ''
+  list.replaceChildren();
   let html = '';
 
   cartItem.forEach((item, index) => {
@@ -179,10 +179,10 @@ function clearCart() {
   // 로컬스토리지에서 데이터 삭제
   localStorage.removeItem('cartItem');
   
-  cartItem = []; // 장바구니 배열 빈 배열로 초기화
+  cartItem.splice(0)
 
   // 장바구니 UI 업데이트
-  makeCartItem(); // <- 화면 재 렌더링 안되는 문제 추후 수정예정!
+  makeCartItem();
   setTotalPrice();
 }
 
