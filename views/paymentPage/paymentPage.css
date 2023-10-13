@@ -22,6 +22,24 @@ h3 {
   margin-bottom: 10px;
 }
 
+#orderProduct_info .product_img {
+  width: 200px;
+  height: 150px;
+  object-fit: contain;
+  margin: 0 10px;
+}
+
+#orderProduct_info .product {
+  border-bottom: dashed lightgray 1px;
+  padding: 10px;
+  align-items: center;
+}
+
+#orderProduct_info .label {
+  color: var(--navy-color);
+  font-weight: bold;
+}
+
 #delivery_info h3 {
   display: flex;
   justify-content: space-between;
@@ -30,16 +48,6 @@ h3 {
 
 #delivery_info h3 span {
   font-size: 15px;
-}
-
-.product {
-  border-bottom: dashed lightgray 1px;
-  padding: 10px;
-  align-items: center;
-}
-
-.product_img {
-  height: 100px;
 }
 
 .is-grid {
@@ -101,6 +109,8 @@ h3 {
 
 .modal h2 {
   text-align: center;
+  font-weight: bold;
+  color: var(--navy-color);
 }
 
 .modal footer .submit-btn {
