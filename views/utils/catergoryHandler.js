@@ -1,4 +1,4 @@
-const url = "http://localhost:5001";
+const url = "http://34.64.242.168:5001";
 
 const getAllCategories = async () => {
   try {
