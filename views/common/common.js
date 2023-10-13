@@ -1,6 +1,5 @@
 // 모든 페이지에서 공통으로 사용되는 요소들을 정의하기 위한 파일입니다.
 import { getLowerCategory } from "../utils/catergoryHandler.js";
-const url = "http://localhost:5001";
 
 /* head 태그 */
 /* favicon 적용, bulma 사용 */
