@@ -153,7 +153,7 @@ const getMain = async (order) => {
     <div class="is-align-self-center orderInfoContainer">
     <p class="title is-5">${getStatusString(order.status)}</p><br>
     <p class="label">${mainItem.product_name}<span> 외 ${
-      order.items.length
+      order.items.length - 1
     }</span></p>
     <p>총 금액 : ${parseInt(order.totalPrice).toLocaleString()}원</p>
     <p>배송지 : ${order.destination}</p>
@@ -167,10 +167,10 @@ const getSubItems = async (item) => {
     item.product_number,
   );
   return `<div class="is-flex">
-  <div class="subImgContainer">    <img src=${main_img_url} class="subImg"></div>
+  <div class="subImgContainer"> <img src=${main_img_url} class="subImg"></div>
     <div class="is-align-self-center">
-    <p class="label">${product_name}</p>
-    <p>${item.price.toLocaleString()}원, ${item.qty}개</p>
+    <span class="has-text-weight-bold">${product_name} | </span>
+    <span>${item.price.toLocaleString()}원, ${item.qty}개</span>
     </div>
     </div>`;
 };

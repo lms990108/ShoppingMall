@@ -27,7 +27,7 @@ h2 {
 }
 
 .mainImg {
-  width: 300px;
+  width: 200px;
   height: 250px;
   object-fit: contain;
   margin: 0 10px;
@@ -39,8 +39,10 @@ h2 {
 
 .container {
   width: 100%;
-  border-bottom: solid var(--navy-color) 2px;
-  padding: 10px;
+  padding: 30px;
+  margin: 50px;
+  box-shadow: 5px 5px 10px 0px lightgray;
+  border-radius: 10px;
 }
 
 .subImgContainer {
@@ -49,7 +51,7 @@ h2 {
 
 .subImg {
   width: 100px;
-  height: 100px;
+  height: 70px;
   object-fit: contain;
   margin: 0 100px;
 }
