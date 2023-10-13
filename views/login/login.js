@@ -8,6 +8,11 @@
 
         const email = emailInput.value;
         const password = passwordInput.value;
+        const token = localStorage.getItem('token');
+        if(token){
+            alert('이미 로그인 하셨습니다!');
+            return;
+        }
 
         try {
             const response = await fetch("http://localhost:5001/api/user/login", {
@@ -23,7 +28,6 @@
         
             if (response.status === 200) {
                 localStorage.setItem("token", data.token);
-                alert("로그인 성공");
                 window.location.href = "/myPage";
             } else {
                 alert(data.message);  

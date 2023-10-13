@@ -32,6 +32,10 @@
     const password = passwordInput.value;
     const name = nameInput.value;
     
+    if(!email || !password || !name){
+      alert("회원정보 수정오류: 이메일,비밀번호,이름을 제대로 기입해주세요.");
+      return;
+    }
     
     try {
         const token = localStorage.getItem('token'); 
@@ -61,7 +65,8 @@
             window.location.href = '/'; 
         } else {
             const errorData = await response.json();
-            alert("회원정보 수정오류: "+ errorData.error);
+            console.log(errorData.message);
+            alert("회원정보 수정오류: "+ errorData.message);
         }
     } catch (error) {
         console.error("Error:", error);
