@@ -42,8 +42,8 @@ viewRouter.get("/signUp", async (req, res) => {
 });
 
 // 마이페이지 연결
-viewRouter.get("/myPage", async (req, res) => {
-  res.sendFile(path.join(resourcePath, "/myPage/myPage.html"));
+viewRouter.get("/mypage", async (req, res) => {
+  res.sendFile(path.join(resourcePath, "/mypage/mypage.html"));
 });
 
 // 마이주문페이지 연결

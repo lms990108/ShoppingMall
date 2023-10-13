@@ -1,5 +1,3 @@
-const url = "http://localhost:5001";
-
 const orderProduct_info = document.querySelector("#orderProduct_info");
 const orderer_info = document.querySelector("#orderer_info");
 const delivery_info = document.querySelector("#delivery_info");
@@ -31,7 +29,7 @@ let orderer = {
 /* 페이지가 로드되면 사용자의 정보를 받아 orderer에 저장 */
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch(`${url}/api/user`, {
+    const response = await fetch(`/api/user`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + token,
@@ -271,7 +269,7 @@ const loadToggle = async () => {
     };
 
     try {
-      const response = await fetch(`${url}/api/order/add_order`, {
+      const response = await fetch(`/api/order/add_order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
