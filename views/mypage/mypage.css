@@ -18,6 +18,10 @@
   background-color: var(--yellow-color) !important;
 }
 
+#loginBtn {
+  background-color: var(--navy-color) !important;
+}
+
 #deleteAccountBtn {
   background-color: #dc134c;
   color: white;
