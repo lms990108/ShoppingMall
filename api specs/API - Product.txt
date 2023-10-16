@@ -1,0 +1,130 @@
+주문 API
+기본 URL: http://kdt-sw-6-team05.elicecoding.com
+
+    1. 상품 추가
+
+        URL: /add_product
+        Method: POST
+        Payload: json
+
+        {
+            "name": "product name",
+            "description": "product description",
+            ...
+        }
+
+        Success Response:
+
+            Status Code: 201
+            Content: json
+
+            {
+                "message": "Product added successfully",
+                "order": {
+                    "name": "product name",
+                    "description": "product description",
+                    ...
+                }
+            }
+        
+        Error Response:
+
+            Condition: If new_product is not provided.
+            Status Code: 400
+            Content: json
+
+            {
+                "error": "new_order is required in the body"
+            }
+
+    2. 상품 조회 (상품 번호 or 상품 이름)
+
+        URL: /product_detail/:searchParams
+        Method: GET
+        URL Params: searchParams=[integer|string]
+
+        Success Response:
+            Status Code: 200
+            Content: { product details }
+        
+        Error Response:
+            Condition: If product is not found.
+            Status Code: 404
+            Content: "Product not found"
+
+    3. 상품 수정
+
+        URL: /product_detail/:productNumber
+        Method: PATCH
+        URL Params: productNumber=[integer]
+        Payload: json
+
+        {
+            "name": "new product name",
+            "description": "new product description",
+            ...
+        }
+
+        Success Response:
+            Status Code: 200
+            Content: { updated product details }
+
+        Error Responses:
+            Condition: If productNumber is not provided.
+            Status Code: 400
+            Content: "Product number is required"
+            Condition: If product is not found.
+            Status Code: 404
+            Content: "Product not found"
+
+    4. 상품 삭제
+
+        URL: /delete_product/:product_number
+        Method: DELETE
+        URL Params: product_number=[integer]
+
+        Success Response: 
+            Status Code: 200
+            Content: { deleted product details }
+        
+        Error Response:
+            Condition: If product is not found.
+            Status Code: 404
+            Content: "Product not found"
+
+    5. 상품 페이징 및 카테고리별 조회
+    
+        URL: /
+        Method: GET
+        Query Params:
+        page=[integer] (default: 1)
+        pageSize=[integer] (default: 10)
+        higherCategory=[string]
+        lowerCategory=[string]
+
+        예시
+            기본 리스트 : http://127.0.0.1:3000/product/
+            2페이지 상품 : http://127.0.0.1:3000/product/?page=2
+            상위 카테고리 : http://127.0.0.1:3000/product/?higherCategory=clothing
+            하위 카테고리 3페이지 : http://127.0.0.1:3000/product/?lowerCategory=jeans&page=3
+
+        Success Response:
+            Status Code: 200
+            Content: [{ product details }]
+        
+        Error Responses:
+            Condition: Invalid higherCategory.
+            Status Code: 400
+            Content: json
+
+            {
+                "error": "Invalid higherCategory"
+            }
+
+            Condition: Invalid lowerCategory.
+            Status Code: 400
+            Content: json
+
+            {
+                "error": "Invalid lowerCategory"
+            }

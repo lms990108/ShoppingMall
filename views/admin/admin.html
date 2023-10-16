@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevGear</title>
+    <link rel="stylesheet" href="../admin/admin.css" type="text/css" />
+    <link rel="stylesheet" href="../common/common.css" type="text/css" />
+  </head>
+  <body>
+    <header id="header"></header>
+
+    <div class="adminPage">
+      <h2 class="title">관리자</h2>
+      <div id="tabs" class="tabs is-centered is-toggle">
+        <ul class="is-hidden">
+          <li class="is-active"><a>상품관리</a></li>
+          <li><a>카테고리관리</a></li>
+          <li><a>주문관리</a></li>
+        </ul>
+      </div>
+      <div class="btn_container">
+        <button class="add_btn button is-primary is-light">상품 추가</button>
+      </div>
+      <section id="product_manage" class="content-tab is-active"></section>
+
+      <section id="category_manage" class="content-tab"></section>
+
+      <section id="order_manage" class="content-tab"></section>
+
+      <div class="modal product_modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <h2 class="modal-card-title">상품 추가</h2>
+            <button class="delete close" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body"></section>
+          <footer class="modal-card-foot is-justify-content-center">
+            <input
+              class="button is-success submit-btn"
+              type="submit"
+              value="추가"
+            />
+            <button class="button cancel">취소</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <script src="../admin/admin.js" type="module"></script>
+    <script src="../admin/admin_productManage.js" type="module"></script>
+    <script src="../admin/admin_categoryManage.js" type="module"></script>
+    <script src="../admin/admin_orderManage.js" type="module"></script>
+    <script src="../common/common.js" type="module"></script>
+  </body>
+</html>

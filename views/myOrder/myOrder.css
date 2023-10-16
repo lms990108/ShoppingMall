@@ -1,0 +1,57 @@
+.main-content {
+  margin-top: 130px; /* 상단바의 높이에 따라 조절 */
+}
+
+.navy-header {
+  background-color: var(--navy-color);
+  color: white; /* Assuming you want the text color to be white for better readability */
+}
+
+.custom-table {
+  margin: 0 auto; /* This centers the table */
+  width: 80%; /* Adjust this value as needed, 80% means the table will take up 80% of its parent's width */
+}
+
+h2 {
+  font-size: 24px !important; /* Adjust size as needed */
+  text-align: center;
+  color: var(--navy-color) !important;
+  font-weight: 900 !important;
+  margin: 20px 0 !important; /* Some vertical spacing */
+}
+
+.table th {
+  color: white !important;
+  font-weight: bold;
+  text-align: center !important;
+}
+
+.mainImg {
+  width: 200px;
+  height: 250px;
+  object-fit: contain;
+  margin: 0 10px;
+}
+
+.container h3 {
+  margin: 20px;
+}
+
+.container {
+  width: 100%;
+  padding: 30px;
+  margin: 50px;
+  box-shadow: 5px 5px 10px 0px lightgray;
+  border-radius: 10px;
+}
+
+.subImgContainer {
+  width: 300px;
+}
+
+.subImg {
+  width: 100px;
+  height: 70px;
+  object-fit: contain;
+  margin: 0 100px;
+}

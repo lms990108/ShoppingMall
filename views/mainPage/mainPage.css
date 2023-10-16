@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "D2Coding";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#mainPage svg {
+  fill: var(--navy-color);
+}
+
+#mainPage h2 {
+  text-align: center;
+  color: var(--navy-color);
+}
+
+#mainPage div {
+  text-align: center;
+}
+
+#mainPage div a {
+  width: 100%;
+}
+
+.mainPage_title {
+  font-family: "D2Coding";
+  text-align: center;
+  margin: 0;
+  padding-top: 90px;
+}
+
+#mainPage img {
+  object-fit: cover;
+  margin: 10px 0;
+  width: 100%;
+  max-height: 80vh;
+}
+
+.container {
+  display: flex;
+  margin: 20px;
+}
+
+.container div {
+  flex: 1;
+  margin: 20px 30px;
+}
+
+.container div img {
+  height: 250px;
+  width: auto;
+}
+
+.container div img:hover {
+  transform: scale(1.1);
+  transition: all 0.5s;
+}
+
+.container div p {
+  color: var(--navy-color);
+  font-weight: bold;
+  word-break: keep-all;
+}

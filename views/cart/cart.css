@@ -1,0 +1,138 @@
+.cartpage {
+  padding-top: 150px;
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto; 
+}
+
+.cartpage .titlebox {
+  width: 320px;
+  height: 90px;
+  border-radius: 25px;
+  background-color: var(--navy-color);
+  color: #fff;
+  margin: 0 auto;
+  margin-bottom: 60px;
+  box-sizing: border-box;
+}
+.titlebox h1 {
+  line-height: 90px;
+  font-size: 50px;
+  text-align: center;
+}
+
+.cart_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.cart_table .toprow {
+  background: #EAEAEA;
+  font-size: 18px;
+}
+
+input[type="checkbox"] {
+  line-height: 10px;
+}
+
+
+.cart_table th, 
+.cart_table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.cart_table td {
+  vertical-align: middle;
+}
+
+.cart_table img {
+  width: 100px;
+}
+
+
+.cartlist tr td {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: normal;
+}
+
+
+/* 수량 */
+.numbox {
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  padding: 0 25px;
+  border: 1px solid #F0F0F0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.numbox button {
+  width: 38px;
+  height: 35px;
+  position: absolute;
+  top: 0;
+  border: 0;
+  background: var(--navy-color);
+  color: #FFF;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.numbox .minusbtn {
+  left: 0;
+}
+.numbox .plusbtn {
+  right: 0;
+}
+.numbox .quantity {
+  display: block;
+  width: 100px;
+  height: 35px;
+  border: 0;
+  text-align: center;
+}
+
+
+/* 가격 표시 */
+.total_price {
+  float: right;
+}
+.total_price::after {
+  content: "";
+  clear: both;
+}
+
+
+/* 장바구니 관련 버튼들 */
+.cart_btns {
+  margin-top: 130px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.left_btns {
+  float: left;
+}
+.right_btn {
+  float: right;
+}
+.right_btn .buy_button {
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+}
+
+.clear_button, 
+.cart_clear {
+  color: #fff;
+  padding: 10px 20px;
+  margin: 0 10px;
+}

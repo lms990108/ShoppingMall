@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevGear</title>
+    <link rel="stylesheet" href="../myPage/myPage.css" type="text/css" />
+    <link rel="stylesheet" href="../common/common.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header id="header"></header>
+
+    <div id="mainContent">
+      <div class="container mt-6">
+        <div class="columns is-multiline">
+          <div class="column is-full">
+            <div class="box has-text-centered">
+              <span class="icon is-large">
+                <i class="fas fa-user-circle fa-3x"></i>
+              </span>
+              <h1 class="title mt-4">My Page</h1>
+
+              <h2 class="title mt-4" id="welcomeMessage">
+                🥲로그인이 필요합니다.
+              </h2>
+              <p id="emailMessage"></p>
+              <div class="loginButton">
+                <button
+                  class="button is-info"
+                  onclick="location.href='/login'"
+                  id="loginBtn"
+                >
+                  로그인하기
+                </button>
+              </div>
+              <div class="buttons is-centered mt-4">
+                <button
+                  class="button is-info"
+                  id="showOrder"
+                  onclick="location.href='/myOrder'"
+                >
+                  주문 조회
+                </button>
+                <button class="button is-success" id="showModal">
+                  회원정보 수정
+                </button>
+                <button class="button is-danger is-light" id="logoutButton">
+                  <span class="icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                  </span>
+                  <span>로그아웃</span>
+                </button>
+                <button class="button is-light" id="deleteAccountBtn">
+                  회원 탈퇴
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <!-- 프로필 수정 모달창 -->
+    <div class="modal" id="modal1">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">회원정보 수정</p>
+          <button class="delete" aria-label="close" id="closeModal"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Form -->
+          <div class="container mt-200 pt-10">
+            <div class="columns is-centered">
+              <div class="column is-fullwidth">
+                <div class="box">
+                  <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control has-icons-left">
+                      <input
+                        class="input"
+                        type="email"
+                        placeholder="e.g. alex@example.com"
+                        id="email"
+                      />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control has-icons-left">
+                      <input
+                        class="input"
+                        type="text"
+                        placeholder="이름"
+                        id="name"
+                      />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control has-icons-left">
+                      <input
+                        class="input"
+                        type="password"
+                        placeholder="8자이상, 특수문자, 영문 포함"
+                        id="password"
+                      />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label">Confirm Password</label>
+                    <div class="control has-icons-left">
+                      <input
+                        class="input"
+                        type="password"
+                        placeholder="비밀번호 확인"
+                        id="confirmPassword"
+                      />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" id="submitForm">Submit</button>
+          <button class="button" id="cancelModal">Cancel</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- 주문조회 모달 -->
+    <div class="modal" id="modal2">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">주문 목록</p>
+          <button
+            id="closeOrderModal"
+            class="delete"
+            aria-label="close"
+          ></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- List of Ordered Products -->
+          <div id="orderLists"></div>
+        </section>
+        <footer class="modal-card-foot">
+          <button id="closeOrderModalFooter" class="button">닫기</button>
+        </footer>
+      </div>
+    </div>
+
+    <script src="../myPage/myPage.js"></script>
+    <script src="../common/common.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+.adminPage {
+  padding-top: 120px;
+}
+
+.title {
+  text-align: center;
+  color: var(--navy-color);
+}
+
+.tabs li a {
+  color: var(--navy-color);
+  font-weight: bold;
+  z-index: 9;
+}
+
+.tabs li.is-active a {
+  background-color: var(--navy-color) !important;
+  color: var(--yellow-color) !important;
+}
+
+.content-tab {
+  display: none;
+}
+
+.content-tab.is-active {
+  display: block;
+}
+
+.btn_container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 20px;
+}
+
+th {
+  text-align: center !important;
+}
+
+td {
+  max-width: 130px;
+  word-break: break-all;
+  text-align: center !important;
+  font-size: small;
+}
+
+td img {
+  max-height: 150px;
+}
+
+table {
+  width: 100%;
+}
+
+.higherCategory {
+  font-weight: bold;
+  font-size: large;
+}
+
+h2 {
+  text-align: center;
+}

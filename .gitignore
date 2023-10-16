@@ -1,4 +1,5 @@
 .env
+.env.prod
 node_modules
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,windows,macos
